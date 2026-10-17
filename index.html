@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <!-- Estilos: src/css/*.css, unidos en orden por scripts/build.mjs -->
 <style>
 /* ===== src/css/01-base-y-variables.css ===== */
@@ -3098,6 +3098,472 @@ dl.kv div {
   content: "−";
 }
 
+/* ===== src/css/13-tablero-solido.css ===== */
+/**
+ * src/css/13-tablero-solido.css
+ * Versión 2.1: superficies sólidas (sin vidrio translúcido) y tablero de teclas del centro de mando.
+ * Se carga al final y sobrescribe el tema "Sala de control" (archivo 11). El semáforo usa colores
+ * sólidos con contraste verificado (WCAG AA) y cada estado va también escrito, no solo en color.
+ */
+:root {
+  --bg: #071631;
+  --bg2: #0a1f44;
+  --panel: #0f2148;
+  --panel2: #13285a;
+  --line: #1d3466;
+  --line2: #2a4580;
+  --ink: #f2f5fb;
+  --soft: #a9b8d6;
+  --faint: #8797b8;
+  /* Semáforo: tecla (fondo), borde de relieve y tinta sobre fondo oscuro */
+  --sem-r: #c8283e;
+  --sem-r-ed: #7e1424;
+  --sem-r-ink: #ff6b7d;
+  --sem-a: #f2a900;
+  --sem-a-ed: #9a6a00;
+  --sem-a-ink: #ffc23d;
+  --sem-a-tx: #2b1f00;
+  --sem-v: #178a47;
+  --sem-v-ed: #0b5229;
+  --sem-v-ink: #3dd27a;
+  --sem-g: #22355e;
+  --sem-g-ed: #121f3c;
+  --sem-g-ink: #c9d4ea;
+  /* El verde del tema anterior era menta (#38d99a) y se confundía con el azul: ahora es verde */
+  --glow: #3dd27a;
+  --gdim: rgba(31, 165, 87, 0.18);
+  --red: #e8384f;
+  --redbg: rgba(232, 56, 79, 0.16);
+  --redink: #ff8a99;
+  --yel: #f2a900;
+  --yelbg: rgba(242, 169, 0, 0.16);
+  --yelink: #ffc23d;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Sin vidrio: fondos opacos en toda la app ---------- */
+*,
+*::before,
+*::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html,
+body {
+  background: var(--bg);
+}
+body {
+  background-image: none;
+}
+body::before {
+  display: none;
+}
+.card,
+.modal,
+.sidebar,
+.login .card {
+  background: var(--panel);
+}
+.topbar {
+  background: var(--bg) !important;
+}
+
+/* ---------- Centro de mando ---------- */
+.cmd {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  box-shadow: none;
+  border-radius: 18px;
+}
+.cmd::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  opacity: 1;
+  -webkit-mask-image: none;
+  mask-image: none;
+  background: linear-gradient(
+    90deg,
+    #2f66c9 0 28.57%,
+    #d21f3c 28.57% 42.86%,
+    #ffffff 42.86% 57.14%,
+    #d21f3c 57.14% 71.43%,
+    #1fa557 71.43% 100%
+  );
+}
+.cmd-line {
+  margin-top: 6px;
+}
+.cmd-fig {
+  display: block;
+}
+.cmd-head {
+  margin: 14px 0 0;
+  font:
+    650 clamp(1.7rem, 4.2vw, 2.35rem) / 1.05 Archivo,
+    Inter,
+    sans-serif;
+  font-stretch: 82%;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.cmd-head span {
+  color: var(--soft);
+  font-weight: 500;
+}
+.cmd-fig p {
+  margin: 8px 0 0;
+  max-width: 62ch;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #c9d4ea;
+}
+.cmd-fig p b {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Filtros por estado: compactos, el protagonista es el tablero */
+.states {
+  margin-top: 16px;
+  gap: 8px;
+}
+.st {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: none;
+}
+.st[data-s="rojo"] b {
+  color: var(--sem-r-ink);
+}
+.st[data-s="amarillo"] b {
+  color: var(--sem-a-ink);
+}
+.st[data-s="verde"] b {
+  color: var(--sem-v-ink);
+}
+.st[data-s="gris"] b {
+  color: var(--sem-g-ink);
+}
+.sw-r {
+  background: var(--sem-r) !important;
+  box-shadow: none !important;
+}
+.sw-y {
+  background: var(--sem-a) !important;
+  box-shadow: none !important;
+}
+.sw-g {
+  background: var(--sem-v) !important;
+  box-shadow: none !important;
+}
+.sw-n {
+  background: #3a4e7a !important;
+  box-shadow: none !important;
+}
+.st[aria-pressed="true"] {
+  border-color: var(--ink);
+}
+
+/* ---------- Tablero de teclas ---------- */
+.tm {
+  grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+  gap: 9px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #061430;
+  border: 1px solid var(--line);
+}
+.tile {
+  --ed: var(--sem-g-ed);
+  min-height: 84px;
+  padding: 10px 11px 9px;
+  border: 0 solid var(--ed);
+  border-bottom-width: 5px;
+  border-radius: 10px;
+  background: var(--sem-g);
+  color: var(--sem-g-ink);
+  box-shadow: none;
+  cursor: pointer;
+  transition:
+    transform 0.07s ease-out,
+    border-bottom-width 0.07s ease-out,
+    margin 0.07s ease-out,
+    opacity 0.25s,
+    filter 0.15s;
+}
+.tile::before,
+.tile::after {
+  display: none;
+}
+.tile b {
+  color: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  -webkit-line-clamp: 2;
+}
+.tile .num {
+  font:
+    700 1.3rem/1 Archivo,
+    Inter,
+    sans-serif;
+  font-stretch: 80%;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+  text-shadow: none;
+  letter-spacing: 0;
+}
+.tile small {
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: inherit;
+  opacity: 0.85;
+}
+.tile.rojo {
+  --ed: var(--sem-r-ed);
+  background: var(--sem-r);
+  color: #ffffff;
+  border-color: var(--ed);
+  box-shadow: none;
+}
+.tile.amarillo {
+  --ed: var(--sem-a-ed);
+  background: var(--sem-a);
+  color: var(--sem-a-tx);
+  border-color: var(--ed);
+}
+.tile.verde {
+  --ed: var(--sem-v-ed);
+  background: var(--sem-v);
+  color: #ffffff;
+  border-color: var(--ed);
+}
+.tile.gris {
+  --ed: var(--sem-g-ed);
+  border-style: solid;
+  border-width: 0 0 5px;
+  border-color: var(--ed);
+  background: var(--sem-g);
+}
+.tile.gris .num {
+  color: var(--sem-g-ink);
+}
+.tile:hover {
+  transform: none;
+  box-shadow: none;
+  filter: brightness(1.08);
+  border-color: var(--ed);
+}
+/* La tecla se hunde al presionarla y se queda abajo mientras está seleccionada */
+.tile:active,
+.tile.on {
+  transform: translateY(4px);
+  border-bottom-width: 1px;
+  margin-bottom: 4px;
+}
+.tile.on {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.tile:focus-visible {
+  outline: 2px solid var(--sem-a-ink);
+  outline-offset: 2px;
+}
+.tm.filtering .tile:not(.match) {
+  opacity: 0.22;
+  filter: saturate(0.3);
+}
+
+/* Detalle de la tecla presionada */
+.tm-det {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line2);
+  border-left: 6px solid #3a4e7a;
+  color: var(--ink);
+  min-height: 64px;
+}
+.tm-det.vacio {
+  display: flex;
+  align-items: center;
+  color: var(--soft);
+  font-size: 0.9rem;
+  border-left-color: var(--line2);
+}
+.tm-det.rojo {
+  border-left-color: var(--sem-r);
+}
+.tm-det.amarillo {
+  border-left-color: var(--sem-a);
+}
+.tm-det.verde {
+  border-left-color: var(--sem-v);
+}
+.tmd-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.tmd-h b {
+  display: block;
+  font:
+    650 1.1rem/1.2 Archivo,
+    Inter,
+    sans-serif;
+}
+.tmd-e {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.86rem;
+  color: var(--soft);
+}
+.tm-det.rojo .tmd-e {
+  color: var(--sem-r-ink);
+}
+.tm-det.amarillo .tmd-e {
+  color: var(--sem-a-ink);
+}
+.tm-det.verde .tmd-e {
+  color: var(--sem-v-ink);
+}
+.tmd-n {
+  margin: 10px 0 0;
+  font-size: 0.86rem;
+  color: var(--soft);
+}
+/* Barra con las tres zonas del semáforo pintadas de fondo */
+.tmd-trk {
+  position: relative;
+  height: 10px;
+  margin-top: 12px;
+  border-radius: 5px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #16384f 0 20%, #3a3622 20% 40%, #3b2236 40% 100%);
+}
+.tmd-trk i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 5px;
+  background: #5e6e8c;
+}
+.tm-det.rojo .tmd-trk i {
+  background: var(--sem-r);
+}
+.tm-det.amarillo .tmd-trk i {
+  background: var(--sem-a);
+}
+.tm-det.verde .tmd-trk i {
+  background: var(--sem-v);
+}
+.tmd-esc {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 5px;
+  font-size: 0.72rem;
+  color: var(--faint);
+}
+
+/* Leyenda */
+.cmd-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 12px;
+  font-size: 0.76rem;
+  color: var(--soft);
+}
+.cmd-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.cmd-legend-w {
+  color: var(--faint);
+}
+
+/* Cifras rápidas y lectura del corte, también sólidas */
+.trio button {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+.trio .t-r {
+  color: var(--sem-r-ink);
+}
+.trio .t-y {
+  color: var(--sem-a-ink);
+}
+.pill.verde {
+  background: var(--gdim);
+  color: var(--sem-v-ink);
+}
+.bar .verde {
+  background: var(--sem-v);
+}
+.kpi.g::before {
+  background: var(--sem-v);
+}
+.kpi.g b {
+  color: var(--sem-v-ink);
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 520px) {
+  .tm {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    padding: 9px;
+  }
+  .tile {
+    min-height: 78px;
+    padding: 8px 8px 7px;
+  }
+  .tile b {
+    font-size: 0.72rem;
+  }
+  .tile .num {
+    font-size: 1.1rem;
+  }
+  .tmd-h .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    transition: none;
+  }
+}
+
+/* Barra inferior del celular: opaca para que el contenido no se vea por detrás */
+@media (max-width: 960px) {
+  .topbar {
+    background: #071631 !important;
+  }
+  .tabbar {
+    background: #0b1d40 !important;
+    border-color: var(--line2) !important;
+  }
+}
+@media (max-width: 520px) {
+  .tile .tl-f {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3164,7 +3630,7 @@ dl.kv div {
 'use strict';
 
 /* Generado por scripts/build.mjs: no editar el archivo publicado, editar src/js/ */
-const CE_BUILD = {"variante":"institucional","version":"2.0.0","construido":"2026-10-17","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
+const CE_BUILD = {"variante":"institucional","version":"2.1.0","construido":"2026-10-17","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
 
 /* ===== src/js/01-configuracion.js ===== */
 /**
@@ -6575,21 +7041,22 @@ function vMando(c) {
     <section class="cmd">
       <div class="cmd-line"><span class="live"></span>Corte ${fmtD(HIST.corte)}${S.demo ? (ES_PRIVADA ? ' · datos reales' : ' · datos de ejemplo') : ''}</div>
       <div class="cmd-fig">
-        <div class="big"><span id="bigNum">0</span><sup>%</sup></div>
-        <p>de incumplimiento global. <b>${nf(g.inc)} de ${nf(g.ev)} requerimientos evaluados</b> se respondieron tarde o siguen sin respuesta.</p>
+        <h2 class="cmd-head" id="cmdHead"></h2>
+        <p>En el histórico, el <b><span id="bigNum">0</span> %</b> de los ${nf(g.ev)} requerimientos evaluados se respondió tarde o sigue sin respuesta. La meta es bajar de ${SEMP.verde_lt * 100} %.</p>
       </div>
       <div class="states" id="states">
         <button class="st" data-act="tmFilter" data-s="rojo"><b id="kRojo">0</b><span><i class="sw-r"></i>Rojo</span></button>
         <button class="st" data-act="tmFilter" data-s="amarillo"><b id="kAma">0</b><span><i class="sw-y"></i>Amarillo</span></button>
         <button class="st" data-act="tmFilter" data-s="verde"><b id="kVer">0</b><span><i class="sw-g"></i>Verde</span></button>
-        <button class="st" data-act="tmFilter" data-s="gris"><b id="kGris">0</b><span><i class="sw-n"></i>Sin datos</span></button>
+        <button class="st" data-act="tmFilter" data-s="gris"><b id="kGris">0</b><span><i class="sw-n"></i>Sin muestra</span></button>
       </div>
-      <div class="cmd-h"><b>Mapa de dependencias</b><span>Toca un cuadro para abrir su expediente</span></div>
+      <div class="cmd-h"><b>Tablero de dependencias</b><span>De mayor a menor incumplimiento. Toca una tecla para ver su detalle</span></div>
       <div class="tmbar"><button class="btn sm" data-act="tmPlay" id="tmPlay"><i class="fa-solid fa-play"></i> Reproducir</button>
         <input type="range" id="tmRange" min="0" max="${Math.max(0, TM.months.length - 1)}" value="${TM.idx}" aria-label="Mes">
         <span class="tmlabel" id="tmLabel"></span></div>
       <div class="tm" id="tm"></div>
-      <div class="cmd-legend">Semáforo de los últimos 3 meses: verde menos de ${SEMP.verde_lt * 100} %, amarillo hasta ${SEMP.rojo_ge * 100} %, rojo desde ${SEMP.rojo_ge * 100} %.</div>
+      <div class="tm-det" id="tmDet" aria-live="polite"></div>
+      <div class="cmd-legend"><span><i class="sw-r"></i>Rojo, desde ${SEMP.rojo_ge * 100} %</span><span><i class="sw-y"></i>Amarillo, de ${SEMP.verde_lt * 100} % a ${SEMP.rojo_ge * 100} %</span><span><i class="sw-g"></i>Verde, menos de ${SEMP.verde_lt * 100} %</span><span><i class="sw-n"></i>Sin muestra: menos de 3 casos evaluados</span><span class="cmd-legend-w">Ventana de los últimos 3 meses</span></div>
       ${tick.length ? `<div class="ticker" aria-label="Requerimientos en seguimiento"><span class="tk-lbl">En seguimiento</span><div class="tk-track">${tickHtml}${tickHtml}</div></div>` : ''}
     </section>
     <div class="trio">
@@ -6683,7 +7150,7 @@ function buildTreemap() {
   box.innerHTML = orgs
     .map(
       (o, i) =>
-        `<button class="tile gris" style="--i:${i}" data-act="openOrg" data-org="${esc(o)}"><b>${esc(shortOrg(o))}</b><span class="tl-f"><span class="num"></span><small></small></span><span class="tl-bar"></span></button>`
+        `<button class="tile gris" style="--i:${i}" data-act="tmSel" data-org="${esc(o)}" aria-pressed="false"><b>${esc(shortOrg(o))}</b><span class="tl-f"><span class="num"></span><small></small></span></button>`
     )
     .join('');
   TM.tiles = [...box.children].map((el, k) => ({ el, org: orgs[k] }));
@@ -6700,6 +7167,7 @@ function paintTreemap() {
     na = 0,
     nv = 0,
     ng = 0;
+  TM.stats = new Map();
   TM.tiles.forEach(t => {
     const o = ws.get(t.org) || { ok: 0, inc: 0 },
       ev = o.ok + o.inc,
@@ -6709,12 +7177,13 @@ function paintTreemap() {
     else if (sem === 'amarillo') na++;
     else if (sem === 'verde') nv++;
     else ng++;
-    t.el.className = 'tile ' + sem + (TM.filter === sem ? ' match' : '');
-    t.el.querySelector('.num').textContent = ev ? pct1(tasa) : 's/d';
-    t.el.querySelector('small').textContent = ev ? o.inc + ' / ' + ev : '';
-    t.el.querySelector('.tl-bar').style.width = (ev ? Math.round(tasa * 100) : 0) + '%';
+    TM.stats.set(t.org, { sem, ev, inc: o.inc, tasa });
+    t.el.className = 'tile ' + sem + (TM.filter === sem ? ' match' : '') + (TM.sel === t.org ? ' on' : '');
+    t.el.setAttribute('aria-pressed', TM.sel === t.org ? 'true' : 'false');
+    t.el.querySelector('.num').textContent = ev ? pct1(tasa) : '—';
+    t.el.querySelector('small').textContent = ev ? o.inc + ' de ' + ev : 'Sin casos';
     t.el.title =
-      t.org + (ev ? ` · ${o.inc} incumplimientos de ${ev} (${pct1(tasa)})` : ' · sin datos en el periodo');
+      t.org + (ev ? `: ${o.inc} de ${ev} con incumplimiento (${pct1(tasa)})` : ': sin casos en el periodo');
   });
   $('#tmLabel').textContent = mo.label.charAt(0).toUpperCase() + mo.label.slice(1) + ' · ventana de 3 meses';
   $('#tmRange').value = TM.idx;
@@ -6723,10 +7192,39 @@ function paintTreemap() {
   $('#kVer').textContent = nv;
   $('#kGris').textContent = ng;
   TM.nRojo = nr;
+  const head = $('#cmdHead');
+  if (head)
+    head.innerHTML = nr
+      ? `${nr} ${nr === 1 ? 'dependencia' : 'dependencias'} en rojo<span>${na ? ` y ${na} en riesgo` : ''}</span>`
+      : na
+        ? `Ninguna dependencia en rojo<span> y ${na} en riesgo</span>`
+        : 'Ninguna dependencia en rojo<span> ni en riesgo</span>';
+  renderTmDet();
   document
     .querySelectorAll('#states .st')
     .forEach(b => b.setAttribute('aria-pressed', TM.filter === b.dataset.s));
   renderBrief();
+}
+function renderTmDet() {
+  const box = $('#tmDet');
+  if (!box) return;
+  const x = TM.sel && TM.stats ? TM.stats.get(TM.sel) : null;
+  if (!x) {
+    box.className = 'tm-det vacio';
+    box.innerHTML = 'Toca una tecla para ver el detalle de la dependencia.';
+    return;
+  }
+  const NOM = { rojo: 'En rojo', amarillo: 'En amarillo', verde: 'En verde', gris: 'Sin muestra suficiente' };
+  const ancho = Math.max(2, Math.round(x.tasa * 100));
+  box.className = 'tm-det ' + x.sem;
+  box.innerHTML = `<div class="tmd-h"><div><b>${esc(TM.sel)}</b><span class="tmd-e">${NOM[x.sem]}${x.ev ? `: ${x.inc} de ${x.ev} requerimientos respondidos tarde o vencidos (${pct1(x.tasa)})` : ''}</span></div>
+    <button class="btn primary" data-act="openOrg" data-org="${esc(TM.sel)}"><i class="fa-solid fa-folder-open"></i> Abrir expediente</button></div>
+    ${
+      x.sem === 'gris'
+        ? `<p class="tmd-n">${x.ev ? 'Con menos de 3 casos evaluados no se asigna color, para no dar una lectura injusta.' : 'No tuvo requerimientos evaluados en esta ventana de 3 meses.'}</p>`
+        : `<div class="tmd-trk" role="img" aria-label="Incumplimiento ${pct1(x.tasa)}"><i style="width:${ancho}%"></i></div>
+    <div class="tmd-esc"><span>0 %</span><span>Cambia de color en ${SEMP.verde_lt * 100} % y ${SEMP.rojo_ge * 100} %</span><span>100 %</span></div>`
+    }`;
 }
 function tmPlay() {
   const b = $('#tmPlay');
@@ -8530,6 +9028,15 @@ document.addEventListener('click', async e => {
     }
     case 'tmPlay':
       tmPlay();
+      break;
+    case 'tmSel':
+      TM.sel = TM.sel === t.dataset.org ? null : t.dataset.org;
+      paintTreemap();
+      // En el celular el detalle queda debajo del tablero: se lleva a la vista
+      if (TM.sel && innerWidth <= 520) {
+        const det = $('#tmDet');
+        if (det) det.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
       break;
     case 'qVig':
       Q.vigs[t.dataset.y] = !Q.vigs[t.dataset.y];
