@@ -5503,7 +5503,8 @@ async function loadDir() {
       organismo: x.organismo,
       cargo: x.cargo,
       nombre: x.nombre,
-      telefono: x.telefono
+      telefono: x.telefono,
+      correo: x.correo || ''
     }));
 }
 async function saveDirRow(x) {
