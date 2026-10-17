@@ -2,7 +2,7 @@
 //  - Archivos propios: primero la red y, si falla, la copia guardada.
 //  - Fuentes e íconos (CDN): se guardan la primera vez y se reutilizan sin conexión.
 //  - Supabase y cualquier otra API: NUNCA se guardan (los datos siempre salen frescos y seguros).
-const CACHE = 'control-entes-v6-control';
+const CACHE = 'control-entes-v8-cruces';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 const CDN = ['cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'];
 
