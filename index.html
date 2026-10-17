@@ -3587,6 +3587,594 @@ body::before {
   padding: 5px 12px;
 }
 
+/* ===== src/css/14-planes-de-mejoramiento.css ===== */
+/**
+ * src/css/14-planes-de-mejoramiento.css
+ * Planes de mejoramiento: tarjetas de plan, hallazgos, acciones con semáforo sólido, indicadores e importación.
+ * Los archivos se unen en orden numérico; un archivo posterior puede sobrescribir reglas de uno anterior.
+ */
+/* ---------- encabezado e indicadores ---------- */
+.pm-hero {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  border-left: 4px solid var(--oro);
+}
+.pm-hero h2 {
+  font-size: 1.2rem;
+  margin: 0 0 4px;
+}
+.pm-hero .sub {
+  max-width: 760px;
+}
+.pm-hero-b {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pm-ind {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px 22px;
+  align-items: end;
+}
+.pm-meter-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 0.8rem;
+  color: var(--soft);
+  font-weight: 600;
+}
+.pm-meter-h b {
+  font-size: 1.15rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.pm-meter .bar {
+  height: 9px;
+}
+.pm-meter-f {
+  font-size: 0.72rem;
+  color: var(--faint);
+  margin-top: 5px;
+}
+.pm-fev {
+  margin-bottom: 0;
+}
+.pm-filtros {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.pm-filtros select,
+.pm-filtros input {
+  width: auto;
+  min-width: 180px;
+}
+
+/* ---------- tarjetas de plan ---------- */
+.pm-plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+.pm-plan {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
+}
+.pm-plan:hover,
+.pm-plan:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--line2);
+  outline: none;
+}
+.pm-plan h3 {
+  margin: 2px 0 0;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+.pm-plan .pm-meter-h b {
+  font-size: 0.95rem;
+}
+.pm-plan-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.pm-ctl {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  background: var(--sem-g, #22355e);
+  color: #fff;
+}
+.pm-ctl.cgsc {
+  background: var(--azul, #0b3d91);
+  box-shadow: inset 0 -2px 0 var(--oro);
+}
+.pm-ctl.cgr {
+  background: var(--verdeCali, #138a44);
+  box-shadow: inset 0 -2px 0 var(--oro);
+}
+.pm-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pm-chip {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--bg2);
+  color: var(--soft);
+  border: 1px solid var(--line);
+}
+.pm-chip.r {
+  background: var(--sem-r, #c8283e);
+  border-color: var(--sem-r-ed, #7e1424);
+  color: #fff;
+}
+.pm-chip.y {
+  background: var(--sem-a, #f2a900);
+  border-color: var(--sem-a-ed, #9a6a00);
+  color: var(--sem-a-tx, #2b1f00);
+}
+.pm-chip.g {
+  background: var(--sem-v, #178a47);
+  border-color: var(--sem-v-ed, #0b5229);
+  color: #fff;
+}
+.pm-chip.b {
+  background: var(--azul2, #2f66c9);
+  border-color: var(--azul, #0b3d91);
+  color: #fff;
+}
+.pm-g2 > * {
+  min-width: 0;
+}
+.pm-deprow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.pm-deprow-r {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+/* ---------- detalle del plan ---------- */
+.pm-top {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.pm-head {
+  margin-bottom: 14px;
+  border-left: 4px solid var(--oro);
+}
+.pm-head h2 {
+  font-size: 1.15rem;
+  line-height: 1.35;
+  margin: 8px 0 10px;
+}
+.pm-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px 18px;
+}
+.pm-info div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.pm-info small {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  font-weight: 700;
+}
+.pm-info span {
+  font-size: 0.86rem;
+  overflow-wrap: anywhere;
+}
+.pm-tabs {
+  margin-bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.pm-tabs .cnt {
+  display: inline-block;
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--line2);
+  font-size: 0.7rem;
+  margin-left: 4px;
+}
+.pm-tabs button.on .cnt {
+  background: var(--azul2);
+  color: #fff;
+}
+
+/* ---------- hallazgos y acciones ---------- */
+.pm-h {
+  margin-bottom: 14px;
+}
+.pm-h-h {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.pm-num {
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--azul9, #062456);
+  color: #fff;
+  border: 1px solid var(--azul2, #2f66c9);
+}
+.pm-conn {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line2);
+  color: var(--soft);
+}
+.pm-conn.c-disciplinaria {
+  border-color: var(--sem-a, #f2a900);
+  color: var(--sem-a-ink, #ffc23d);
+}
+.pm-conn.c-fiscal,
+.pm-conn.c-penal {
+  border-color: var(--sem-r, #c8283e);
+  color: var(--sem-r-ink, #ff6b7d);
+}
+.pm-conn.c-sancionatoria {
+  border-color: var(--oro);
+  color: var(--oro);
+}
+.pm-desc {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--soft);
+  white-space: pre-line;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pm-desc.open {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+.pm-more {
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: var(--neo, #4c8dff);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pm-acts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.pm-a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(230px, 300px);
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--sem-g, #22355e);
+}
+.pm-a.s-cumplida {
+  border-left-color: var(--sem-v, #178a47);
+}
+.pm-a.s-vencida {
+  border-left-color: var(--sem-r, #c8283e);
+}
+.pm-a.s-proxima {
+  border-left-color: var(--sem-a, #f2a900);
+}
+.pm-a.s-termino {
+  border-left-color: var(--azul2, #2f66c9);
+}
+.pm-a.pm-flash {
+  animation: pmFlash 1.6s ease 2;
+}
+@keyframes pmFlash {
+  50% {
+    box-shadow: 0 0 0 3px var(--oro);
+  }
+}
+.pm-a-ctx {
+  font-size: 0.72rem;
+  color: var(--faint);
+  margin-bottom: 4px;
+}
+.pm-a-t {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+.pm-a-l {
+  font-size: 0.78rem;
+  color: var(--soft);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.pm-a-l i {
+  color: var(--faint);
+  margin-right: 3px;
+}
+.pm-a-side {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+.pm-a-f {
+  font-size: 0.74rem;
+  color: var(--faint);
+}
+.pm-a-f b {
+  color: var(--ink);
+}
+.pm-a-p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.pm-a-p .bar {
+  flex: 1;
+  height: 8px;
+}
+.pm-a-p b {
+  font-size: 0.85rem;
+  min-width: 48px;
+  text-align: right;
+}
+.pm-a-b {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.pm-a-b .icon-btn {
+  width: 32px;
+  height: 32px;
+}
+.pm-note {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  padding: 7px 10px;
+  border-radius: 8px;
+  margin-top: 6px;
+  border: 1px solid var(--line2);
+  background: var(--panel2);
+}
+.pm-note ul {
+  margin: 4px 0;
+  padding-left: 18px;
+}
+.pm-note.r {
+  border-color: var(--sem-r, #c8283e);
+  background: var(--redbg);
+  color: var(--redink);
+}
+.pm-note.y {
+  border-color: var(--sem-a, #f2a900);
+  background: var(--yelbg);
+  color: var(--yelink);
+}
+.pm-note.b {
+  border-color: var(--azul2, #2f66c9);
+  background: rgba(47, 102, 201, 0.12);
+  color: var(--ink);
+}
+.pm-issue {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.84rem;
+}
+.pm-issue.r > i {
+  color: var(--sem-r-ink, #ff6b7d);
+}
+.pm-issue.y > i {
+  color: var(--sem-a-ink, #ffc23d);
+}
+
+/* ---------- formularios y ventanas ---------- */
+.pm-checks {
+  display: flex;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+  font-size: 0.84rem;
+}
+.pm-checks label,
+label.pm-checks {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.pm-checks input {
+  width: auto;
+}
+.pm-ctx {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--bg2);
+  border-left: 4px solid var(--oro);
+  margin-bottom: 12px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.pm-ctx small {
+  display: block;
+  color: var(--faint);
+  font-size: 0.72rem;
+}
+.pm-ctx b {
+  display: block;
+  margin: 2px 0;
+}
+.pm-quote {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg2);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+.pm-tl {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pm-tl-i {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--bg2);
+  border-left: 4px solid var(--sem-a, #f2a900);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+.pm-tl-i.validado {
+  border-left-color: var(--sem-v, #178a47);
+}
+.pm-tl-i.devuelto {
+  border-left-color: var(--sem-r, #c8283e);
+}
+.pm-tl-h {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+  font-size: 0.78rem;
+}
+.pm-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 20px;
+  border: 2px dashed var(--line2);
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
+.pm-drop > i {
+  font-size: 2rem;
+  color: var(--verdeCali, #138a44);
+}
+.pm-drop .muted {
+  font-size: 0.8rem;
+  max-width: 520px;
+}
+.pm-drop input {
+  margin-top: 8px;
+  max-width: 340px;
+}
+.pm-imp-sum,
+.pm-imp-k {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.pm-imp-all {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.pm-imp-all select {
+  width: auto;
+  min-width: 220px;
+}
+.pm-imp-tbl {
+  max-height: 320px;
+  overflow: auto;
+}
+.pm-imp-tbl select {
+  min-width: 190px;
+  font-size: 0.78rem;
+  padding: 6px 8px;
+}
+
+/* ---------- celular ---------- */
+@media (max-width: 760px) {
+  .pm-a {
+    grid-template-columns: 1fr;
+  }
+  .pm-plans {
+    grid-template-columns: 1fr;
+  }
+  .pm-filtros select,
+  .pm-filtros input {
+    width: 100%;
+    min-width: 0;
+    max-width: none !important;
+  }
+  .pm-hero-b {
+    width: 100%;
+  }
+  .pm-hero-b .btn {
+    flex: 1;
+    justify-content: center;
+  }
+  .pm-deprow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pm-deprow-r {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3653,7 +4241,7 @@ body::before {
 'use strict';
 
 /* Generado por scripts/build.mjs: no editar el archivo publicado, editar src/js/ */
-const CE_BUILD = {"variante":"institucional","version":"2.2.0","construido":"2026-10-17","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
+const CE_BUILD = {"variante":"institucional","version":"2.3.0","construido":"2026-10-17","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
 
 /* ===== src/js/01-configuracion.js ===== */
 /**
@@ -3661,7 +4249,7 @@ const CE_BUILD = {"variante":"institucional","version":"2.2.0","construido":"202
  * Configuración leída de configuracion.json (URL y clave pública de Supabase, remitente de correos) y variante construida.
  * Depende de: CE_BUILD (inyectado por scripts/build.mjs).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -3689,7 +4277,7 @@ const ES_PRIVADA = CE_BUILD.variante === 'privada';
  * Utilidades generales: selectores $/$$, escape HTML (esc), fechas, almacenamiento local (lsGet/lsSet), SHA-256.
  * Depende de: Nada; todos los demás archivos usan estas funciones.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -3760,7 +4348,7 @@ const SEM = { rojo: 'Crítico', amarillo: 'En término', verde: 'Cerrado' };
  * Estado global de la sesión (S), roles (ROLES), menú y permisos por pantalla (NAV) y títulos (TITLES). NAV es la fuente única de qué ve cada rol.
  * Depende de: 02-utilidades.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -3826,6 +4414,19 @@ const NAV = [
     ]
   },
   {
+    g: 'Mejoramiento',
+    items: [
+      {
+        id: 'planes',
+        label: 'Planes de mejoramiento',
+        labelScoped: 'Mis acciones de mejora',
+        icon: 'fa-list-check',
+        roles: ALL,
+        badgeFn: () => pmBadge()
+      }
+    ]
+  },
+  {
     g: 'Directorio',
     items: [
       { id: 'entes', label: 'Entes de control', icon: 'fa-landmark', roles: SUPERV },
@@ -3864,6 +4465,7 @@ const TITLES = {
     'Cruces y temas',
     'Clasificación por tema y alertas cuando varios entes piden sobre el mismo caso'
   ],
+  planes: ['Planes de mejoramiento', 'Hallazgos de las contralorías, acciones, avances y cumplimiento'],
   mando: ['Centro de mando', 'Visibilidad total del cumplimiento frente a los entes de control'],
   dependencia: ['Expediente de dependencia', 'Desempeño, pendientes y tendencia'],
   notificaciones: ['Notificaciones WhatsApp', 'Bitácora de avisos a secretarios y directores'],
@@ -3895,7 +4497,7 @@ const canEscalate = () => canRole(['admin', 'alcalde', 'control_interno', 'enlac
  * Capa de datos: objeto db con todas las lecturas y escrituras. Con Supabase usa la API real; sin conexión simula la base en memoria (DEMO) con auditoría equivalente.
  * Depende de: 01 (CFG), 02, 03 (S). En la variante privada usa HIST de 10.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -4516,7 +5118,7 @@ function dbErr(e) {
  * Reglas del módulo operativo: semáforo de cada requerimiento vivo (decorate) y recarga de datos (reload).
  * Depende de: 04 (db), 03 (S).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -4567,7 +5169,7 @@ async function reload() {
  * Interfaz común: avisos (toast), ventanas modales, menú lateral, barra de pestañas del celular, navegación entre pantallas (go/render).
  * Depende de: 03 (NAV, TITLES), todas las vistas v*().
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -4679,6 +5281,7 @@ function renderTabbar() {
     carga: 'ORFEO',
     alertas: 'Alertas',
     cruces: 'Cruces',
+    planes: 'Mejora',
     cumplimiento: 'Ranking',
     tablero: 'Tablero'
   };
@@ -4745,6 +5348,7 @@ async function render() {
     reportes: vReportes,
     cumplimiento: vCumplimiento,
     cruces: vCruces,
+    planes: vPlanes,
     historico: vHistorico,
     auditoria: vAuditoria,
     cuentas: vCuentas,
@@ -4768,7 +5372,7 @@ async function render() {
  * Pantallas del módulo operativo: Tablero, Requerimientos, Cargar respuesta ORFEO y Alertas y escalamiento.
  * Depende de: 04 (db), 05, 06.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -5139,7 +5743,7 @@ function vAlertas(c) {
  * Pantallas de catálogos (entes, dependencias), reportes, auditoría (verificación de la cadena SHA-256), cuentas y roles, configuración.
  * Depende de: 04 (db), 06.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -5574,7 +6178,7 @@ function vConfig(c) {
  * Semáforo histórico (SEMP, semOf), ranking de cumplimiento por secretaría, histórico de radicados y detalle de un radicado.
  * Depende de: 10 (HIST, statsOf), 11 (temas y cruces en el detalle).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -5854,7 +6458,7 @@ function histDetail(i) {
  * Datos del histórico 2024-2026 (HIST), directorio del gabinete (DIRLIST), bitácora de notificaciones, alcance por dependencia (scopeOrg/hrows), estadísticas y enmascaramiento de datos personales (maskPII).
  * Depende de: 04 (sb), 03 (S).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -6311,7 +6915,7 @@ const shortTxt = (s, n) => {
  * Cruce de información: tema de cada requerimiento por reglas fijas, cruces exactos entre entes (mismo contrato, expediente, radicado o documento) y alertas de mismo tema en 90 días. Pantalla "Cruces y temas".
  * Depende de: 10 (HIST, maskPII, scopeOrg), 06.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -7047,7 +7651,7 @@ function vCruces(c) {
  * Centro de mando del Alcalde: cifra global, mosaico de dependencias con máquina del tiempo, cinta de seguimiento, lectura del corte y cola de acción.
  * Depende de: 09 (semOf), 10 (HIST, statsOf), 11 (cruceData), 14 (notificar).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -7387,7 +7991,7 @@ function renderQueue() {
  * Expediente de una dependencia (o "Mi dependencia" para secretarios): indicadores, gráficos y pendientes.
  * Depende de: 09, 10.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -7551,7 +8155,7 @@ function vDependencia(c) {
  * Notificaciones por WhatsApp y correo institucional: plantillas de mensaje (buildMsg), envío individual, modo despacho y bitácora.
  * Depende de: 10 (DIRLIST, contactsOf, NOTIF), 01 (REMITENTE).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -7876,7 +8480,7 @@ function vNotificaciones(c) {
  * Directorio del gabinete: un responsable por dependencia, con validación de nombre completo, celular y duplicados.
  * Depende de: 10 (DIRLIST, saveDirRow, normPhone).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -7991,7 +8595,7 @@ function vDirectorio(c) {
  * Informe ejecutivo descargable en PDF: modelo de datos del informe, narrativa, gráficos SVG y registro con huella SHA-256.
  * Depende de: 09, 10, 02 (sha256Hex).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -8403,7 +9007,7 @@ async function rpPdf() {
  * Actividad y cambios: quién modificó, notificó, ingresó o generó informes, a partir de la auditoría.
  * Depende de: 04 (db), 10.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -8650,7 +9254,7 @@ async function vActividad(c) {
  * Delegación de eventos: un único manejador de clics que despacha cada botón según su atributo data-act. Para agregar un botón nuevo, agrega su case aquí.
  * Depende de: Todas las vistas.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -8662,6 +9266,8 @@ document.addEventListener('click', async e => {
   if (!t) return;
   const a = t.dataset.act,
     id = t.dataset.id;
+  /* Planes de mejoramiento: sus botones los atiende 19-planes-de-mejoramiento.js */
+  if (a.startsWith('pm')) return pmAct(a, t);
   switch (a) {
     case 'go':
       go(t.dataset.view);
@@ -9320,6 +9926,7 @@ $('#demoRole').addEventListener('change', async e => {
   S.user = { email: p.email };
   syncDemoDep();
   await reload();
+  await pmLoad();
   go(S.view);
 });
 $('#demoDep').addEventListener('change', async e => {
@@ -9327,6 +9934,7 @@ $('#demoDep').addEventListener('change', async e => {
   if (!d) return;
   S.profile = { ...S.profile, dependencia_id: d.id, org: d.nombre };
   await reload();
+  await pmLoad();
   go(S.view);
 });
 window.addEventListener('resize', onResizeTm);
@@ -9335,13 +9943,3136 @@ window.addEventListener('hashchange', () => {
   if (v && TITLES[v] && S.profile) go(v);
 });
 
-/* ===== src/js/19-arranque.js ===== */
+/* ===== src/js/19-planes-de-mejoramiento.js ===== */
 /**
- * src/js/19-arranque.js
- * Arranque y autenticación: crea el cliente Supabase o entra en modo demostración, inicio de sesión, service worker y gancho de pruebas.
- * Depende de: Todos los anteriores.
+ * src/js/19-planes-de-mejoramiento.js
+ * Planes de mejoramiento de las contralorías: formulación (plan → hallazgos → acciones), reporte y validación de
+ * avances con soporte, indicadores de cumplimiento y avance (metodología del Formulario 14.1 de la CGR),
+ * importación de Excel (PM_01 CGSC y Formularios 14/14.1 CGR) y exportación en esos mismos formatos.
+ * Depende de: 02 (utilidades), 03 (S, rol), 04 (db, DEMO, demoAudit, dbErr), 06 (toast, openModal, render),
+ *             10 (contactsOf, normPhone, normMail, logNotif, shortOrg, orgKey). Supabase: supabase/13_planes_mejoramiento.sql
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 19, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
+ * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
+ */
+/* =====================================================================
+   PLANES DE MEJORAMIENTO
+   ===================================================================== */
+const PM = {
+  planes: [],
+  hall: [],
+  acc: [],
+  av: [],
+  ok: false,
+  err: '',
+  errMsg: '',
+  plan: null,
+  tab: 'acciones',
+  f: { ctl: '', q: '' },
+  fa: { est: '', dep: '', q: '' },
+  eval: null,
+  imp: null,
+  abiertos: {}
+};
+/* Días antes del vencimiento en que una acción pasa a "próxima a vencer" */
+const PM_ALERTA_DIAS = 30;
+const PM_FMT = {
+  PM_01_CGSC: {
+    corto: 'CGSC',
+    nombre: 'Formato PM_01 CGSC',
+    contraloria: 'Contraloría General de Santiago de Cali'
+  },
+  F14_CGR: {
+    corto: 'CGR',
+    nombre: 'Formularios 14 y 14.1',
+    contraloria: 'Contraloría General de la República'
+  },
+  OTRO: { corto: 'Otro', nombre: 'Otro formato', contraloria: '' }
+};
+const PM_CONN = {
+  administrativa: 'Administrativa',
+  disciplinaria: 'Disciplinaria',
+  fiscal: 'Fiscal',
+  penal: 'Penal',
+  sancionatoria: 'Sancionatoria'
+};
+const PM_TIPOS = [
+  'Auditoría financiera y de gestión',
+  'Auditoría de cumplimiento',
+  'Auditoría de desempeño',
+  'Actuación especial de fiscalización',
+  'Otra'
+];
+const PM_EST = { formulacion: 'En formulación', en_ejecucion: 'En ejecución', cerrado: 'Cerrado' };
+const PM_AV_EST = { reportado: 'Por validar', validado: 'Validado', devuelto: 'Devuelto' };
+const PM_XLSX_URL = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+
+const pmCanEdit = () => canRole(['admin', 'control_interno']);
+const pmScoped = () => ['secretario', 'enlace'].includes(rol());
+const pmMyDep = () => (S.profile || {}).dependencia_id || null;
+const pmHoy = () => iso(today0());
+const pmDep = id => S.deps.find(d => String(d.id) === String(id)) || null;
+const pmDepN = id => (pmDep(id) || {}).nombre || '';
+const pmPlanOf = id => PM.planes.find(p => p.id === id) || null;
+const pmHallOf = id => PM.hall.find(h => h.id === id) || null;
+const pmAccOf = id => PM.acc.find(a => a.id === id) || null;
+const pmPctTxt = v => (v == null ? '—' : (Math.round(v * 1000) / 10).toLocaleString('es-CO') + '%');
+const pmNumTxt = v => Number(v || 0).toLocaleString('es-CO', { maximumFractionDigits: 2 });
+/* Meta en palabras + cantidad ("100% de supervisores capacitados" o "6 Conciliaciones") */
+function pmMetaTxt(a) {
+  const pct = pmKey(a.unidad_medida).startsWith('porcent'),
+    q = pct ? pmNumTxt(a.cantidad) + '%' : pmNumTxt(a.cantidad) + ' ' + (a.unidad_medida || '');
+  if (!pmTxt(a.meta)) return q;
+  return pct && Number(a.cantidad) === 100 ? pmTxt(a.meta) : pmTxt(a.meta) + ' · ' + q;
+}
+const pmCanReport = a =>
+  !!a && (pmCanEdit() || (pmScoped() && pmMyDep() && String(a.dependencia_id) === String(pmMyDep())));
+
+/* ---------- cálculo (Formulario 14.1 CGR) ----------
+   Plazo (semanas) = (fecha fin − fecha inicio) / 7
+   % avance        = mín(1, avance físico / cantidad de la meta)
+   PLAI  = plazo × % avance                 (puntaje logrado por la actividad)
+   PLAVI = PLAI si fecha fin ≤ fecha de evaluación, si no 0
+   PAAVI = plazo si fecha fin ≤ fecha de evaluación, si no 0
+   Cumplimiento (CPM) = Σ PLAVI / Σ PAAVI       Avance (AP) = Σ PLAI / Σ plazo           */
+function pmSemanas(a) {
+  if (!a.fecha_inicio || !a.fecha_fin) return 0;
+  return Math.max(0, Math.round((parseD(a.fecha_fin) - parseD(a.fecha_inicio)) / 86400000) / 7);
+}
+function pmPct(a, cant) {
+  const c = Number(a.cantidad) || 0,
+    v = cant == null ? Number(a.avance) || 0 : Number(cant) || 0;
+  return c > 0 ? Math.min(1, Math.max(0, v / c)) : 0;
+}
+/* Último avance VALIDADO con fecha de corte hasta la fecha indicada */
+function pmAvAl(a, corte) {
+  const l = PM.av
+    .filter(v => v.accion_id === a.id && v.estado === 'validado' && v.fecha_corte <= corte)
+    .sort(
+      (x, y) =>
+        String(y.fecha_corte).localeCompare(String(x.fecha_corte)) ||
+        String(y.revisado_at || '').localeCompare(String(x.revisado_at || ''))
+    );
+  if (l.length) return l[0];
+  if (a.fecha_corte && a.fecha_corte <= corte)
+    return { cantidad: a.avance, fecha_corte: a.fecha_corte, descripcion: '' };
+  return null;
+}
+function pmIndic(list, fev) {
+  const o = { n: list.length, pbea: 0, pbec: 0, plai: 0, plavi: 0 };
+  list.forEach(a => {
+    const av = pmAvAl(a, fev),
+      p = pmPct(a, av ? av.cantidad : 0),
+      s = pmSemanas(a);
+    o.pbea += s;
+    o.plai += s * p;
+    if (a.fecha_fin <= fev) {
+      o.pbec += s;
+      o.plavi += s * p;
+    }
+  });
+  o.cpm = o.pbec ? o.plavi / o.pbec : null;
+  o.ap = o.pbea ? o.plai / o.pbea : list.length ? 0 : null;
+  return o;
+}
+/* Estado de una acción hoy */
+function pmEstado(a) {
+  const p = pmPct(a),
+    d = daysUntil(a.fecha_fin);
+  if (p >= 1) return { k: 'cumplida', pill: 'verde', txt: 'Cumplida', d };
+  if (d < 0) return { k: 'vencida', pill: 'rojo', txt: 'Vencida', d };
+  if (d <= PM_ALERTA_DIAS)
+    return { k: 'proxima', pill: 'amarillo', txt: d === 0 ? 'Vence hoy' : `Vence en ${d} d`, d };
+  return { k: 'termino', pill: 'neutral', txt: 'En término', d };
+}
+const pmPend = a => PM.av.find(v => v.accion_id === a.id && v.estado === 'reportado') || null;
+function pmUltimo(a) {
+  return (
+    PM.av
+      .filter(v => v.accion_id === a.id)
+      .sort((x, y) => String(y.created_at || '').localeCompare(String(x.created_at || '')))[0] || null
+  );
+}
+function pmCounts(list) {
+  const o = { n: list.length, cumplida: 0, vencida: 0, proxima: 0, termino: 0, pend: 0, dev: 0, sinDep: 0 };
+  list.forEach(a => {
+    o[pmEstado(a).k]++;
+    if (pmPend(a)) o.pend++;
+    const u = pmUltimo(a);
+    if (u && u.estado === 'devuelto') o.dev++;
+    if (!a.dependencia_id) o.sinDep++;
+  });
+  return o;
+}
+function pmBadge() {
+  if (!PM.ok || !rol()) return 0;
+  if (pmCanEdit()) return PM.av.filter(v => v.estado === 'reportado').length;
+  if (pmScoped())
+    return PM.acc.filter(a => {
+      const e = pmEstado(a).k;
+      return (e === 'vencida' || e === 'proxima') && !pmPend(a);
+    }).length;
+  return 0;
+}
+
+/* ---------- utilidades de lectura ---------- */
+const pmTxt = v =>
+  String(v == null ? '' : v)
+    .replace(/\u00a0/g, ' ')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\s*\n\s*/g, '\n')
+    .trim();
+const pmKey = s =>
+  String(s == null ? '' : s)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[º°ª]/g, ' ')
+    .replace(/[^a-z0-9%()]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+const PM_MESES = {
+  ene: 1,
+  feb: 2,
+  mar: 3,
+  abr: 4,
+  may: 5,
+  jun: 6,
+  jul: 7,
+  ago: 8,
+  sep: 9,
+  set: 9,
+  oct: 10,
+  nov: 11,
+  dic: 12,
+  jan: 1,
+  apr: 4,
+  aug: 8,
+  dec: 12
+};
+function pmIsoOk(y, m, d) {
+  if (y < 100) y += 2000;
+  if (y < 1990 || y > 2100 || m < 1 || m > 12 || d < 1) return null;
+  if (d > new Date(y, m, 0).getDate()) return null;
+  return y + '-' + pad(m) + '-' + pad(d);
+}
+/* Fecha desde Excel o texto: número de serie, 30/06/2022, 2022-06-30, 30/jun/2022, "30 de junio de 2022",
+   "15 diciembre del 2022", "junio 30 de 2022". Devuelve AAAA-MM-DD o null. */
+function pmFecha(v) {
+  if (v == null || v === '') return null;
+  if (v instanceof Date && !isNaN(v)) return pmIsoOk(v.getFullYear(), v.getMonth() + 1, v.getDate());
+  if (typeof v === 'number') {
+    if (v < 20000 || v > 80000) return null;
+    const d = new Date(Math.round((v - 25569) * 86400000));
+    return pmIsoOk(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate());
+  }
+  const s = pmKey(v).replace(/[()]/g, ' ');
+  let m = s.match(/(\d{4}) (\d{1,2}) (\d{1,2})/);
+  if (m) return pmIsoOk(+m[1], +m[2], +m[3]);
+  m = s.match(/(\d{1,2}) (\d{1,2}) (\d{2,4})/);
+  if (m) return pmIsoOk(+m[3], +m[2], +m[1]);
+  m = s.match(/(\d{1,2}) (?:de )?([a-z]{3,})\.? (?:de |del )?(\d{2,4})/);
+  if (m && PM_MESES[m[2].slice(0, 3)]) return pmIsoOk(+m[3], PM_MESES[m[2].slice(0, 3)], +m[1]);
+  m = s.match(/([a-z]{3,}) (\d{1,2}) (?:de |del )?(\d{4})/);
+  if (m && PM_MESES[m[1].slice(0, 3)]) return pmIsoOk(+m[3], PM_MESES[m[1].slice(0, 3)], +m[2]);
+  return null;
+}
+function pmNum(v) {
+  if (typeof v === 'number') return isFinite(v) ? v : NaN;
+  let s = String(v == null ? '' : v)
+    .replace(/[%\s$]/g, '')
+    .trim();
+  if (!s) return NaN;
+  if (s.includes(',') && s.includes('.')) {
+    s =
+      s.lastIndexOf(',') > s.lastIndexOf('.') ? s.replace(/\./g, '').replace(',', '.') : s.replace(/,/g, '');
+  } else if (s.includes(',')) s = s.replace(',', '.');
+  return /^-?\d+(\.\d+)?$/.test(s) ? parseFloat(s) : NaN;
+}
+function pmConnOf(v) {
+  const k = pmKey(v),
+    out = [];
+  [
+    ['administrativ', 'administrativa'],
+    ['disciplinari', 'disciplinaria'],
+    ['fiscal', 'fiscal'],
+    ['penal', 'penal'],
+    ['sancionatori', 'sancionatoria']
+  ].forEach(([w, c]) => {
+    if (k.includes(w)) out.push(c);
+  });
+  return out;
+}
+/* Dependencia mencionada en un texto ("Nora Mondragón – Secretaria de Gobierno") */
+function pmDepMatch(txt) {
+  const k = ' ' + orgKey(txt) + ' ';
+  if (k.trim().length < 4) return null;
+  let best = null,
+    bl = 0;
+  S.deps.forEach(d => {
+    const dk = orgKey(d.nombre);
+    if (dk.length >= 6 && k.includes(' ' + dk + ' ') && dk.length > bl) {
+      best = d;
+      bl = dk.length;
+    }
+  });
+  if (best) return best.id;
+  /* nombre corto: "Planeación", "Gobierno" (sin "Secretaría de", "Departamento Administrativo de") */
+  S.deps.forEach(d => {
+    const core = orgKey(d.nombre)
+      .replace(
+        /^(secretaria|departamento administrativo|unidad administrativa especial|uae|direccion|oficina)( distrital)?( de| del| para la| para el)? /,
+        ''
+      )
+      .trim();
+    if (core.length >= 6 && k.includes(' ' + core + ' ') && core.length > bl) {
+      best = d;
+      bl = core.length;
+    }
+  });
+  return best ? best.id : null;
+}
+
+/* =====================================================================
+   DATOS
+   ===================================================================== */
+async function pmAll(table, order) {
+  let from = 0,
+    out = [];
+  for (;;) {
+    const { data, error } = await sb
+      .from(table)
+      .select('*')
+      .order(order)
+      .order('id')
+      .range(from, from + 999);
+    if (error) throw error;
+    out = out.concat(data);
+    if (data.length < 1000) break;
+    from += 1000;
+  }
+  return out;
+}
+function pmDemoStore() {
+  if (DEMO.pm) return DEMO.pm;
+  if (ES_PRIVADA) {
+    try {
+      const j = JSON.parse(lsGet('ce_pm') || 'null');
+      if (j && Array.isArray(j.planes)) return (DEMO.pm = j);
+    } catch (e) {}
+    return (DEMO.pm = { planes: [], hall: [], acc: [], av: [] });
+  }
+  return (DEMO.pm = pmDemoSeed());
+}
+function pmDemoSave() {
+  if (ES_PRIVADA && DEMO.pm) lsSet('ce_pm', JSON.stringify(DEMO.pm));
+}
+function pmDemoSeed() {
+  const st = { planes: [], hall: [], acc: [], av: [] };
+  const deps = S.deps.filter(d => HIST.rows.some(r => r.org === d.nombre)).slice(0, 4);
+  const dep = i => (deps[i % Math.max(1, deps.length)] || {}).id || null;
+  const now = new Date().toISOString();
+  const mk = (pfx, o) => ({
+    id: pfx + Math.random().toString(36).slice(2, 10),
+    created_at: now,
+    updated_at: now,
+    ...o
+  });
+  const p1 = mk('p', {
+    formato: 'PM_01_CGSC',
+    ente_id: null,
+    contraloria: PM_FMT.PM_01_CGSC.contraloria,
+    entidad: 'Distrito Especial de Santiago de Cali',
+    nit: '',
+    representante_legal: 'Representante legal (ejemplo)',
+    ordenador_gasto: 'Ordenador del gasto (ejemplo)',
+    ejercicio: 'Auditoría de cumplimiento a la contratación (DATOS DE EJEMPLO)',
+    tipo_ejercicio: 'Auditoría de cumplimiento',
+    modalidad: '',
+    vigencia_pvcft: String(new Date().getFullYear() - 1),
+    periodo_auditado: '',
+    numero_informe: 'EJEMPLO-001',
+    radicado_orfeo: '',
+    fecha_informe: addDays(-260),
+    fecha_suscripcion: addDays(-240),
+    estado: 'en_ejecucion',
+    observaciones: 'Plan ficticio para conocer el módulo.'
+  });
+  const p2 = mk('p', {
+    ...p1,
+    id: 'p' + Math.random().toString(36).slice(2, 10),
+    formato: 'F14_CGR',
+    contraloria: PM_FMT.F14_CGR.contraloria,
+    nit: '890.399.011-3',
+    ordenador_gasto: '',
+    ejercicio: 'Auditoría financiera y de gestión a recursos del SGP (DATOS DE EJEMPLO)',
+    tipo_ejercicio: 'Auditoría financiera y de gestión',
+    modalidad: 'Auditoría financiera y de gestión',
+    vigencia_pvcft: '',
+    periodo_auditado: String(new Date().getFullYear() - 1),
+    numero_informe: 'EJEMPLO-CGR-002',
+    fecha_informe: addDays(-120),
+    fecha_suscripcion: addDays(-100)
+  });
+  st.planes.push(p1, p2);
+  const H = (p, numero, descripcion, conn, orden) => {
+    const h = mk('h', {
+      plan_id: p.id,
+      numero,
+      descripcion,
+      causa: '',
+      efecto: '',
+      connotaciones: conn,
+      cuantia: null,
+      macroproceso: 'Gestión contractual',
+      orden
+    });
+    st.hall.push(h);
+    return h;
+  };
+  const A = (p, h, o) => {
+    const a = mk('a', {
+      plan_id: p.id,
+      hallazgo_id: h.id,
+      responsable: '',
+      proposito: '',
+      actividad: '',
+      unidad_medida: 'Porcentaje',
+      cantidad: 100,
+      fuente_verificacion: 'Expedientes contractuales',
+      lugar_verificacion: 'Archivo de gestión',
+      fecha_inicio: p.fecha_suscripcion,
+      avance: 0,
+      fecha_corte: null,
+      orden: st.acc.length + 1,
+      ...o
+    });
+    st.acc.push(a);
+    return a;
+  };
+  const V = (a, o) =>
+    st.av.push(
+      mk('v', {
+        accion_id: a.id,
+        plan_id: a.plan_id,
+        dependencia_id: a.dependencia_id,
+        radicado_orfeo: '',
+        soporte_path: null,
+        soporte_hash: null,
+        observacion: '',
+        reportado_email: 'enlace@cali.gov.co',
+        revisado_email: o.estado === 'validado' ? 'control.interno@cali.gov.co' : '',
+        revisado_at: o.estado === 'validado' ? now : null,
+        ...o
+      })
+    );
+  const h1 = H(
+    p1,
+    '1',
+    'Publicación extemporánea en SECOP II de documentos del proceso contractual (ejemplo).',
+    ['administrativa', 'disciplinaria'],
+    1
+  );
+  const a1 = A(p1, h1, {
+    dependencia_id: dep(0),
+    accion: 'Capacitar a supervisores en publicación oportuna en SECOP II',
+    meta: '100% de supervisores capacitados',
+    fecha_fin: addDays(-60),
+    avance: 100,
+    fecha_corte: addDays(-70)
+  });
+  V(a1, {
+    fecha_corte: addDays(-70),
+    cantidad: 100,
+    descripcion: 'Se capacitó a la totalidad de supervisores (acta y listado de asistencia).',
+    estado: 'validado'
+  });
+  const a2 = A(p1, h1, {
+    dependencia_id: dep(0),
+    accion: 'Implementar lista de chequeo de publicación por proceso',
+    meta: '100% de procesos con lista de chequeo',
+    fecha_fin: addDays(-15),
+    avance: 60,
+    fecha_corte: addDays(-40)
+  });
+  V(a2, {
+    fecha_corte: addDays(-40),
+    cantidad: 60,
+    descripcion: 'Lista de chequeo aplicada en 6 de 10 procesos revisados.',
+    estado: 'validado'
+  });
+  const h2 = H(
+    p1,
+    '2',
+    'Debilidades en el análisis del sector y estudios de mercado (ejemplo).',
+    ['administrativa'],
+    2
+  );
+  const a3 = A(p1, h2, {
+    dependencia_id: dep(1),
+    accion: 'Ajustar el procedimiento de análisis del sector',
+    meta: 'Procedimiento actualizado y socializado',
+    fecha_fin: addDays(18),
+    avance: 50,
+    fecha_corte: addDays(-30)
+  });
+  V(a3, {
+    fecha_corte: addDays(-30),
+    cantidad: 50,
+    descripcion: 'Borrador del procedimiento en revisión jurídica.',
+    estado: 'validado'
+  });
+  V(a3, {
+    fecha_corte: addDays(-2),
+    cantidad: 80,
+    descripcion: 'Procedimiento aprobado en comité; falta socializar.',
+    estado: 'reportado'
+  });
+  const h3 = H(
+    p1,
+    '3',
+    'Informes de supervisión sin evidencia de seguimiento al plan de mejoramiento (ejemplo).',
+    ['administrativa', 'sancionatoria'],
+    3
+  );
+  A(p1, h3, {
+    dependencia_id: dep(2),
+    accion: 'Publicar los informes de avance en el aplicativo de la contraloría',
+    meta: '2 informes semestrales publicados',
+    unidad_medida: 'Informes',
+    cantidad: 2,
+    fecha_fin: addDays(140)
+  });
+  const h4 = H(
+    p2,
+    'H1-2025',
+    'Diferencias entre la ejecución presupuestal y los registros contables (ejemplo).',
+    ['administrativa', 'fiscal'],
+    1
+  );
+  const a5 = A(p2, h4, {
+    dependencia_id: dep(3),
+    accion: 'Conciliar mensualmente presupuesto y contabilidad',
+    proposito: 'Asegurar la consistencia de la información financiera',
+    actividad: 'Elaborar conciliaciones mensuales firmadas',
+    meta: '',
+    unidad_medida: 'Conciliaciones',
+    cantidad: 6,
+    fecha_fin: addDays(80),
+    avance: 3,
+    fecha_corte: addDays(-10)
+  });
+  V(a5, {
+    fecha_corte: addDays(-10),
+    cantidad: 3,
+    descripcion: 'Se elaboraron las conciliaciones de los tres primeros meses.',
+    estado: 'validado'
+  });
+  A(p2, h4, {
+    dependencia_id: dep(1),
+    accion: 'Ajustar el instructivo de cierre presupuestal',
+    actividad: 'Actualizar y adoptar el instructivo',
+    meta: '',
+    unidad_medida: 'Instructivo',
+    cantidad: 1,
+    fecha_fin: addDays(-5)
+  });
+  return st;
+}
+function pmDemoView(st) {
+  if (!pmScoped()) return st;
+  const dep = String(pmMyDep());
+  const acc = st.acc.filter(a => String(a.dependencia_id) === dep);
+  const hid = new Set(acc.map(a => a.hallazgo_id)),
+    pid = new Set(acc.map(a => a.plan_id));
+  return {
+    planes: st.planes.filter(p => pid.has(p.id)),
+    hall: st.hall.filter(h => hid.has(h.id)),
+    acc,
+    av: st.av.filter(v => String(v.dependencia_id) === dep)
+  };
+}
+async function pmLoad() {
+  PM.err = '';
+  PM.errMsg = '';
+  try {
+    if (S.demo || !sb) {
+      const st = pmDemoView(pmDemoStore());
+      PM.planes = st.planes.map(x => ({ ...x }));
+      PM.hall = st.hall.map(x => ({ ...x }));
+      PM.acc = st.acc.map(x => ({ ...x }));
+      PM.av = st.av.map(x => ({ ...x }));
+    } else {
+      const [p, h, a, v] = await Promise.all([
+        pmAll('pm_planes', 'fecha_suscripcion'),
+        pmAll('pm_hallazgos', 'orden'),
+        pmAll('pm_acciones', 'orden'),
+        pmAll('pm_avances', 'created_at')
+      ]);
+      PM.planes = p;
+      PM.hall = h;
+      PM.acc = a;
+      PM.av = v;
+    }
+    PM.ok = true;
+  } catch (e) {
+    PM.ok = false;
+    PM.planes = [];
+    PM.hall = [];
+    PM.acc = [];
+    PM.av = [];
+    const m = e && e.message ? e.message : String(e);
+    PM.err = /pm_planes|relation|does not exist|schema cache|not find/i.test(m) ? 'falta' : 'error';
+    PM.errMsg = m;
+  }
+  if (PM.plan && !pmPlanOf(PM.plan)) PM.plan = null;
+}
+async function pmRefresh() {
+  await pmLoad();
+  renderNav();
+  if (S.view === 'planes') render();
+}
+const pmUser = () => (S.user || {}).email || 'sistema';
+function pmBlockIfAvances(kind, id) {
+  const st = DEMO.pm;
+  const accIds =
+    kind === 'acc'
+      ? [id]
+      : kind === 'hall'
+        ? st.acc.filter(a => a.hallazgo_id === id).map(a => a.id)
+        : st.acc.filter(a => a.plan_id === id).map(a => a.id);
+  if (st.av.some(v => accIds.includes(v.accion_id)))
+    throw new Error(
+      kind === 'acc'
+        ? 'La acción tiene avances reportados: no se puede eliminar'
+        : kind === 'hall'
+          ? 'El hallazgo tiene acciones con avances reportados: no se puede eliminar'
+          : 'El plan tiene avances reportados: no se puede eliminar'
+    );
+}
+const PM_TABLA = { plan: 'pm_planes', hall: 'pm_hallazgos', acc: 'pm_acciones' };
+const PM_LISTA = { plan: 'planes', hall: 'hall', acc: 'acc' };
+async function pmSave(kind, o, id) {
+  if (!pmCanEdit()) throw new Error('Tu rol no puede modificar planes de mejoramiento');
+  const tabla = PM_TABLA[kind];
+  if (S.demo || !sb) {
+    const st = pmDemoStore(),
+      list = st[PM_LISTA[kind]];
+    if (kind === 'hall' && list.some(h => h.plan_id === o.plan_id && h.numero === o.numero && h.id !== id))
+      throw new Error('Ya existe un hallazgo con el número ' + o.numero + ' en este plan');
+    const now = new Date().toISOString();
+    if (id) {
+      const t = list.find(x => x.id === id),
+        antes = { ...t };
+      Object.assign(t, o, { updated_at: now });
+      await demoAudit(tabla, 'UPDATE', id, t, pmUser(), diff(antes, t));
+    } else {
+      const t = {
+        ...o,
+        id: kind[0] + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        created_at: now,
+        updated_at: now
+      };
+      if (kind === 'acc') Object.assign(t, { avance: 0, fecha_corte: null });
+      list.push(t);
+      await demoAudit(tabla, 'INSERT', t.id, t, pmUser());
+      id = t.id;
+    }
+    pmDemoSave();
+    return id;
+  }
+  if (id) {
+    const { error } = await sb.from(tabla).update(o).eq('id', id);
+    if (error) throw pmErr(error);
+    return id;
+  }
+  const { data, error } = await sb.from(tabla).insert(o).select('id').single();
+  if (error) throw pmErr(error);
+  return data.id;
+}
+async function pmDelete(kind, id) {
+  if (!pmCanEdit()) throw new Error('Tu rol no puede eliminar');
+  if (S.demo || !sb) {
+    pmBlockIfAvances(kind, id);
+    const st = pmDemoStore();
+    if (kind === 'hall') st.acc = st.acc.filter(a => a.hallazgo_id !== id);
+    st[PM_LISTA[kind]] = st[PM_LISTA[kind]].filter(x => x.id !== id);
+    await demoAudit(PM_TABLA[kind], 'DELETE', id, { id }, pmUser());
+    pmDemoSave();
+    return;
+  }
+  const { error } = await sb.from(PM_TABLA[kind]).delete().eq('id', id);
+  if (error) throw pmErr(error);
+}
+async function pmEliminarPlan(id) {
+  if (rol() !== 'admin') throw new Error('Solo el Super administrador elimina planes');
+  if (S.demo || !sb) {
+    const st = pmDemoStore();
+    if (st.av.some(v => v.plan_id === id && !/^Importado del archivo/.test(v.observacion || '')))
+      throw new Error('El plan tiene avances reportados por las dependencias: no se puede eliminar');
+    st.av = st.av.filter(v => v.plan_id !== id);
+    st.acc = st.acc.filter(a => a.plan_id !== id);
+    st.hall = st.hall.filter(h => h.plan_id !== id);
+    st.planes = st.planes.filter(p => p.id !== id);
+    await demoAudit('pm_planes', 'DELETE', id, { id }, pmUser());
+    pmDemoSave();
+    return;
+  }
+  const { error } = await sb.rpc('pm_eliminar_plan', { p_id: id });
+  if (error) throw pmErr(error);
+}
+async function pmReportar(o, file) {
+  const a = pmAccOf(o.accion_id);
+  if (!pmCanReport(a)) throw new Error('Solo puedes reportar avances de las acciones de tu dependencia');
+  let path = null,
+    hash = null;
+  if (file) hash = await sha256Hex(await file.arrayBuffer());
+  if (S.demo || !sb) {
+    const st = pmDemoStore();
+    if (st.av.some(v => v.accion_id === a.id && v.estado === 'reportado'))
+      throw new Error('Esta acción ya tiene un avance pendiente de validar');
+    const now = new Date().toISOString();
+    const v = {
+      id: 'v' + Date.now().toString(36),
+      accion_id: a.id,
+      plan_id: a.plan_id,
+      dependencia_id: a.dependencia_id,
+      fecha_corte: o.fecha_corte,
+      cantidad: o.cantidad,
+      descripcion: o.descripcion,
+      radicado_orfeo: o.radicado_orfeo || '',
+      soporte_path: file ? file.name : null,
+      soporte_hash: hash,
+      estado: 'reportado',
+      observacion: '',
+      reportado_email: pmUser(),
+      revisado_email: '',
+      revisado_at: null,
+      created_at: now
+    };
+    st.av.push(v);
+    await demoAudit('pm_avances', 'INSERT', v.id, v, pmUser());
+    pmDemoSave();
+    if (o.validar && pmCanEdit()) await pmRevisar(v.id, 'validado', 'Registrado y validado por ' + pmUser());
+    return { hash };
+  }
+  if (file) {
+    path = `pm/${a.plan_id}/${a.id}_${Date.now()}.pdf`;
+    const up = await sb.storage
+      .from('soportes')
+      .upload(path, file, { contentType: 'application/pdf', upsert: false });
+    if (up.error) throw new Error('No se pudo subir el PDF: ' + up.error.message);
+  }
+  const { error } = await sb.rpc('pm_reportar_avance', {
+    p_accion: a.id,
+    p_fecha: o.fecha_corte,
+    p_cantidad: o.cantidad,
+    p_descripcion: o.descripcion,
+    p_orfeo: o.radicado_orfeo || '',
+    p_path: path,
+    p_hash: hash,
+    p_validar: !!(o.validar && pmCanEdit())
+  });
+  if (error) {
+    if (path) await sb.storage.from('soportes').remove([path]);
+    throw pmErr(error);
+  }
+  return { hash };
+}
+async function pmRevisar(id, estado, obs) {
+  if (!pmCanEdit()) throw new Error('Solo el Super administrador o Control Interno validan avances');
+  if (S.demo || !sb) {
+    const st = pmDemoStore(),
+      v = st.av.find(x => x.id === id);
+    if (!v) throw new Error('El avance no existe');
+    if (v.estado !== 'reportado') throw new Error('Este avance ya fue revisado');
+    if (estado === 'devuelto' && pmTxt(obs).length < 5)
+      throw new Error('Indica a la dependencia por qué se devuelve el avance');
+    const antes = { ...v };
+    Object.assign(v, {
+      estado,
+      observacion: pmTxt(obs),
+      revisado_email: pmUser(),
+      revisado_at: new Date().toISOString()
+    });
+    await demoAudit('pm_avances', 'UPDATE', id, v, pmUser(), diff(antes, v));
+    if (estado === 'validado') {
+      const a = st.acc.find(x => x.id === v.accion_id),
+        last = st.av
+          .filter(x => x.accion_id === a.id && x.estado === 'validado')
+          .sort(
+            (x, y) =>
+              String(y.fecha_corte).localeCompare(String(x.fecha_corte)) ||
+              String(y.revisado_at).localeCompare(String(x.revisado_at))
+          )[0];
+      const ant = { ...a };
+      a.avance = last.cantidad;
+      a.fecha_corte = last.fecha_corte;
+      await demoAudit('pm_acciones', 'UPDATE', a.id, a, pmUser(), diff(ant, a));
+    }
+    pmDemoSave();
+    return;
+  }
+  const { error } = await sb.rpc('pm_revisar_avance', {
+    p_id: id,
+    p_estado: estado,
+    p_observacion: obs || ''
+  });
+  if (error) throw pmErr(error);
+}
+async function pmImportar(payload) {
+  if (!pmCanEdit()) throw new Error('Solo el Super administrador o Control Interno importan planes');
+  if (S.demo || !sb) {
+    const st = pmDemoStore(),
+      now = new Date().toISOString(),
+      uid = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    const plan = { ...payload.plan, id: uid('p'), created_at: now, updated_at: now };
+    const hall = [],
+      acc = [],
+      av = [];
+    payload.hallazgos.forEach((h, i) => {
+      const hh = { ...h, id: uid('h'), plan_id: plan.id, orden: i + 1, created_at: now, updated_at: now };
+      delete hh.acciones;
+      hall.push(hh);
+      h.acciones.forEach(a => {
+        const aa = {
+          ...a,
+          id: uid('a'),
+          plan_id: plan.id,
+          hallazgo_id: hh.id,
+          orden: acc.length + 1,
+          avance: 0,
+          fecha_corte: null,
+          created_at: now,
+          updated_at: now
+        };
+        delete aa.descripcion_avance;
+        if (a.avance != null && a.fecha_corte) {
+          aa.avance = a.avance;
+          aa.fecha_corte = a.fecha_corte;
+          av.push({
+            id: uid('v'),
+            accion_id: aa.id,
+            plan_id: plan.id,
+            dependencia_id: aa.dependencia_id,
+            fecha_corte: a.fecha_corte,
+            cantidad: a.avance,
+            descripcion: a.descripcion_avance || 'Avance importado del archivo ' + payload.archivo,
+            radicado_orfeo: '',
+            soporte_path: null,
+            soporte_hash: null,
+            estado: 'validado',
+            observacion: 'Importado del archivo ' + payload.archivo,
+            reportado_email: pmUser(),
+            revisado_email: pmUser(),
+            revisado_at: now,
+            created_at: now
+          });
+        }
+        acc.push(aa);
+      });
+    });
+    st.planes.push(plan);
+    st.hall.push(...hall);
+    st.acc.push(...acc);
+    st.av.push(...av);
+    await demoAudit(
+      'pm_planes',
+      'INSERT',
+      plan.id,
+      { ...plan, hallazgos: hall.length, acciones: acc.length, archivo: payload.archivo },
+      pmUser()
+    );
+    pmDemoSave();
+    return plan.id;
+  }
+  const { data, error } = await sb.rpc('pm_importar', { p: payload });
+  if (error) throw pmErr(error);
+  return data;
+}
+function pmErr(e) {
+  const m = e && e.message ? e.message : String(e);
+  if (/pm_hallazgos_numero_unq/.test(m)) return new Error('Ya existe un hallazgo con ese número en el plan');
+  if (/pm_acciones_fechas_ok/.test(m))
+    return new Error('La fecha de terminación no puede ser anterior a la de inicio');
+  return dbErr(e);
+}
+
+/* =====================================================================
+   VISTAS
+   ===================================================================== */
+function pmMeter(label, v, color, hint) {
+  return `<div class="pm-meter"><div class="pm-meter-h"><span>${label}</span><b>${pmPctTxt(v)}</b></div><div class="bar"><span style="width:${v == null ? 0 : Math.round(v * 100)}%;background:${color}"></span></div>${hint ? `<div class="pm-meter-f">${hint}</div>` : ''}</div>`;
+}
+const pmCtl = p =>
+  `<span class="pm-ctl ${p.formato === 'F14_CGR' ? 'cgr' : p.formato === 'PM_01_CGSC' ? 'cgsc' : ''}">${esc((PM_FMT[p.formato] || PM_FMT.OTRO).corto)}</span>`;
+const pmConnChips = h =>
+  (h.connotaciones || []).map(c => `<span class="pm-conn c-${c}">${esc(PM_CONN[c] || c)}</span>`).join('');
+
+function vPlanes(c) {
+  if (!PM.ok) {
+    c.innerHTML =
+      PM.err === 'falta'
+        ? `<div class="card"><div class="empty"><i class="fa-solid fa-database"></i><b>El módulo de planes de mejoramiento aún no está instalado en la base de datos.</b><div style="margin-top:6px">Ejecuta el script <span class="mono">supabase/13_planes_mejoramiento.sql</span> en el SQL Editor de Supabase y vuelve a cargar la página.</div></div></div>`
+        : `<div class="card"><div class="empty"><i class="fa-solid fa-triangle-exclamation"></i>No se pudieron cargar los planes de mejoramiento.<div class="muted" style="margin-top:6px;font-size:.8rem">${esc(PM.errMsg)}</div><button class="btn sm" style="margin-top:12px" data-act="pmReload"><i class="fa-solid fa-rotate"></i> Reintentar</button></div></div>`;
+    return;
+  }
+  if (PM.plan && pmPlanOf(PM.plan)) return pmPlanView(c, pmPlanOf(PM.plan));
+  if (pmScoped()) return pmDepView(c);
+  return pmOverview(c);
+}
+
+function pmOverview(c) {
+  const hoy = pmHoy(),
+    f = PM.f;
+  const q = pmKey(f.q);
+  const planes = PM.planes
+    .filter(p => !f.ctl || (PM_FMT[p.formato] || PM_FMT.OTRO).corto === f.ctl)
+    .filter(
+      p => !q || pmKey([p.ejercicio, p.contraloria, p.numero_informe, p.tipo_ejercicio].join(' ')).includes(q)
+    )
+    .sort(
+      (a, b) =>
+        (a.estado === 'cerrado') - (b.estado === 'cerrado') ||
+        String(b.fecha_suscripcion).localeCompare(String(a.fecha_suscripcion))
+    );
+  const pids = new Set(planes.map(p => p.id));
+  const acc = PM.acc.filter(a => pids.has(a.plan_id));
+  const cn = pmCounts(acc),
+    ind = pmIndic(acc, hoy);
+  const porVal = PM.av.filter(v => v.estado === 'reportado' && pids.has(v.plan_id)).length;
+  const crit = acc
+    .filter(a => ['vencida', 'proxima'].includes(pmEstado(a).k))
+    .sort((a, b) => String(a.fecha_fin).localeCompare(String(b.fecha_fin)));
+  /* por dependencia */
+  const byDep = {};
+  acc.forEach(a => {
+    const k = a.dependencia_id || 'sin';
+    (byDep[k] = byDep[k] || []).push(a);
+  });
+  const depRows = Object.entries(byDep)
+    .map(([k, l]) => ({ k, n: pmDepN(k) || 'Sin dependencia asignada', c: pmCounts(l), i: pmIndic(l, hoy) }))
+    .sort(
+      (a, b) => b.c.vencida - a.c.vencida || (a.i.cpm == null ? 1 : a.i.cpm) - (b.i.cpm == null ? 1 : b.i.cpm)
+    );
+  const ctls = [
+    ['', 'Todas'],
+    ['CGSC', 'Contraloría de Cali'],
+    ['CGR', 'Contraloría General de la República']
+  ];
+  c.innerHTML = `
+  <div class="card pm-hero">
+    <div>
+      <h2>Planes de mejoramiento</h2>
+      <div class="sub">Formulación, avance y cumplimiento frente a la Contraloría General de Santiago de Cali (formato PM_01) y la Contraloría General de la República (Formularios 14 y 14.1).</div>
+    </div>
+    ${pmCanEdit() ? `<div class="pm-hero-b"><button class="btn primary" data-act="pmImport"><i class="fa-solid fa-file-import"></i> Importar Excel</button><button class="btn" data-act="pmNewPlan"><i class="fa-solid fa-plus"></i> Nuevo plan</button></div>` : ''}
+  </div>
+  <div class="grid g-kpi" style="margin-bottom:14px">
+    <div class="card kpi"><small>Planes</small><b>${nf(planes.length)}</b></div>
+    <div class="card kpi"><small>Acciones</small><b>${nf(cn.n)}</b></div>
+    <div class="card kpi g"><small>Cumplidas</small><b>${nf(cn.cumplida)}</b></div>
+    <div class="card kpi r"><small>Vencidas sin cumplir</small><b>${nf(cn.vencida)}</b></div>
+    <div class="card kpi y"><small>Vencen en ${PM_ALERTA_DIAS} días</small><b>${nf(cn.proxima)}</b></div>
+    <div class="card kpi"><small>Avances por validar</small><b>${nf(porVal)}</b></div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="pm-ind">
+      ${pmMeter('Cumplimiento de metas vencidas', ind.cpm, 'var(--sem-v)', ind.cpm == null ? 'Aún no hay metas vencidas a la fecha' : 'Σ PLAVI / Σ PAAVI · metodología Formulario 14.1 CGR')}
+      ${pmMeter('Avance general de los planes', ind.ap, 'var(--neo, #4c8dff)', 'Σ PLAI / Σ plazo en semanas')}
+    </div>
+  </div>
+  <div class="toolbar pm-filtros">
+    <div class="seg">${ctls.map(([k, l]) => `<button data-act="pmCtl" data-k="${k}" class="${f.ctl === k ? 'on' : ''}">${l}</button>`).join('')}</div>
+    <input id="pmQ" type="search" placeholder="Buscar plan, informe o contraloría" value="${esc(f.q)}" style="max-width:320px">
+  </div>
+  <div class="pm-plans">
+    ${
+      planes.length
+        ? planes
+            .map(p => {
+              const l = PM.acc.filter(a => a.plan_id === p.id),
+                k = pmCounts(l),
+                i = pmIndic(l, hoy),
+                nh = PM.hall.filter(h => h.plan_id === p.id).length,
+                pv = PM.av.filter(v => v.plan_id === p.id && v.estado === 'reportado').length;
+              return `<article class="card pm-plan" data-act="pmOpen" data-id="${esc(p.id)}" tabindex="0">
+          <div class="pm-plan-h">${pmCtl(p)}<span class="pill ${p.estado === 'cerrado' ? 'verde' : 'neutral'}">${esc(PM_EST[p.estado] || p.estado)}</span></div>
+          <h3>${esc(p.ejercicio)}</h3>
+          <div class="sub">Suscrito el ${fmtD(p.fecha_suscripcion)} · ${nf(nh)} hallazgo${nh === 1 ? '' : 's'} · ${nf(l.length)} acci${l.length === 1 ? 'ón' : 'ones'}</div>
+          ${pmMeter('Cumplimiento', i.cpm, 'var(--sem-v)')}${pmMeter('Avance', i.ap, 'var(--neo, #4c8dff)')}
+          <div class="pm-chips">
+            ${k.vencida ? `<span class="pm-chip r">${k.vencida} vencida${k.vencida === 1 ? '' : 's'}</span>` : ''}
+            ${k.proxima ? `<span class="pm-chip y">${k.proxima} por vencer</span>` : ''}
+            ${pv ? `<span class="pm-chip b">${pv} por validar</span>` : ''}
+            ${k.cumplida ? `<span class="pm-chip g">${k.cumplida} cumplida${k.cumplida === 1 ? '' : 's'}</span>` : ''}
+            ${k.sinDep ? `<span class="pm-chip">${k.sinDep} sin dependencia</span>` : ''}
+          </div>
+        </article>`;
+            })
+            .join('')
+        : `<div class="card"><div class="empty"><i class="fa-solid fa-clipboard-list"></i>${PM.planes.length ? 'Ningún plan coincide con el filtro.' : pmCanEdit() ? 'Aún no hay planes de mejoramiento. Importa el Excel del plan (PM_01 o Formulario 14) o créalo con «Nuevo plan».' : 'Aún no hay planes de mejoramiento registrados.'}</div></div>`
+    }
+  </div>
+  <div class="grid g-2 pm-g2" style="margin-top:14px">
+    <div class="card"><h3>Acciones que requieren atención</h3><div class="sub">Vencidas sin cumplir y las que vencen en los próximos ${PM_ALERTA_DIAS} días</div>
+      ${
+        crit.length
+          ? `<div class="tbl-wrap"><table class="tbl" style="min-width:560px"><thead><tr><th>Acción</th><th>Dependencia</th><th>Termina</th><th>Avance</th><th></th></tr></thead><tbody>
+          ${crit
+            .slice(0, 15)
+            .map(a => {
+              const e = pmEstado(a);
+              return `<tr class="click" data-act="pmOpenAcc" data-id="${esc(a.id)}"><td class="asunto">${esc(shortTxt(a.accion, 90))}</td><td>${esc(shortOrg(pmDepN(a.dependencia_id)) || '—')}</td><td style="white-space:nowrap">${fmtD(a.fecha_fin)}</td><td class="mono">${pmPctTxt(pmPct(a))}</td><td><span class="pill ${e.pill}">${e.txt}</span></td></tr>`;
+            })
+            .join(
+              ''
+            )}</tbody></table></div>${crit.length > 15 ? `<div class="muted" style="font-size:.76rem;margin-top:8px">Se muestran 15 de ${crit.length}.</div>` : ''}`
+          : '<div class="empty"><i class="fa-solid fa-circle-check"></i>No hay acciones vencidas ni por vencer</div>'
+      }
+    </div>
+    <div class="card"><h3>Cumplimiento por dependencia</h3><div class="sub">Acciones asignadas, vencidas sin cumplir y cumplimiento de metas vencidas</div>
+      ${
+        depRows.length
+          ? depRows
+              .map(
+                r => `<div class="list-row pm-deprow"><div style="flex:1;min-width:0"><b>${esc(shortOrg(r.n) || r.n)}</b><div class="muted" style="font-size:.76rem">${r.c.n} acciones · ${r.c.cumplida} cumplidas${r.c.vencida ? ` · <span style="color:var(--redink)">${r.c.vencida} vencidas</span>` : ''}</div>
+              <div class="bar" style="margin-top:6px"><span style="width:${r.i.cpm == null ? 0 : Math.round(r.i.cpm * 100)}%;background:${r.i.cpm == null ? 'transparent' : r.i.cpm >= 0.8 ? 'var(--sem-v)' : r.i.cpm >= 0.5 ? 'var(--sem-a)' : 'var(--sem-r)'}"></span></div></div>
+              <div class="pm-deprow-r"><b class="mono">${pmPctTxt(r.i.cpm)}</b>${r.k !== 'sin' && canNotify() && (r.c.vencida || r.c.proxima) ? `<button class="btn sm" data-act="pmNotify" data-dep="${esc(r.k)}"><i class="fa-solid fa-paper-plane"></i> Notificar</button>` : ''}</div></div>`
+              )
+              .join('')
+          : '<div class="empty"><i class="fa-solid fa-sitemap"></i>Sin acciones registradas</div>'
+      }
+    </div>
+  </div>`;
+  const qi = $('#pmQ');
+  if (qi)
+    qi.addEventListener('input', e => {
+      PM.f.q = e.target.value;
+      clearTimeout(PM.__t);
+      PM.__t = setTimeout(() => {
+        render();
+        const n = $('#pmQ');
+        if (n) {
+          n.focus();
+          n.setSelectionRange(n.value.length, n.value.length);
+        }
+      }, 250);
+    });
+}
+
+function pmAccRow(a, opts) {
+  const e = pmEstado(a),
+    p = pmPct(a),
+    pend = pmPend(a),
+    u = pmUltimo(a),
+    h = pmHallOf(a.hallazgo_id);
+  const dev = u && u.estado === 'devuelto' && !pend;
+  const btns = [];
+  if (pmCanReport(a) && !pend && (e.k !== 'cumplida' || pmCanEdit()))
+    btns.push(
+      `<button class="btn sm primary" data-act="pmReport" data-id="${esc(a.id)}"><i class="fa-solid fa-chart-line"></i> Reportar avance</button>`
+    );
+  if (pend && pmCanEdit())
+    btns.push(
+      `<button class="btn sm primary" data-act="pmReview" data-id="${esc(pend.id)}"><i class="fa-solid fa-clipboard-check"></i> Revisar avance</button>`
+    );
+  btns.push(
+    `<button class="btn sm" data-act="pmHist" data-id="${esc(a.id)}"><i class="fa-solid fa-clock-rotate-left"></i> Historial</button>`
+  );
+  if (pmCanEdit() && !(opts && opts.noEdit)) {
+    btns.push(
+      `<button class="icon-btn" data-act="pmEditAcc" data-id="${esc(a.id)}" title="Editar acción" aria-label="Editar acción"><i class="fa-solid fa-pen"></i></button>`
+    );
+    btns.push(
+      `<button class="icon-btn" data-act="pmDelAcc" data-id="${esc(a.id)}" title="Eliminar acción" aria-label="Eliminar acción"><i class="fa-solid fa-trash"></i></button>`
+    );
+  }
+  return `<div class="pm-a s-${e.k}" id="pmA-${esc(a.id)}">
+    <div class="pm-a-main">
+      ${opts && opts.ctx && h ? `<div class="pm-a-ctx">Hallazgo ${esc(h.numero)} · ${esc(shortTxt(h.descripcion, 110))}</div>` : ''}
+      <b class="pm-a-t">${esc(a.accion)}</b>
+      ${a.actividad && a.actividad !== a.accion ? `<div class="pm-a-l">Actividad: ${esc(a.actividad)}</div>` : ''}
+      <div class="pm-a-l">Meta: ${esc(pmMetaTxt(a))}</div>
+      <div class="pm-a-l"><i class="fa-solid fa-building-columns"></i> ${a.dependencia_id ? esc(pmDepN(a.dependencia_id)) : '<span style="color:var(--redink)">Sin dependencia asignada</span>'}${a.responsable ? ' · ' + esc(a.responsable) : ''}</div>
+      ${a.fuente_verificacion ? `<div class="pm-a-l">Verificación: ${esc(a.fuente_verificacion)}${a.lugar_verificacion ? ' · ' + esc(a.lugar_verificacion) : ''}</div>` : ''}
+      ${pend ? `<div class="pm-note b"><i class="fa-solid fa-hourglass-half"></i> Avance de ${pmPctTxt(pmPct(a, pend.cantidad))} reportado el ${fmtTs(pend.created_at)}, pendiente de validación.</div>` : ''}
+      ${dev ? `<div class="pm-note r"><i class="fa-solid fa-rotate-left"></i> Avance devuelto: ${esc(u.observacion || '')}</div>` : ''}
+    </div>
+    <div class="pm-a-side">
+      <span class="pill ${e.pill}">${e.k === 'vencida' ? `Vencida hace ${-e.d} d` : e.txt}</span>
+      <div class="pm-a-f">Inicio ${fmtD(a.fecha_inicio)} · Fin <b>${fmtD(a.fecha_fin)}</b></div>
+      <div class="pm-a-p"><div class="bar"><span style="width:${Math.round(p * 100)}%;background:${p >= 1 ? 'var(--sem-v)' : e.k === 'vencida' ? 'var(--sem-r)' : 'var(--neo, #4c8dff)'}"></span></div><b class="mono">${pmPctTxt(p)}</b></div>
+      <div class="pm-a-f">${a.fecha_corte ? 'Validado con corte ' + fmtD(a.fecha_corte) : 'Sin avance validado'}</div>
+      <div class="pm-a-b">${btns.join('')}</div>
+    </div>
+  </div>`;
+}
+
+function pmDepView(c) {
+  const acc = PM.acc.slice().sort((a, b) => String(a.fecha_fin).localeCompare(String(b.fecha_fin)));
+  const cn = pmCounts(acc),
+    ind = pmIndic(acc, pmHoy());
+  const dep = pmDepN(pmMyDep());
+  if (!pmMyDep()) {
+    c.innerHTML =
+      '<div class="card"><div class="empty"><i class="fa-solid fa-circle-info"></i>Tu cuenta aún no tiene dependencia asignada. Pide al Super administrador que la asigne.</div></div>';
+    return;
+  }
+  const byPlan = {};
+  acc.forEach(a => (byPlan[a.plan_id] = byPlan[a.plan_id] || []).push(a));
+  c.innerHTML = `
+  <div class="card pm-hero"><div><h2>Mis acciones de mejora</h2><div class="sub">${esc(dep)} · acciones asignadas en los planes de mejoramiento suscritos con las contralorías. Reporta el avance con su soporte antes de la fecha de terminación.</div></div></div>
+  <div class="grid g-kpi" style="margin-bottom:14px">
+    <div class="card kpi"><small>Asignadas</small><b>${nf(cn.n)}</b></div>
+    <div class="card kpi g"><small>Cumplidas</small><b>${nf(cn.cumplida)}</b></div>
+    <div class="card kpi r"><small>Vencidas sin cumplir</small><b>${nf(cn.vencida)}</b></div>
+    <div class="card kpi y"><small>Vencen en ${PM_ALERTA_DIAS} días</small><b>${nf(cn.proxima)}</b></div>
+    <div class="card kpi"><small>En validación</small><b>${nf(cn.pend)}</b></div>
+    <div class="card kpi r"><small>Devueltas para corregir</small><b>${nf(cn.dev)}</b></div>
+  </div>
+  <div class="card" style="margin-bottom:14px"><div class="pm-ind">${pmMeter('Cumplimiento de mis metas vencidas', ind.cpm, 'var(--sem-v)', ind.cpm == null ? 'Aún no hay metas vencidas' : '')}${pmMeter('Avance de mis acciones', ind.ap, 'var(--neo, #4c8dff)')}</div></div>
+  ${
+    acc.length
+      ? Object.entries(byPlan)
+          .map(([pid, l]) => {
+            const p = pmPlanOf(pid) || {};
+            return `<section class="card" style="margin-bottom:14px"><div class="pm-plan-h">${p.formato ? pmCtl(p) : ''}<span class="muted" style="font-size:.78rem">Suscrito el ${fmtD(p.fecha_suscripcion)}</span></div><h3 style="margin:6px 0 10px">${esc(p.ejercicio || 'Plan de mejoramiento')}</h3><div class="pm-acts">${l.map(a => pmAccRow(a, { ctx: true })).join('')}</div></section>`;
+          })
+          .join('')
+      : '<div class="card"><div class="empty"><i class="fa-solid fa-champagne-glasses"></i>Tu dependencia no tiene acciones asignadas en planes de mejoramiento.</div></div>'
+  }`;
+}
+
+function pmPlanView(c, p) {
+  if (!PM.eval) PM.eval = pmHoy();
+  const fev = PM.eval;
+  const hall = PM.hall
+    .filter(h => h.plan_id === p.id)
+    .sort(
+      (a, b) =>
+        (a.orden || 0) - (b.orden || 0) ||
+        String(a.numero).localeCompare(String(b.numero), 'es', { numeric: true })
+    );
+  const accAll = PM.acc.filter(a => a.plan_id === p.id);
+  const ind = pmIndic(accAll, fev),
+    cn = pmCounts(accAll);
+  const pend = PM.av.filter(v => v.plan_id === p.id && v.estado === 'reportado');
+  const issues = pmCalidad(p, hall, accAll);
+  const fa = PM.fa,
+    q = pmKey(fa.q);
+  const accOk = a =>
+    (!fa.est ||
+      (fa.est === 'sindep'
+        ? !a.dependencia_id
+        : fa.est === 'pend'
+          ? !!pmPend(a)
+          : pmEstado(a).k === fa.est)) &&
+    (!fa.dep || String(a.dependencia_id) === fa.dep) &&
+    (!q || pmKey([a.accion, a.actividad, a.meta, a.responsable].join(' ')).includes(q));
+  const deps = [...new Set(accAll.map(a => a.dependencia_id).filter(Boolean))]
+    .map(id => ({ id, nombre: pmDepN(id) }))
+    .sort((a, b) => a.nombre.localeCompare(b.nombre));
+  const info = [
+    ['Contraloría', p.contraloria],
+    ['Formato', (PM_FMT[p.formato] || PM_FMT.OTRO).nombre],
+    ['Tipo de ejercicio', p.tipo_ejercicio],
+    [p.formato === 'F14_CGR' ? 'Modalidad de auditoría' : '', p.formato === 'F14_CGR' ? p.modalidad : ''],
+    ['Fecha de suscripción', fmtD(p.fecha_suscripcion)],
+    [
+      p.formato === 'F14_CGR' ? 'Periodo fiscal' : 'Vigencia PVCFT',
+      p.formato === 'F14_CGR' ? p.periodo_auditado : p.vigencia_pvcft
+    ],
+    ['Informe', p.numero_informe + (p.fecha_informe ? ' · ' + fmtD(p.fecha_informe) : '')],
+    ['Radicado ORFEO', p.radicado_orfeo],
+    ['Representante legal', p.representante_legal]
+  ].filter(x => x[0] && x[1] && String(x[1]).trim() && x[1] !== '—');
+  const tabs = [
+    ['acciones', 'Hallazgos y acciones', accAll.length],
+    ['validar', 'Por validar', pend.length],
+    ['calidad', 'Calidad de datos', issues.length],
+    ['historial', 'Historial de avances', PM.av.filter(v => v.plan_id === p.id).length]
+  ];
+  let body = '';
+  if (PM.tab === 'validar') body = pmTabValidar(pend);
+  else if (PM.tab === 'calidad') body = pmTabCalidad(issues);
+  else if (PM.tab === 'historial') body = pmTabHistorial(p);
+  else
+    body = `<div class="toolbar pm-filtros">
+      <select id="pmFEst"><option value="">Todos los estados</option>${[
+        ['vencida', 'Vencidas sin cumplir'],
+        ['proxima', 'Vencen en ' + PM_ALERTA_DIAS + ' días'],
+        ['termino', 'En término'],
+        ['cumplida', 'Cumplidas'],
+        ['pend', 'Con avance por validar'],
+        ['sindep', 'Sin dependencia asignada']
+      ]
+        .map(([k, l]) => `<option value="${k}"${fa.est === k ? ' selected' : ''}>${l}</option>`)
+        .join('')}</select>
+      <select id="pmFDep"><option value="">Todas las dependencias</option>${deps.map(d => `<option value="${esc(d.id)}"${String(d.id) === fa.dep ? ' selected' : ''}>${esc(shortOrg(d.nombre))}</option>`).join('')}</select>
+      <input id="pmFQ" type="search" placeholder="Buscar en acciones" value="${esc(fa.q)}" style="max-width:260px">
+      ${pmCanEdit() ? '<button class="btn sm" data-act="pmNewHall"><i class="fa-solid fa-plus"></i> Agregar hallazgo</button>' : ''}
+    </div>
+    ${
+      hall.length
+        ? hall
+            .map(h => {
+              const all = accAll
+                .filter(a => a.hallazgo_id === h.id)
+                .sort((a, b) => (a.orden || 0) - (b.orden || 0));
+              const l = all.filter(accOk);
+              if ((fa.est || fa.dep || q) && !l.length) return '';
+              const open = PM.abiertos[h.id];
+              return `<section class="card pm-h">
+            <header class="pm-h-h"><span class="pm-num">Hallazgo ${esc(h.numero)}</span>${pmConnChips(h)}${h.cuantia ? `<span class="pm-conn c-fiscal">$ ${pmNumTxt(h.cuantia)}</span>` : ''}
+              <span style="flex:1"></span>
+              ${pmCanEdit() ? `<button class="btn sm" data-act="pmNewAcc" data-id="${esc(h.id)}"><i class="fa-solid fa-plus"></i> Acción</button><button class="icon-btn" data-act="pmEditHall" data-id="${esc(h.id)}" title="Editar hallazgo" aria-label="Editar hallazgo"><i class="fa-solid fa-pen"></i></button><button class="icon-btn" data-act="pmDelHall" data-id="${esc(h.id)}" title="Eliminar hallazgo" aria-label="Eliminar hallazgo"><i class="fa-solid fa-trash"></i></button>` : ''}
+            </header>
+            <div class="pm-desc${open ? ' open' : ''}">${esc(h.descripcion)}${h.causa ? `<div style="margin-top:6px"><b>Causa:</b> ${esc(h.causa)}</div>` : ''}${h.efecto ? `<div style="margin-top:6px"><b>Efecto:</b> ${esc(h.efecto)}</div>` : ''}${h.macroproceso ? `<div style="margin-top:6px"><b>Macroproceso / criterio:</b> ${esc(h.macroproceso)}</div>` : ''}</div>
+            ${String(h.descripcion).length > 260 || h.causa || h.efecto ? `<button class="pm-more" data-act="pmMore" data-id="${esc(h.id)}">${open ? 'Ver menos' : 'Ver descripción completa'}</button>` : ''}
+            <div class="pm-acts">${l.length ? l.map(a => pmAccRow(a)).join('') : '<div class="muted" style="font-size:.82rem;padding:8px 0">Este hallazgo aún no tiene acciones.</div>'}</div>
+          </section>`;
+            })
+            .join('') ||
+          '<div class="card"><div class="empty"><i class="fa-solid fa-filter"></i>Ninguna acción coincide con el filtro</div></div>'
+        : `<div class="card"><div class="empty"><i class="fa-solid fa-clipboard-list"></i>El plan aún no tiene hallazgos.${pmCanEdit() ? ' Usa «Agregar hallazgo».' : ''}</div></div>`
+    }`;
+  c.innerHTML = `
+  <div class="toolbar pm-top">
+    <button class="btn sm" data-act="pmBack"><i class="fa-solid fa-arrow-left"></i> Planes</button>
+    <span style="flex:1"></span>
+    <button class="btn sm" data-act="pmExport"><i class="fa-solid fa-file-excel"></i> Exportar formato</button>
+    ${pmCanEdit() ? `<button class="btn sm" data-act="pmEditPlan"><i class="fa-solid fa-pen"></i> Editar plan</button>` : ''}
+    ${rol() === 'admin' ? `<button class="btn sm danger" data-act="pmDelPlan"><i class="fa-solid fa-trash"></i> Eliminar</button>` : ''}
+  </div>
+  <div class="card pm-head">
+    <div class="pm-plan-h">${pmCtl(p)}<span class="pill ${p.estado === 'cerrado' ? 'verde' : 'neutral'}">${esc(PM_EST[p.estado] || p.estado)}</span></div>
+    <h2>${esc(p.ejercicio)}</h2>
+    <div class="pm-info">${info.map(([k, v]) => `<div><small>${esc(k)}</small><span>${esc(v)}</span></div>`).join('')}</div>
+    <div class="pm-ind" style="margin-top:14px">
+      ${pmMeter('Cumplimiento (CPM)', ind.cpm, 'var(--sem-v)', ind.cpm == null ? 'Sin metas vencidas a la fecha de evaluación' : `Σ PLAVI ${pmNumTxt(ind.plavi)} / Σ PAAVI ${pmNumTxt(ind.pbec)}`)}
+      ${pmMeter('Avance del plan (AP)', ind.ap, 'var(--neo, #4c8dff)', `Σ PLAI ${pmNumTxt(ind.plai)} / Σ plazo ${pmNumTxt(ind.pbea)} semanas`)}
+      <div class="field pm-fev"><label>Fecha de evaluación</label><input type="date" id="pmEval" value="${esc(fev)}" max="2100-12-31"><div class="hint">Usa el último avance validado hasta esta fecha</div></div>
+    </div>
+    <div class="pm-chips" style="margin-top:10px">
+      <span class="pm-chip">${hall.length} hallazgos</span><span class="pm-chip">${cn.n} acciones</span>
+      ${cn.cumplida ? `<span class="pm-chip g">${cn.cumplida} cumplidas</span>` : ''}${cn.vencida ? `<span class="pm-chip r">${cn.vencida} vencidas sin cumplir</span>` : ''}${cn.proxima ? `<span class="pm-chip y">${cn.proxima} vencen en ${PM_ALERTA_DIAS} días</span>` : ''}${pend.length ? `<span class="pm-chip b">${pend.length} por validar</span>` : ''}
+    </div>
+  </div>
+  <div class="seg pm-tabs">${tabs.map(([k, l, n]) => `<button data-act="pmTab" data-tab="${k}" class="${PM.tab === k ? 'on' : ''}">${l}${n ? ` <span class="cnt">${n}</span>` : ''}</button>`).join('')}</div>
+  <div class="pm-body">${body}</div>`;
+  const ev = $('#pmEval');
+  if (ev)
+    ev.addEventListener('change', e => {
+      if (pmFecha(e.target.value)) {
+        PM.eval = e.target.value;
+        render();
+      }
+    });
+  [
+    ['#pmFEst', 'est'],
+    ['#pmFDep', 'dep']
+  ].forEach(([s, k]) => {
+    const el = $(s);
+    if (el)
+      el.addEventListener('change', e => {
+        PM.fa[k] = e.target.value;
+        render();
+      });
+  });
+  const fq = $('#pmFQ');
+  if (fq)
+    fq.addEventListener('input', e => {
+      PM.fa.q = e.target.value;
+      clearTimeout(PM.__t);
+      PM.__t = setTimeout(() => {
+        render();
+        const n = $('#pmFQ');
+        if (n) {
+          n.focus();
+          n.setSelectionRange(n.value.length, n.value.length);
+        }
+      }, 250);
+    });
+}
+function pmTabValidar(list) {
+  if (!list.length)
+    return '<div class="card"><div class="empty"><i class="fa-solid fa-circle-check"></i>No hay avances pendientes de validación</div></div>';
+  return `<div class="card"><div class="tbl-wrap"><table class="tbl" style="min-width:760px"><thead><tr><th>Acción</th><th>Dependencia</th><th>Corte</th><th>Avance reportado</th><th>Soporte</th><th></th></tr></thead><tbody>
+  ${list
+    .map(v => {
+      const a = pmAccOf(v.accion_id) || {};
+      return `<tr><td class="asunto">${esc(shortTxt(a.accion, 80))}<div class="muted" style="font-size:.74rem">${esc(shortTxt(v.descripcion, 120))}</div></td><td>${esc(shortOrg(pmDepN(v.dependencia_id)) || '—')}</td><td>${fmtD(v.fecha_corte)}</td><td class="mono">${pmNumTxt(v.cantidad)} de ${pmNumTxt(a.cantidad)} · ${pmPctTxt(pmPct(a, v.cantidad))}</td><td>${pmSoporte(v)}</td><td><button class="btn sm primary" data-act="pmReview" data-id="${esc(v.id)}">Revisar</button></td></tr>`;
+    })
+    .join('')}</tbody></table></div></div>`;
+}
+function pmSoporte(v) {
+  const s = [];
+  if (v.soporte_path)
+    s.push(
+      S.demo || !sb
+        ? `<span class="muted" title="${esc(v.soporte_hash || '')}"><i class="fa-solid fa-file-pdf"></i> ${esc(shortTxt(v.soporte_path, 26))}</span>`
+        : `<button class="btn sm" data-act="openPdf" data-path="${esc(v.soporte_path)}"><i class="fa-solid fa-file-pdf"></i> PDF</button>`
+    );
+  if (v.radicado_orfeo)
+    s.push(`<span class="mono" style="font-size:.78rem">ORFEO ${esc(v.radicado_orfeo)}</span>`);
+  return s.join(' ') || '<span class="muted">—</span>';
+}
+function pmTabHistorial(p) {
+  const l = PM.av
+    .filter(v => v.plan_id === p.id)
+    .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+  if (!l.length)
+    return '<div class="card"><div class="empty"><i class="fa-solid fa-inbox"></i>Aún no se han reportado avances</div></div>';
+  return `<div class="card"><div class="tbl-wrap"><table class="tbl" style="min-width:820px"><thead><tr><th>Registrado</th><th>Acción</th><th>Corte</th><th>Avance</th><th>Estado</th><th>Revisión</th><th>Soporte</th></tr></thead><tbody>
+  ${l
+    .map(v => {
+      const a = pmAccOf(v.accion_id) || {};
+      return `<tr><td style="white-space:nowrap">${fmtTs(v.created_at)}<div class="muted" style="font-size:.72rem">${esc(v.reportado_email || '')}</div></td><td class="asunto">${esc(shortTxt(a.accion, 70))}<div class="muted" style="font-size:.74rem">${esc(shortTxt(v.descripcion, 110))}</div></td><td>${fmtD(v.fecha_corte)}</td><td class="mono">${pmPctTxt(pmPct(a, v.cantidad))}</td><td><span class="pill ${v.estado === 'validado' ? 'verde' : v.estado === 'devuelto' ? 'rojo' : 'amarillo'}">${PM_AV_EST[v.estado]}</span></td><td style="font-size:.78rem">${v.revisado_at ? fmtTs(v.revisado_at) + '<div class="muted">' + esc(v.revisado_email || '') + '</div>' : '—'}${v.observacion ? `<div class="muted">${esc(shortTxt(v.observacion, 90))}</div>` : ''}</td><td>${pmSoporte(v)}</td></tr>`;
+    })
+    .join('')}</tbody></table></div></div>`;
+}
+/* Revisión de calidad de datos del plan: todo lo que impide medir o exportar correctamente */
+function pmCalidad(p, hall, acc) {
+  const out = [];
+  const add = (nivel, txt, act, id) => out.push({ nivel, txt, act, id });
+  if (!p.fecha_suscripcion) add('r', 'El plan no tiene fecha de suscripción', 'pmEditPlan', p.id);
+  if (p.formato === 'F14_CGR' && !p.nit)
+    add('y', 'Falta el NIT de la entidad (lo exige el Formulario 14)', 'pmEditPlan', p.id);
+  if (!p.representante_legal)
+    add('y', 'Falta el nombre del representante legal para las firmas del formato', 'pmEditPlan', p.id);
+  hall.forEach(h => {
+    if (!acc.some(a => a.hallazgo_id === h.id))
+      add('r', `El hallazgo ${h.numero} no tiene acciones`, 'pmNewAcc', h.id);
+    if (!(h.connotaciones || []).length && p.formato === 'PM_01_CGSC')
+      add('y', `El hallazgo ${h.numero} no tiene connotación`, 'pmEditHall', h.id);
+  });
+  acc.forEach(a => {
+    const h = pmHallOf(a.hallazgo_id) || {},
+      n = `Hallazgo ${h.numero || '?'} · «${shortTxt(a.accion, 60)}»`;
+    if (!a.dependencia_id)
+      add('r', `${n}: sin dependencia asignada (nadie la ve ni la reporta)`, 'pmEditAcc', a.id);
+    if (pmSemanas(a) === 0)
+      add('y', `${n}: inicio y fin el mismo día, no pesa en los indicadores`, 'pmEditAcc', a.id);
+    if (p.fecha_suscripcion && a.fecha_fin < p.fecha_suscripcion)
+      add('r', `${n}: termina antes de la suscripción del plan`, 'pmEditAcc', a.id);
+    if (!pmTxt(a.meta) && p.formato === 'PM_01_CGSC')
+      add('y', `${n}: sin meta (columna 11 del PM_01)`, 'pmEditAcc', a.id);
+    if (!pmTxt(a.fuente_verificacion)) add('y', `${n}: sin fuente de verificación`, 'pmEditAcc', a.id);
+    if (p.formato === 'F14_CGR' && !pmTxt(a.actividad))
+      add('y', `${n}: sin descripción de actividades (Formulario 14)`, 'pmEditAcc', a.id);
+    if (pmEstado(a).k === 'vencida' && !pmPend(a))
+      add('r', `${n}: vencida sin cumplir y sin avance en validación`, 'pmOpenAcc', a.id);
+  });
+  return out.sort((a, b) => (a.nivel === 'r' ? 0 : 1) - (b.nivel === 'r' ? 0 : 1));
+}
+function pmTabCalidad(issues) {
+  if (!issues.length)
+    return '<div class="card"><div class="empty"><i class="fa-solid fa-circle-check"></i>Los datos del plan están completos y consistentes</div></div>';
+  return `<div class="card">${issues
+    .map(
+      i =>
+        `<div class="list-row pm-issue ${i.nivel}"><i class="fa-solid ${i.nivel === 'r' ? 'fa-circle-exclamation' : 'fa-triangle-exclamation'}"></i><span style="flex:1">${esc(i.txt)}</span>${(i.act === 'pmOpenAcc' || pmCanEdit()) && i.act ? `<button class="btn sm" data-act="${i.act}" data-id="${esc(i.id)}">${i.act === 'pmOpenAcc' ? 'Ver' : i.act === 'pmNewAcc' ? 'Agregar acción' : 'Corregir'}</button>` : ''}</div>`
+    )
+    .join('')}</div>`;
+}
+
+/* =====================================================================
+   FORMULARIOS
+   ===================================================================== */
+const pmF = (id, label, input, hint) =>
+  `<div class="field"><label for="${id}">${label}</label>${input}${hint ? `<div class="hint">${hint}</div>` : ''}</div>`;
+const pmIn = (id, v, extra) => `<input id="${id}" value="${esc(v == null ? '' : v)}" ${extra || ''}>`;
+const pmTa = (id, v, rows) =>
+  `<textarea id="${id}" rows="${rows || 3}">${esc(v == null ? '' : v)}</textarea>`;
+const pmVal = id => pmTxt(($('#' + id) || {}).value);
+
+function pmPlanModal(p) {
+  const e = p || {
+    formato: 'PM_01_CGSC',
+    contraloria: PM_FMT.PM_01_CGSC.contraloria,
+    entidad: 'Distrito Especial de Santiago de Cali',
+    estado: 'en_ejecucion'
+  };
+  openModal({
+    title: p ? 'Editar plan de mejoramiento' : 'Nuevo plan de mejoramiento',
+    wide: true,
+    body: `
+      <div class="row2">
+        ${pmF(
+          'pmPFmt',
+          'Formato',
+          `<select id="pmPFmt">${Object.entries(PM_FMT)
+            .map(
+              ([k, v]) =>
+                `<option value="${k}"${e.formato === k ? ' selected' : ''}>${v.nombre}${v.contraloria ? ' · ' + v.corto : ''}</option>`
+            )
+            .join('')}</select>`
+        )}
+        ${pmF('pmPCtl', 'Contraloría *', pmIn('pmPCtl', e.contraloria))}
+      </div>
+      ${pmF('pmPEje', 'Nombre del ejercicio de fiscalización (auditoría) *', pmTa('pmPEje', e.ejercicio, 2))}
+      <div class="row2">
+        ${pmF('pmPTipo', 'Tipo de ejercicio', `<select id="pmPTipo"><option value=""></option>${PM_TIPOS.map(t => `<option${e.tipo_ejercicio === t ? ' selected' : ''}>${t}</option>`).join('')}${e.tipo_ejercicio && !PM_TIPOS.includes(e.tipo_ejercicio) ? `<option selected>${esc(e.tipo_ejercicio)}</option>` : ''}</select>`)}
+        ${pmF('pmPFs', 'Fecha de suscripción *', pmIn('pmPFs', e.fecha_suscripcion, 'type="date"'))}
+      </div>
+      <div class="row2">
+        ${pmF('pmPVig', 'Vigencia PVCFT (PM_01)', pmIn('pmPVig', e.vigencia_pvcft, 'placeholder="Ej.: 2025"'))}
+        ${pmF('pmPPer', 'Periodo fiscal auditado (CGR)', pmIn('pmPPer', e.periodo_auditado, 'placeholder="Ej.: 2024"'))}
+      </div>
+      <div class="row2">
+        ${pmF('pmPMod', 'Modalidad de auditoría (CGR)', pmIn('pmPMod', e.modalidad))}
+        ${pmF('pmPNit', 'NIT de la entidad', pmIn('pmPNit', e.nit, 'placeholder="890.399.011-3"'))}
+      </div>
+      <div class="row2">
+        ${pmF('pmPInf', 'N.º del informe final', pmIn('pmPInf', e.numero_informe))}
+        ${pmF('pmPFi', 'Fecha del informe final', pmIn('pmPFi', e.fecha_informe, 'type="date"'))}
+      </div>
+      <div class="row2">
+        ${pmF('pmPOrf', 'Radicado ORFEO del informe o del plan', pmIn('pmPOrf', e.radicado_orfeo))}
+        ${pmF(
+          'pmPEst',
+          'Estado',
+          `<select id="pmPEst">${Object.entries(PM_EST)
+            .map(([k, v]) => `<option value="${k}"${e.estado === k ? ' selected' : ''}>${v}</option>`)
+            .join('')}</select>`
+        )}
+      </div>
+      ${pmF('pmPEnt', 'Entidad auditada', pmIn('pmPEnt', e.entidad))}
+      <div class="row2">
+        ${pmF('pmPRep', 'Representante legal (firma)', pmIn('pmPRep', e.representante_legal))}
+        ${pmF('pmPOrd', 'Ordenador del gasto del punto de control (firma PM_01)', pmIn('pmPOrd', e.ordenador_gasto))}
+      </div>
+      ${pmF('pmPObs', 'Observaciones', pmTa('pmPObs', e.observaciones, 2))}`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmSavePlan" data-id="${p ? esc(p.id) : ''}"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>`
+  });
+  $('#pmPFmt').addEventListener('change', ev => {
+    const f = PM_FMT[ev.target.value];
+    if (f && f.contraloria) $('#pmPCtl').value = f.contraloria;
+  });
+}
+async function pmSavePlan(id) {
+  const o = {
+    formato: pmVal('pmPFmt'),
+    contraloria: pmVal('pmPCtl'),
+    ejercicio: pmVal('pmPEje'),
+    tipo_ejercicio: pmVal('pmPTipo'),
+    fecha_suscripcion: pmVal('pmPFs'),
+    vigencia_pvcft: pmVal('pmPVig'),
+    periodo_auditado: pmVal('pmPPer'),
+    modalidad: pmVal('pmPMod'),
+    nit: pmVal('pmPNit'),
+    numero_informe: pmVal('pmPInf'),
+    fecha_informe: pmVal('pmPFi') || null,
+    radicado_orfeo: pmVal('pmPOrf'),
+    estado: pmVal('pmPEst'),
+    entidad: pmVal('pmPEnt') || 'Distrito Especial de Santiago de Cali',
+    representante_legal: pmVal('pmPRep'),
+    ordenador_gasto: pmVal('pmPOrd'),
+    observaciones: pmVal('pmPObs')
+  };
+  if (!o.contraloria) return toast('Indica la contraloría', 'err');
+  if (o.ejercicio.length < 4) return toast('Escribe el nombre del ejercicio de fiscalización', 'err');
+  if (!pmFecha(o.fecha_suscripcion)) return toast('Indica la fecha de suscripción del plan', 'err');
+  if (o.fecha_informe && !pmFecha(o.fecha_informe)) return toast('La fecha del informe no es válida', 'err');
+  if (id) {
+    const fuera = PM.acc.filter(a => a.plan_id === id && a.fecha_fin < o.fecha_suscripcion).length;
+    if (
+      fuera &&
+      !confirm(
+        `${fuera} acción(es) terminan antes de la nueva fecha de suscripción. ¿Guardar de todas formas?`
+      )
+    )
+      return;
+  }
+  const en = S.entes.find(x => pmKey(x.nombre) === pmKey(o.contraloria));
+  if (en) o.ente_id = en.id;
+  try {
+    const nid = await pmSave('plan', o, id || null);
+    closeModal();
+    toast(id ? 'Plan actualizado' : 'Plan creado. Ahora agrega sus hallazgos y acciones.');
+    PM.plan = nid;
+    PM.tab = 'acciones';
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+function pmHallModal(h, planId) {
+  const e = h || { connotaciones: ['administrativa'] };
+  openModal({
+    title: h ? 'Editar hallazgo' : 'Agregar hallazgo',
+    wide: true,
+    body: `
+      <div class="row2">
+        ${pmF('pmHNum', 'N.º o código del hallazgo *', pmIn('pmHNum', e.numero))}
+        ${pmF('pmHCua', 'Cuantía del presunto detrimento (si es fiscal)', pmIn('pmHCua', e.cuantia == null ? '' : e.cuantia, 'inputmode="decimal" placeholder="0"'))}
+      </div>
+      ${pmF('pmHDes', 'Descripción de la condición del hallazgo *', pmTa('pmHDes', e.descripcion, 4))}
+      <div class="row2">${pmF('pmHCau', 'Causa', pmTa('pmHCau', e.causa, 2))}${pmF('pmHEfe', 'Efecto', pmTa('pmHEfe', e.efecto, 2))}</div>
+      <div class="field"><label>Connotación</label><div class="pm-checks">${Object.entries(PM_CONN)
+        .map(
+          ([k, v]) =>
+            `<label><input type="checkbox" class="pmHConn" value="${k}"${(e.connotaciones || []).includes(k) ? ' checked' : ''}> ${v}</label>`
+        )
+        .join('')}</div></div>
+      ${pmF('pmHMac', 'Macroproceso, criterio u otro', pmIn('pmHMac', e.macroproceso))}`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmSaveHall" data-id="${h ? esc(h.id) : ''}" data-plan="${esc(planId)}"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>`
+  });
+}
+async function pmSaveHall(id, planId) {
+  const cu = pmVal('pmHCua');
+  const o = {
+    plan_id: planId,
+    numero: pmVal('pmHNum'),
+    descripcion: pmVal('pmHDes'),
+    causa: pmVal('pmHCau'),
+    efecto: pmVal('pmHEfe'),
+    connotaciones: [...document.querySelectorAll('.pmHConn:checked')].map(x => x.value),
+    cuantia: cu ? pmNum(cu) : null,
+    macroproceso: pmVal('pmHMac')
+  };
+  if (!o.numero) return toast('Indica el número del hallazgo', 'err');
+  if (o.descripcion.length < 4) return toast('Describe el hallazgo', 'err');
+  if (cu && (isNaN(o.cuantia) || o.cuantia < 0)) return toast('La cuantía debe ser un número', 'err');
+  if (!id) o.orden = PM.hall.filter(h => h.plan_id === planId).length + 1;
+  try {
+    await pmSave('hall', o, id || null);
+    closeModal();
+    toast(id ? 'Hallazgo actualizado' : 'Hallazgo agregado');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+function pmAccModal(a, hallId) {
+  const h = pmHallOf(a ? a.hallazgo_id : hallId),
+    p = pmPlanOf(h.plan_id);
+  const e = a || { unidad_medida: 'Porcentaje', cantidad: 100, fecha_inicio: p.fecha_suscripcion };
+  const deps = S.deps
+    .filter(d => d.activo !== false)
+    .slice()
+    .sort((x, y) => x.nombre.localeCompare(y.nombre));
+  openModal({
+    title: (a ? 'Editar acción' : 'Agregar acción') + ' · hallazgo ' + h.numero,
+    wide: true,
+    body: `
+      ${pmF('pmAAcc', (p.formato === 'F14_CGR' ? 'Acción de mejoramiento' : 'Acción correctiva') + ' *', pmTa('pmAAcc', e.accion, 2))}
+      ${p.formato !== 'PM_01_CGSC' ? `<div class="row2">${pmF('pmAPro', 'Propósito de la acción de mejora', pmTa('pmAPro', e.proposito, 2))}${pmF('pmAAct', 'Descripción de las actividades', pmTa('pmAAct', e.actividad, 2))}</div>` : ''}
+      ${pmF('pmAMeta', 'Meta', pmIn('pmAMeta', e.meta, 'placeholder="Ej.: 100% de los supervisores capacitados"'))}
+      <div class="row2">
+        ${pmF('pmAUni', 'Unidad de medida *', pmIn('pmAUni', e.unidad_medida, 'list="pmUnis"') + '<datalist id="pmUnis"><option>Porcentaje</option><option>Informes</option><option>Capacitaciones</option><option>Actas</option><option>Documentos</option><option>Procedimientos</option></datalist>')}
+        ${pmF('pmACan', 'Cantidad de la meta *', pmIn('pmACan', e.cantidad, 'inputmode="decimal"'), 'Con «Porcentaje», use 100')}
+      </div>
+      <div class="row2">
+        ${pmF('pmAFi', 'Fecha de inicio *', pmIn('pmAFi', e.fecha_inicio, 'type="date"'), 'PM_01 no tiene esta columna: por defecto es la fecha de suscripción')}
+        ${pmF('pmAFf', 'Fecha de terminación *', pmIn('pmAFf', e.fecha_fin, 'type="date"'))}
+      </div>
+      <div class="row2">
+        ${pmF('pmADep', 'Dependencia responsable *', `<select id="pmADep"><option value="">Seleccione…</option>${deps.map(d => `<option value="${esc(d.id)}"${String(d.id) === String(e.dependencia_id) ? ' selected' : ''}>${esc(d.nombre)}</option>`).join('')}</select>`)}
+        ${pmF('pmARes', 'Responsable (nombre y cargo)', pmIn('pmARes', e.responsable))}
+      </div>
+      <div class="row2">
+        ${pmF('pmAFue', 'Fuente de verificación', pmIn('pmAFue', e.fuente_verificacion))}
+        ${pmF('pmALug', 'Lugar de verificación', pmIn('pmALug', e.lugar_verificacion))}
+      </div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmSaveAcc" data-id="${a ? esc(a.id) : ''}" data-hall="${esc(h.id)}"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>`
+  });
+}
+async function pmSaveAcc(id, hallId) {
+  const h = pmHallOf(hallId),
+    p = pmPlanOf(h.plan_id);
+  const o = {
+    plan_id: h.plan_id,
+    hallazgo_id: h.id,
+    accion: pmVal('pmAAcc'),
+    proposito: $('#pmAPro') ? pmVal('pmAPro') : (pmAccOf(id) || {}).proposito || '',
+    actividad: $('#pmAAct') ? pmVal('pmAAct') : (pmAccOf(id) || {}).actividad || '',
+    meta: pmVal('pmAMeta'),
+    unidad_medida: pmVal('pmAUni'),
+    cantidad: pmNum(pmVal('pmACan')),
+    fecha_inicio: pmVal('pmAFi'),
+    fecha_fin: pmVal('pmAFf'),
+    dependencia_id: pmVal('pmADep') ? +pmVal('pmADep') || pmVal('pmADep') : null,
+    responsable: pmVal('pmARes'),
+    fuente_verificacion: pmVal('pmAFue'),
+    lugar_verificacion: pmVal('pmALug')
+  };
+  if (o.accion.length < 4) return toast('Describe la acción', 'err');
+  if (!o.unidad_medida) return toast('Indica la unidad de medida', 'err');
+  if (!(o.cantidad > 0)) return toast('La cantidad de la meta debe ser mayor que cero', 'err');
+  if (!pmFecha(o.fecha_inicio) || !pmFecha(o.fecha_fin))
+    return toast('Indica las fechas de inicio y de terminación', 'err');
+  if (o.fecha_fin < o.fecha_inicio)
+    return toast('La fecha de terminación no puede ser anterior a la de inicio', 'err');
+  if (!o.dependencia_id)
+    return toast('Asigna la dependencia responsable: sin ella nadie podrá reportar el avance', 'err');
+  if (
+    p.fecha_suscripcion &&
+    o.fecha_fin < p.fecha_suscripcion &&
+    !confirm('La acción termina antes de la suscripción del plan. ¿Guardar de todas formas?')
+  )
+    return;
+  const prev = pmAccOf(id);
+  if (
+    prev &&
+    Number(prev.avance) > o.cantidad &&
+    !confirm('El avance validado supera la nueva cantidad de la meta. ¿Guardar de todas formas?')
+  )
+    return;
+  if (!id) o.orden = PM.acc.filter(a => a.plan_id === h.plan_id).length + 1;
+  try {
+    await pmSave('acc', o, id || null);
+    closeModal();
+    toast(id ? 'Acción actualizada' : 'Acción agregada');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+function pmReportModal(a) {
+  const h = pmHallOf(a.hallazgo_id) || {},
+    u = pmUltimo(a);
+  const pct = a.unidad_medida && pmKey(a.unidad_medida).startsWith('porcent');
+  openModal({
+    title: 'Reportar avance',
+    wide: true,
+    body: `
+      <div class="pm-ctx"><small>Hallazgo ${esc(h.numero || '')}</small><b>${esc(a.accion)}</b><div class="muted">Meta: ${esc(pmMetaTxt(a))} · termina el ${fmtD(a.fecha_fin)}</div><div class="muted">Avance validado actual: <b>${pmNumTxt(a.avance)}</b> (${pmPctTxt(pmPct(a))})${a.fecha_corte ? ' con corte ' + fmtD(a.fecha_corte) : ''}</div></div>
+      ${u && u.estado === 'devuelto' ? `<div class="pm-note r" style="margin:10px 0"><i class="fa-solid fa-rotate-left"></i> El último reporte fue devuelto: ${esc(u.observacion)}</div>` : ''}
+      <div class="row2">
+        ${pmF('pmVFc', 'Fecha de corte *', pmIn('pmVFc', pmHoy(), `type="date" max="${pmHoy()}"`))}
+        ${pmF('pmVCan', `Avance acumulado a la fecha de corte * (${pct ? '0 a 100' : 'de ' + pmNumTxt(a.cantidad) + ' ' + esc(a.unidad_medida)})`, pmIn('pmVCan', '', 'inputmode="decimal" autocomplete="off"'), '<span id="pmVPct">Escribe el total logrado hasta la fecha, no solo lo de este periodo</span>')}
+      </div>
+      ${pmF('pmVDes', 'Descripción del avance de la acción *', pmTa('pmVDes', '', 4), 'Qué se hizo, con qué evidencia y dónde se puede verificar')}
+      <div class="row2">
+        ${pmF('pmVOrf', 'Radicado ORFEO del soporte', pmIn('pmVOrf', '', 'inputmode="numeric" placeholder="Ej.: 202641320100012345"'))}
+        ${pmF('pmVPdf', 'Soporte en PDF (máx. 10 MB)', '<input id="pmVPdf" type="file" accept="application/pdf,.pdf">')}
+      </div>
+      <div class="hint" style="margin-top:-6px">Adjunte el PDF del soporte o indique el radicado ORFEO donde reposa: al menos uno de los dos es obligatorio.</div>
+      ${pmCanEdit() ? '<label class="pm-checks" style="margin-top:12px"><input type="checkbox" id="pmVVal"> Validar de inmediato (lo registra Control Interno o el Super administrador)</label>' : ''}`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmSaveAv" data-id="${esc(a.id)}"><i class="fa-solid fa-paper-plane"></i> Enviar avance</button>`
+  });
+  const ci = $('#pmVCan');
+  ci.addEventListener('input', () => {
+    const v = pmNum(ci.value),
+      el = $('#pmVPct');
+    if (isNaN(v)) el.textContent = 'Escribe el total logrado hasta la fecha, no solo lo de este periodo';
+    else {
+      const p = Number(a.cantidad) > 0 ? v / Number(a.cantidad) : 0;
+      el.innerHTML = `Equivale a <b>${pmPctTxt(Math.min(1, p))}</b> de la meta${p > 1 ? ' (supera la meta; para los indicadores cuenta como 100%)' : ''}${v < Number(a.avance) ? ' · <span style="color:var(--redink)">es menor que el avance ya validado</span>' : ''}`;
+    }
+  });
+}
+async function pmSaveAv(id, btn) {
+  const a = pmAccOf(id);
+  const o = {
+    accion_id: id,
+    fecha_corte: pmVal('pmVFc'),
+    cantidad: pmNum(pmVal('pmVCan')),
+    descripcion: pmVal('pmVDes'),
+    radicado_orfeo: pmVal('pmVOrf').replace(/\s+/g, ''),
+    validar: !!($('#pmVVal') && $('#pmVVal').checked)
+  };
+  const file = ($('#pmVPdf').files || [])[0] || null;
+  if (!pmFecha(o.fecha_corte)) return toast('Indica la fecha de corte', 'err');
+  if (o.fecha_corte > pmHoy()) return toast('La fecha de corte no puede ser futura', 'err');
+  if (isNaN(o.cantidad) || o.cantidad < 0)
+    return toast('El avance debe ser un número mayor o igual a cero', 'err');
+  if (o.descripcion.length < 10) return toast('Describe el avance (mínimo 10 caracteres)', 'err');
+  if (o.radicado_orfeo && !/^\d{10,20}$/.test(o.radicado_orfeo))
+    return toast('El radicado ORFEO debe tener entre 10 y 20 dígitos', 'err');
+  if (!file && !o.radicado_orfeo)
+    return toast('Adjunta el PDF del soporte o indica el radicado ORFEO', 'err');
+  if (file && file.type && file.type !== 'application/pdf' && !/\.pdf$/i.test(file.name))
+    return toast('El soporte debe ser un archivo PDF', 'err');
+  if (file && file.size > 10 * 1024 * 1024) return toast('El PDF supera 10 MB', 'err');
+  if (
+    o.cantidad < Number(a.avance) &&
+    !confirm('El avance acumulado es menor que el ya validado. ¿Enviarlo de todas formas?')
+  )
+    return;
+  if (
+    o.cantidad > Number(a.cantidad) &&
+    !confirm('El avance supera la cantidad de la meta. ¿Enviarlo de todas formas?')
+  )
+    return;
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando…';
+  }
+  try {
+    await pmReportar(o, file);
+    closeModal();
+    toast(
+      o.validar
+        ? 'Avance registrado y validado'
+        : 'Avance enviado. Queda pendiente de validación por Control Interno.'
+    );
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar avance';
+    }
+  }
+}
+function pmReviewModal(v) {
+  const a = pmAccOf(v.accion_id) || {},
+    h = pmHallOf(a.hallazgo_id) || {};
+  openModal({
+    title: 'Revisar avance reportado',
+    wide: true,
+    body: `
+      <div class="pm-ctx"><small>Hallazgo ${esc(h.numero || '')} · ${esc(pmDepN(a.dependencia_id))}</small><b>${esc(a.accion)}</b><div class="muted">Meta: ${esc(pmMetaTxt(a))} · termina el ${fmtD(a.fecha_fin)}</div></div>
+      <div class="pm-info" style="margin:12px 0">
+        <div><small>Fecha de corte</small><span>${fmtD(v.fecha_corte)}</span></div>
+        <div><small>Avance acumulado</small><span>${pmNumTxt(v.cantidad)} · ${pmPctTxt(pmPct(a, v.cantidad))}</span></div>
+        <div><small>Avance validado anterior</small><span>${pmNumTxt(a.avance)} · ${pmPctTxt(pmPct(a))}</span></div>
+        <div><small>Reportado por</small><span>${esc(v.reportado_email || '—')} · ${fmtTs(v.created_at)}</span></div>
+      </div>
+      <div class="field"><label>Descripción del avance</label><div class="pm-quote">${esc(v.descripcion)}</div></div>
+      <div class="field"><label>Soporte</label><div>${pmSoporte(v)}${v.soporte_hash ? `<div class="muted mono" style="font-size:.7rem;margin-top:4px">SHA-256 ${esc(v.soporte_hash)}</div>` : ''}</div></div>
+      ${pmF('pmRObs', 'Observación de la revisión', pmTa('pmRObs', '', 3), 'Obligatoria si devuelve el avance: la dependencia la verá para corregir')}`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn danger" data-act="pmDoReview" data-id="${esc(v.id)}" data-estado="devuelto"><i class="fa-solid fa-rotate-left"></i> Devolver</button><button class="btn primary" data-act="pmDoReview" data-id="${esc(v.id)}" data-estado="validado"><i class="fa-solid fa-check"></i> Validar</button>`
+  });
+}
+async function pmDoReview(id, estado) {
+  const obs = pmVal('pmRObs');
+  if (estado === 'devuelto' && obs.length < 5)
+    return toast('Indica a la dependencia por qué se devuelve el avance', 'err');
+  try {
+    await pmRevisar(id, estado, obs);
+    closeModal();
+    toast(
+      estado === 'validado'
+        ? 'Avance validado: el indicador de la acción quedó actualizado'
+        : 'Avance devuelto a la dependencia'
+    );
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+function pmHistModal(a) {
+  const l = PM.av
+    .filter(v => v.accion_id === a.id)
+    .sort((x, y) => String(y.created_at).localeCompare(String(x.created_at)));
+  openModal({
+    title: 'Historial de avances',
+    wide: true,
+    body: `<div class="pm-ctx"><b>${esc(a.accion)}</b><div class="muted">${esc(pmDepN(a.dependencia_id))} · meta ${pmNumTxt(a.cantidad)} ${esc(a.unidad_medida)} · termina el ${fmtD(a.fecha_fin)}</div></div>
+    ${
+      l.length
+        ? `<div class="pm-tl">${l
+            .map(
+              v => `<div class="pm-tl-i ${v.estado}"><div class="pm-tl-h"><span class="pill ${v.estado === 'validado' ? 'verde' : v.estado === 'devuelto' ? 'rojo' : 'amarillo'}">${PM_AV_EST[v.estado]}</span><b class="mono">${pmPctTxt(pmPct(a, v.cantidad))}</b><span class="muted">corte ${fmtD(v.fecha_corte)} · ${fmtTs(v.created_at)}</span></div>
+          <div>${esc(v.descripcion)}</div><div class="muted" style="font-size:.76rem;margin-top:4px">${esc(v.reportado_email || '')}${v.revisado_at ? ' · revisó ' + esc(v.revisado_email || '') + ' el ' + fmtTs(v.revisado_at) : ''}</div>${v.observacion ? `<div class="pm-note ${v.estado === 'devuelto' ? 'r' : 'b'}" style="margin-top:6px">${esc(v.observacion)}</div>` : ''}<div style="margin-top:6px">${pmSoporte(v)}</div></div>`
+            )
+            .join('')}</div>`
+        : '<div class="empty"><i class="fa-solid fa-inbox"></i>Aún no hay avances reportados</div>'
+    }`,
+    footer: `${pmCanReport(a) && !pmPend(a) ? `<button class="btn primary" data-act="pmReport" data-id="${esc(a.id)}"><i class="fa-solid fa-chart-line"></i> Reportar avance</button>` : ''}<button class="btn" data-act="closeModal">Cerrar</button>`
+  });
+}
+
+/* ---------- notificación a la dependencia ---------- */
+function pmMsg(depId) {
+  const l = PM.acc
+    .filter(a => String(a.dependencia_id) === String(depId))
+    .filter(a => ['vencida', 'proxima'].includes(pmEstado(a).k))
+    .sort((a, b) => String(a.fecha_fin).localeCompare(String(b.fecha_fin)));
+  const venc = l.filter(a => pmEstado(a).k === 'vencida'),
+    prox = l.filter(a => pmEstado(a).k === 'proxima');
+  const linea = a => {
+    const p = pmPlanOf(a.plan_id) || {},
+      h = pmHallOf(a.hallazgo_id) || {};
+    return `- ${(PM_FMT[p.formato] || PM_FMT.OTRO).corto}, hallazgo ${h.numero}: ${shortTxt(a.accion, 120)} (termina ${fmtD(a.fecha_fin)}; avance validado ${pmPctTxt(pmPct(a))})`;
+  };
+  return {
+    n: l.length,
+    txt:
+      `Respetado(a) secretario(a) / director(a):\n\nLe informo el estado de las acciones de los planes de mejoramiento suscritos con las contralorías a cargo de ${pmDepN(depId)}, con corte al ${fmtD(pmHoy())}:\n` +
+      (venc.length
+        ? `\nAcciones vencidas sin cumplimiento total (${venc.length}):\n${venc.map(linea).join('\n')}\n`
+        : '') +
+      (prox.length
+        ? `\nAcciones que vencen en los próximos ${PM_ALERTA_DIAS} días (${prox.length}):\n${prox.map(linea).join('\n')}\n`
+        : '') +
+      `\nLe solicito reportar el avance con su soporte en la aplicación Control de Entes (módulo Planes de mejoramiento), para su validación y posterior reporte a la contraloría.\n\nCordialmente,\nDespacho del Alcalde`
+  };
+}
+function pmNotifyModal(depId) {
+  const dn = pmDepN(depId),
+    cts = contactsOf(dn),
+    m = pmMsg(depId);
+  const c0 = cts[0] || {};
+  openModal({
+    title: 'Notificar a ' + shortOrg(dn),
+    wide: true,
+    body: `
+      ${cts.length > 1 ? pmF('pmNCt', 'Destinatario', `<select id="pmNCt">${cts.map((x, i) => `<option value="${i}">${esc(x.cargo || '')}: ${esc(x.nombre || 'sin nombre')}</option>`).join('')}</select>`) : `<div class="muted" style="margin-bottom:10px">Destinatario: <b style="color:var(--ink)">${esc(c0.nombre || 'sin responsable en el directorio')}</b>${c0.cargo ? ' · ' + esc(c0.cargo) : ''}</div>`}
+      <div class="row2">
+        ${pmF('pmNTel', 'Celular (WhatsApp)', pmIn('pmNTel', normPhone(c0.telefono) || '', 'inputmode="tel"'))}
+        ${pmF('pmNMail', 'Correo institucional', pmIn('pmNMail', c0.correo || '', 'type="email"'))}
+      </div>
+      ${pmF('pmNMsg', 'Mensaje', pmTa('pmNMsg', m.txt, 12))}`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn" data-act="pmSendNotif" data-dep="${esc(depId)}" data-canal="correo"><i class="fa-solid fa-envelope"></i> Correo</button><button class="btn primary" data-act="pmSendNotif" data-dep="${esc(depId)}" data-canal="whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>`
+  });
+  const sel = $('#pmNCt');
+  if (sel)
+    sel.addEventListener('change', () => {
+      const x = cts[+sel.value] || {};
+      $('#pmNTel').value = normPhone(x.telefono) || '';
+      $('#pmNMail').value = x.correo || '';
+    });
+}
+async function pmSendNotif(depId, canal) {
+  const dn = pmDepN(depId),
+    cts = contactsOf(dn),
+    x = cts[$('#pmNCt') ? +$('#pmNCt').value : 0] || {};
+  const msg = $('#pmNMsg').value.trim();
+  if (!msg) return toast('El mensaje está vacío', 'err');
+  const base = {
+    ts: new Date().toISOString(),
+    org: dn,
+    nombre: x.nombre || '',
+    tpl: 'Plan de mejoramiento',
+    n: pmMsg(depId).n,
+    usuario: pmUser(),
+    mensaje: msg
+  };
+  if (canal === 'whatsapp') {
+    const tel = normPhone($('#pmNTel').value);
+    if (!tel) return toast('Ingresa un celular válido para abrir WhatsApp', 'err');
+    window.open('https://wa.me/' + tel + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    await logNotif({ ...base, tel });
+  } else {
+    const to = normMail($('#pmNMail').value);
+    if (!to) return toast('Ingresa el correo institucional (@cali.gov.co) del destinatario', 'err');
+    const su = 'Planes de mejoramiento · acciones pendientes · ' + shortOrg(dn);
+    window.open(
+      'https://mail.google.com/mail/?authuser=' +
+        encodeURIComponent(REMITENTE) +
+        '&view=cm&fs=1&tf=1&to=' +
+        encodeURIComponent(to) +
+        '&su=' +
+        encodeURIComponent(su) +
+        '&body=' +
+        encodeURIComponent(msg),
+      '_blank',
+      'noopener'
+    );
+    await logNotif({ ...base, tel: '', correo: to, canal: 'correo' });
+  }
+  closeModal();
+  toast('Notificación preparada y registrada en la bitácora');
+}
+
+/* =====================================================================
+   EXCEL: lector (importación) y escritor (exportación)
+   ===================================================================== */
+let PM_XLSX = null;
+function pmXlsx() {
+  if (window.XLSX) return Promise.resolve(window.XLSX);
+  if (PM_XLSX) return PM_XLSX;
+  PM_XLSX = new Promise((ok, no) => {
+    const s = document.createElement('script');
+    s.src = PM_XLSX_URL;
+    s.onload = () => (window.XLSX ? ok(window.XLSX) : no(new Error('No se pudo iniciar el lector de Excel')));
+    s.onerror = () => {
+      PM_XLSX = null;
+      no(
+        new Error('No se pudo cargar el lector de Excel. Revisa la conexión a internet e inténtalo de nuevo.')
+      );
+    };
+    document.head.appendChild(s);
+  });
+  return PM_XLSX;
+}
+/* Encabezados reconocidos (en orden: los más específicos primero) */
+const PM_COLS = [
+  ['plavi', /puntaje logrado por las actividades vencidas/],
+  ['plai', /puntaje logrado/],
+  ['paavi', /puntaje atribuido/],
+  ['pctcgr', /porcentaje de avance fisico/],
+  ['avfis', /avance fisico/],
+  ['pct', /(porcentaje|%) (de )?avance|^avance (%|porcentual)|^% avance/],
+  ['descav', /descripcion del avance/],
+  ['fcorte', /fecha de corte/],
+  ['numero', /codigo (del )?hallazgo|^(n|no|nro|numero)? ?(de )?hallazgo( no| n)?$/],
+  ['descripcion', /descripcion (de la condicion|del hallazgo|hallazgo)|^condicion/],
+  ['causa', /^causa/],
+  ['efecto', /^efecto/],
+  ['connotacion', /connotacion/],
+  ['macro', /macroproceso|criterio/],
+  ['actividad', /descripcion de las actividades|^actividad(es)?$/],
+  ['accion', /^accion|^acciones/],
+  ['proposito', /proposito/],
+  ['unidad', /unidad de medida/],
+  ['cantidad', /cantidad/],
+  ['meta', /^metas?$/],
+  ['fuente', /fuente de verificacion/],
+  ['lugar', /lugar de verificacion/],
+  ['fini', /fecha (de )?inicio|fecha (de )?iniciacion/],
+  ['ffin', /fecha (de )?terminacion|fecha (de )?finalizacion|fecha (de )?fin\b|fecha limite/],
+  ['plazo', /plazo/],
+  ['responsable', /responsable/],
+  ['obs', /^observacion/],
+  ['consec', /^(no|n|item|consecutivo)$/]
+];
+/* Numeración oficial de las columnas del PM_01 CGSC: (6) a (18) */
+const PM_COD = {
+  6: 'numero',
+  7: 'descripcion',
+  8: 'connotacion',
+  9: 'macro',
+  10: 'accion',
+  11: 'meta',
+  12: 'fuente',
+  13: 'lugar',
+  14: 'ffin',
+  15: 'responsable',
+  16: 'descav',
+  17: 'fcorte',
+  18: 'pct'
+};
+function pmAoa(X, ws) {
+  /* Rellena las celdas combinadas con el valor de su celda superior izquierda */
+  (ws['!merges'] || []).forEach(m => {
+    const tl = ws[X.utils.encode_cell(m.s)];
+    if (!tl) return;
+    for (let r = m.s.r; r <= m.e.r; r++)
+      for (let c = m.s.c; c <= m.e.c; c++) {
+        const a = X.utils.encode_cell({ r, c });
+        if (a !== X.utils.encode_cell(m.s)) ws[a] = { ...tl };
+      }
+  });
+  return X.utils.sheet_to_json(ws, { header: 1, raw: true, defval: '', blankrows: true });
+}
+function pmMapHeader(row) {
+  const map = {};
+  row.forEach((cell, ci) => {
+    const raw = pmKey(cell);
+    if (!raw) return;
+    const cod = (raw.match(/\((\d{1,2})\)\s*$/) || [])[1];
+    const t = raw
+      .replace(/\(\d{1,2}\)/g, ' ')
+      .replace(/[()]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const hit = PM_COLS.find(([k, re]) => !(k in map) && re.test(t));
+    if (hit) map[hit[0]] = ci;
+    else if (cod && PM_COD[cod] && !(PM_COD[cod] in map)) map[PM_COD[cod]] = ci;
+  });
+  return map;
+}
+function pmParseSheet(X, ws, name) {
+  const rows = pmAoa(X, ws);
+  let hr = -1,
+    map = null,
+    best = 0;
+  for (let r = 0; r < Math.min(rows.length, 60); r++) {
+    const m = pmMapHeader(rows[r]),
+      n = Object.keys(m).length;
+    if (('accion' in m || 'actividad' in m) && n > best && n >= 4) {
+      best = n;
+      hr = r;
+      map = m;
+    }
+  }
+  if (hr < 0) return null;
+  /* metadatos del encabezado */
+  const meta = {};
+  const LBL = [
+    ['entidad', /^entidad( auditada)?\b/],
+    ['nit', /^nit\b/],
+    ['representante_legal', /^representante legal/],
+    ['ejercicio', /^nombre del ejercicio/],
+    ['tipo_ejercicio', /^tipo de ejercicio/],
+    ['fecha_suscripcion', /^fecha de suscripcion/],
+    ['vigencia_pvcft', /^vigencia pvcft|^vigencia pvcf|^vigencia/],
+    ['periodo_auditado', /^periodo fiscal/],
+    ['modalidad', /^modalidad de auditoria/],
+    ['fecha_eval', /^fecha de evaluacion/]
+  ];
+  const isLabel = s =>
+    LBL.some(([, re]) =>
+      re.test(
+        pmKey(s)
+          .replace(/\(\d+\)/g, '')
+          .trim()
+      )
+    );
+  const texto = [];
+  for (let r = 0; r < hr; r++) {
+    const row = rows[r];
+    row.forEach((cell, ci) => {
+      const raw = pmTxt(cell);
+      if (!raw) return;
+      texto.push(raw);
+      const k = pmKey(raw)
+        .replace(/\(\d+\)/g, '')
+        .trim();
+      const lb = LBL.find(([key, re]) => !(key in meta) && re.test(k));
+      if (!lb) return;
+      let v = '';
+      const ix = raw.indexOf(':');
+      if (ix >= 0) v = pmTxt(raw.slice(ix + 1));
+      if (!v) {
+        for (let c = ci + 1; c < row.length; c++) {
+          const x = row[c];
+          if (x === '' || x == null) continue;
+          if (isLabel(x)) break;
+          v = x;
+          break;
+        }
+      }
+      if (v !== '' && v != null) meta[lb[0]] = v;
+    });
+  }
+  /* filas de datos */
+  const data = [];
+  let vacias = 0;
+  for (let r = hr + 1; r < rows.length; r++) {
+    const row = rows[r];
+    const g = k => (k in map ? row[map[k]] : '');
+    const all = row.map(pmTxt).filter(Boolean);
+    if (!all.length) {
+      if (++vacias >= 8) break;
+      continue;
+    }
+    vacias = 0;
+    const acc = pmTxt(g('accion')) || pmTxt(g('actividad'));
+    /* totales y firmas (también cuando su celda combinada cubre la columna de la acción) */
+    const k0 = pmKey(all[0]);
+    const pie =
+      /^totales?\b/.test(k0) || /\b(firma del representante|nombre y firma|elaboro|convenciones)\b/.test(k0);
+    if (pie && (!acc || pmKey(acc) === k0)) break;
+    /* segunda fila de un encabezado combinado */
+    if (Object.keys(pmMapHeader(row)).length >= 4) continue;
+    if (!acc && !pmTxt(g('descripcion'))) continue;
+    if (/^\(?\d{1,2}\)?$/.test(acc)) continue; /* fila con la numeración de columnas */
+    data.push({ fila: r + 1, g, acc });
+  }
+  /* filas finales sin acción (firmas, nombres, notas al pie) no son hallazgos */
+  while (data.length && !data[data.length - 1].acc) data.pop();
+  return { name, map, meta, data, texto: texto.join(' '), hr };
+}
+function pmParseWorkbook(X, wb, fileName) {
+  const hojas = wb.SheetNames.map(n => pmParseSheet(X, wb.Sheets[n], n)).filter(Boolean);
+  if (!hojas.length)
+    throw new Error(
+      'No se encontró la tabla del plan: el archivo debe tener la fila de encabezados con las columnas del hallazgo y de la acción.'
+    );
+  /* hoja con más filas; ante empate, la que trae avance (F14.1) */
+  hojas.sort(
+    (a, b) =>
+      b.data.length - a.data.length ||
+      ('avfis' in b.map || 'pct' in b.map) - ('avfis' in a.map || 'pct' in a.map)
+  );
+  const H = hojas[0];
+  if (!H.data.length)
+    throw new Error('La hoja «' + H.name + '» tiene encabezados pero no trae acciones diligenciadas.');
+  /* El Formulario 14.1 no trae el área responsable: se toma del Formulario 14 del mismo libro */
+  const respOtra = {};
+  if (!('responsable' in H.map))
+    hojas.slice(1).forEach(o => {
+      if ('responsable' in o.map)
+        o.data.forEach(d => {
+          const k = pmKey(d.g('numero')) + '|' + pmKey(d.acc);
+          if (!(k in respOtra)) respOtra[k] = pmTxt(d.g('responsable'));
+        });
+    });
+  const kt = pmKey(H.texto);
+  const formato =
+    'avfis' in H.map ||
+    'proposito' in H.map ||
+    'unidad' in H.map ||
+    /formulario no 14|contraloria general de la republica/.test(kt)
+      ? 'F14_CGR'
+      : 'connotacion' in H.map || /pm 01|contraloria general de santiago de cali/.test(kt)
+        ? 'PM_01_CGSC'
+        : 'OTRO';
+  const m = H.meta,
+    avisos = [];
+  const fs = pmFecha(m.fecha_suscripcion);
+  const plan = {
+    formato,
+    contraloria: (PM_FMT[formato] || PM_FMT.OTRO).contraloria,
+    entidad: pmTxt(m.entidad) || 'Distrito Especial de Santiago de Cali',
+    nit: pmTxt(m.nit),
+    representante_legal: pmTxt(m.representante_legal),
+    ordenador_gasto: '',
+    ejercicio: pmTxt(m.ejercicio) || (formato === 'F14_CGR' ? pmTxt(m.modalidad) : ''),
+    tipo_ejercicio: pmTxt(m.tipo_ejercicio) || (formato === 'F14_CGR' ? pmTxt(m.modalidad) : ''),
+    modalidad: pmTxt(m.modalidad),
+    vigencia_pvcft: pmTxt(m.vigencia_pvcft).replace(/\.0$/, ''),
+    periodo_auditado: pmTxt(m.periodo_auditado).replace(/\.0$/, ''),
+    numero_informe: '',
+    radicado_orfeo: '',
+    fecha_informe: null,
+    fecha_suscripcion: fs || '',
+    estado: 'en_ejecucion',
+    observaciones: 'Importado del archivo ' + fileName
+  };
+  if (!fs)
+    avisos.push({ n: 'y', t: 'El archivo no trae una fecha de suscripción reconocible: escríbela abajo.' });
+  if (!plan.ejercicio)
+    avisos.push({
+      n: 'y',
+      t: 'El archivo no trae el nombre del ejercicio de fiscalización: escríbelo abajo.'
+    });
+  const fevalRaw = m.fecha_eval,
+    feval = pmFecha(fevalRaw);
+  /* % de avance del PM_01: 0..1 o 0..100 */
+  let escala = 1;
+  if (formato !== 'F14_CGR' && 'pct' in H.map) {
+    const nums = H.data.map(d => pmNum(d.g('pct'))).filter(v => !isNaN(v));
+    const conPct = H.data.some(d => /%/.test(String(d.g('pct'))));
+    if (nums.length && !conPct && Math.max(...nums) <= 1) escala = 100;
+  }
+  const hall = [],
+    porNum = {};
+  let cur = null;
+  H.data.forEach(d => {
+    const g = d.g;
+    let num = pmTxt(g('numero')).replace(/\.0$/, '');
+    if (num.length > 20) {
+      /* celda con texto largo ("Hallazgo No 7 AGEI Especial…"): se toma el número */
+      const mm = num.match(
+        /^(?:hallazgo\s*)?(?:n(?:o|ro|um(?:ero)?)?\s*[.°º]*\s*)?(\d+[a-z]?(?:[.-]\d+)*)\b/i
+      );
+      if (mm) num = mm[1];
+    } else num = num.replace(/^hallazgo\s*(n[°ºo.]*\s*)?/i, '');
+    const des = pmTxt(g('descripcion'));
+    if (!num && !des && cur) {
+      /* fila que continúa el hallazgo anterior */
+    } else if (!cur || num !== cur.numeroOrig || (des && des !== cur.descripcion)) {
+      if (!num) num = cur && des === cur.descripcion ? cur.numeroOrig : 'S/N-' + (hall.length + 1);
+      let numero = num;
+      if (porNum[numero] && porNum[numero].descripcion !== des) {
+        let k = 2;
+        while (porNum[num + ' (' + k + ')']) k++;
+        numero = num + ' (' + k + ')';
+        avisos.push({
+          n: 'y',
+          t: `Fila ${d.fila}: el número de hallazgo «${num}» se repite con otra descripción; se registró como «${numero}».`
+        });
+      }
+      if (porNum[numero] && porNum[numero].descripcion === des) cur = porNum[numero];
+      else {
+        cur = {
+          numero,
+          numeroOrig: num,
+          descripcion: des,
+          causa: pmTxt(g('causa')),
+          efecto: pmTxt(g('efecto')),
+          connotaciones: pmConnOf(g('connotacion')),
+          macroproceso: pmTxt(g('macro')),
+          cuantia: null,
+          fila: d.fila,
+          acciones: []
+        };
+        porNum[numero] = cur;
+        hall.push(cur);
+      }
+    }
+    const accion = pmTxt(g('accion')) || pmTxt(g('actividad'));
+    if (!accion) return;
+    const resp = pmTxt(g('responsable')) || respOtra[pmKey(g('numero')) + '|' + pmKey(accion)] || '';
+    const prev = cur.acciones[cur.acciones.length - 1];
+    /* acción en celdas combinadas que abarcan varias filas: es la misma acción */
+    if (
+      prev &&
+      prev.accion === accion &&
+      prev.meta === pmTxt(g('meta')) &&
+      prev.responsable === resp &&
+      pmTxt(prev.ffinRaw) === pmTxt(g('ffin')) &&
+      pmTxt(prev.actividad) === pmTxt(g('actividad'))
+    )
+      return;
+    const a = {
+      fila: d.fila,
+      accion,
+      proposito: pmTxt(g('proposito')),
+      actividad: pmTxt(g('actividad')),
+      meta: pmTxt(g('meta')),
+      unidad_medida: formato === 'F14_CGR' ? pmTxt(g('unidad')) : 'Porcentaje',
+      cantidadRaw: g('cantidad'),
+      cantidad: formato === 'F14_CGR' ? pmNum(g('cantidad')) : 100,
+      fuente_verificacion: pmTxt(g('fuente')),
+      lugar_verificacion: pmTxt(g('lugar')),
+      finiRaw: g('fini'),
+      fini: pmFecha(g('fini')),
+      ffinRaw: g('ffin'),
+      ffin: pmFecha(g('ffin')),
+      responsable: resp,
+      dependencia_id: pmDepMatch(resp),
+      avance: null,
+      fecha_corte: null,
+      descripcion_avance: pmTxt(g('descav')) || pmTxt(g('obs'))
+    };
+    if (formato === 'F14_CGR' && 'avfis' in H.map) {
+      const v = pmNum(g('avfis'));
+      if (!isNaN(v) && pmTxt(g('avfis')) !== '') {
+        a.avance = v;
+        a.fecha_corte = feval;
+        a.sinCorte = !feval;
+      }
+    } else if ('pct' in H.map && pmTxt(g('pct')) !== '') {
+      const v = pmNum(g('pct'));
+      if (!isNaN(v)) {
+        a.avance = Math.round(v * escala * 100) / 100;
+        a.fecha_corte = pmFecha(g('fcorte'));
+        a.sinCorte = !a.fecha_corte;
+      }
+    }
+    cur.acciones.push(a);
+  });
+  return { archivo: fileName, hoja: H.name, formato, plan, hall, avisos, feval, fevalRaw };
+}
+/* Valida lo importado con los datos del plan tal como quedaron en el formulario */
+function pmImpCheck(imp) {
+  const err = [],
+    warn = imp.avisos.slice(),
+    p = imp.plan,
+    hoy = pmHoy();
+  if (!pmTxt(p.contraloria)) err.push('Indica la contraloría.');
+  if (pmTxt(p.ejercicio).length < 4) err.push('Escribe el nombre del ejercicio de fiscalización.');
+  if (!pmFecha(p.fecha_suscripcion)) err.push('Indica la fecha de suscripción del plan.');
+  const dup = PM.planes.find(
+    x =>
+      x.formato === p.formato &&
+      pmKey(x.ejercicio) === pmKey(p.ejercicio) &&
+      x.fecha_suscripcion === p.fecha_suscripcion
+  );
+  if (dup)
+    err.push(
+      'Ya existe un plan con el mismo formato, ejercicio y fecha de suscripción. Si quieres reemplazarlo, elimina primero el plan anterior.'
+    );
+  let nAcc = 0,
+    nAv = 0;
+  imp.hall.forEach(h => {
+    if (pmTxt(h.descripcion).length < 4)
+      err.push(`Fila ${h.fila}: el hallazgo ${h.numero} no tiene descripción.`);
+    if (!h.acciones.length) err.push(`Fila ${h.fila}: el hallazgo ${h.numero} no tiene acciones.`);
+    h.acciones.forEach(a => {
+      nAcc++;
+      const ini = a.fini || (pmFecha(p.fecha_suscripcion) ? p.fecha_suscripcion : null);
+      if (!a.ffin)
+        err.push(`Fila ${a.fila}: fecha de terminación no reconocida («${pmTxt(a.ffinRaw) || 'vacía'}»).`);
+      if (imp.formato === 'F14_CGR' && !a.fini)
+        warn.push({
+          n: 'y',
+          t: `Fila ${a.fila}: sin fecha de iniciación reconocible; se usa la fecha de suscripción.`
+        });
+      if (a.ffin && ini && a.ffin < ini)
+        err.push(
+          `Fila ${a.fila}: la fecha de terminación (${fmtD(a.ffin)}) es anterior a la de inicio (${fmtD(ini)}).`
+        );
+      if (!(a.cantidad > 0))
+        err.push(
+          `Fila ${a.fila}: la cantidad de la meta no es un número mayor que cero («${pmTxt(a.cantidadRaw) || 'vacía'}»).`
+        );
+      if (imp.formato === 'F14_CGR' && !a.unidad_medida)
+        warn.push({ n: 'y', t: `Fila ${a.fila}: sin unidad de medida; se registrará como «Unidades».` });
+      if (!a.dependencia_id)
+        warn.push({
+          n: 'r',
+          t: `Fila ${a.fila}: no se reconoció la dependencia responsable («${shortTxt(a.responsable || 'vacío', 70)}»). Asígnala en la tabla.`
+        });
+      if (a.avance != null) {
+        if (a.sinCorte)
+          warn.push({
+            n: 'y',
+            t: `Fila ${a.fila}: trae avance pero no fecha de corte; ese avance no se importa.`
+          });
+        else if (a.fecha_corte > hoy)
+          warn.push({
+            n: 'y',
+            t: `Fila ${a.fila}: la fecha de corte del avance es futura; ese avance no se importa.`
+          });
+        else nAv++;
+        if (a.avance > a.cantidad)
+          warn.push({
+            n: 'y',
+            t: `Fila ${a.fila}: el avance (${pmNumTxt(a.avance)}) supera la meta (${pmNumTxt(a.cantidad)}); para los indicadores cuenta como 100%.`
+          });
+      }
+    });
+  });
+  return { err, warn, nAcc, nAv };
+}
+function pmImportModal() {
+  openModal({
+    title: 'Importar plan de mejoramiento desde Excel',
+    wide: true,
+    body: `<div class="pm-drop">
+      <i class="fa-solid fa-file-excel"></i>
+      <b>Selecciona el archivo del plan (.xlsx o .xls)</b>
+      <div class="muted">Formato PM_01 de la Contraloría General de Santiago de Cali o Formularios 14 / 14.1 de la Contraloría General de la República. Se reconocen las columnas por su encabezado y las celdas combinadas.</div>
+      <input type="file" id="pmImpFile" accept=".xlsx,.xls,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+    </div>
+    <div id="pmImpOut"></div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmDoImport" id="pmImpBtn" disabled><i class="fa-solid fa-file-import"></i> Importar</button>`
+  });
+  $('#pmImpFile').addEventListener('change', async e => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const out = $('#pmImpOut');
+    out.innerHTML = '<div class="empty"><i class="fa-solid fa-spinner fa-spin"></i>Leyendo el archivo…</div>';
+    try {
+      const X = await pmXlsx();
+      const wb = X.read(new Uint8Array(await f.arrayBuffer()), { type: 'array', cellDates: false });
+      PM.imp = pmParseWorkbook(X, wb, f.name);
+      pmImpRender();
+    } catch (er) {
+      PM.imp = null;
+      out.innerHTML = `<div class="pm-note r"><i class="fa-solid fa-circle-exclamation"></i> ${esc(er.message)}</div>`;
+      $('#pmImpBtn').disabled = true;
+    }
+  });
+}
+function pmImpRender() {
+  const imp = PM.imp,
+    p = imp.plan,
+    out = $('#pmImpOut');
+  const deps = S.deps.slice().sort((x, y) => x.nombre.localeCompare(y.nombre));
+  const depOpts = sel =>
+    `<option value="">— Sin asignar —</option>${deps.map(d => `<option value="${esc(d.id)}"${String(d.id) === String(sel) ? ' selected' : ''}>${esc(shortOrg(d.nombre))}</option>`).join('')}`;
+  const acc = imp.hall.flatMap(h => h.acciones.map(a => ({ h, a })));
+  out.innerHTML = `
+    <div class="pm-imp-sum">
+      <span class="pm-ctl ${imp.formato === 'F14_CGR' ? 'cgr' : imp.formato === 'PM_01_CGSC' ? 'cgsc' : ''}">${esc((PM_FMT[imp.formato] || PM_FMT.OTRO).nombre)}</span>
+      <span class="muted">Hoja «${esc(imp.hoja)}» · ${imp.hall.length} hallazgos · ${acc.length} acciones</span>
+    </div>
+    <div class="row2">
+      ${pmF(
+        'pmIFmt',
+        'Formato',
+        `<select id="pmIFmt">${Object.entries(PM_FMT)
+          .map(([k, v]) => `<option value="${k}"${p.formato === k ? ' selected' : ''}>${v.nombre}</option>`)
+          .join('')}</select>`
+      )}
+      ${pmF('pmICtl', 'Contraloría *', pmIn('pmICtl', p.contraloria))}
+    </div>
+    ${pmF('pmIEje', 'Nombre del ejercicio de fiscalización *', pmTa('pmIEje', p.ejercicio, 2))}
+    <div class="row2">
+      ${pmF('pmIFs', 'Fecha de suscripción *', pmIn('pmIFs', p.fecha_suscripcion, 'type="date"'))}
+      ${pmF('pmITipo', 'Tipo de ejercicio', pmIn('pmITipo', p.tipo_ejercicio, 'list="pmTipos"') + `<datalist id="pmTipos">${PM_TIPOS.map(t => `<option>${t}</option>`).join('')}</datalist>`)}
+    </div>
+    <div class="row2">
+      ${pmF('pmIInf', 'N.º del informe final', pmIn('pmIInf', p.numero_informe))}
+      ${pmF('pmIRep', 'Representante legal', pmIn('pmIRep', p.representante_legal))}
+    </div>
+    ${imp.formato === 'F14_CGR' && imp.fevalRaw ? `<div class="hint" style="margin:-6px 0 10px">Fecha de evaluación del Formulario 14.1: ${imp.feval ? fmtD(imp.feval) : 'no reconocida («' + esc(pmTxt(imp.fevalRaw)) + '»)'}. Es la fecha de corte de los avances importados.</div>` : ''}
+    <div class="field"><label>Dependencia responsable de cada acción</label>
+      <div class="pm-imp-all"><span class="muted" style="font-size:.78rem">Asignar a todas las que están sin asignar:</span><select id="pmIAll">${depOpts('')}</select></div>
+      <div class="tbl-wrap pm-imp-tbl"><table class="tbl" style="min-width:720px"><thead><tr><th>Fila</th><th>Hallazgo</th><th>Acción</th><th>Termina</th><th>Avance</th><th>Dependencia</th></tr></thead><tbody>
+      ${acc
+        .map(
+          ({ h, a }, i) =>
+            `<tr><td class="mono">${a.fila}</td><td class="mono">${esc(h.numero)}</td><td class="asunto">${esc(shortTxt(a.accion, 80))}<div class="muted" style="font-size:.72rem">${esc(shortTxt(a.responsable, 70))}</div></td><td style="white-space:nowrap">${a.ffin ? fmtD(a.ffin) : `<span style="color:var(--redink)">${esc(pmTxt(a.ffinRaw) || '—')}</span>`}</td><td class="mono">${a.avance == null ? '—' : pmPctTxt(Math.min(1, a.avance / (a.cantidad || 1)))}</td><td><select class="pmIDep" data-i="${i}">${depOpts(a.dependencia_id)}</select></td></tr>`
+        )
+        .join('')}</tbody></table></div></div>
+    <div id="pmIChk"></div>`;
+  const sync = () => {
+    p.formato = $('#pmIFmt').value;
+    p.contraloria = pmVal('pmICtl');
+    p.ejercicio = pmVal('pmIEje');
+    p.fecha_suscripcion = pmVal('pmIFs');
+    p.tipo_ejercicio = pmVal('pmITipo');
+    p.numero_informe = pmVal('pmIInf');
+    p.representante_legal = pmVal('pmIRep');
+    document.querySelectorAll('.pmIDep').forEach(s => {
+      const a = acc[+s.dataset.i].a;
+      a.dependencia_id = s.value ? +s.value || s.value : null;
+    });
+    const k = pmImpCheck(imp);
+    const rojo = k.warn.filter(w => w.n === 'r'),
+      amar = k.warn.filter(w => w.n !== 'r');
+    $('#pmIChk').innerHTML = `
+      <div class="pm-imp-k">
+        <span class="pm-chip">${imp.hall.length} hallazgos</span><span class="pm-chip">${k.nAcc} acciones</span><span class="pm-chip g">${k.nAv} avances a importar como validados</span>
+        ${k.err.length ? `<span class="pm-chip r">${k.err.length} error(es)</span>` : '<span class="pm-chip g">Sin errores</span>'}${k.warn.length ? `<span class="pm-chip y">${k.warn.length} aviso(s)</span>` : ''}
+      </div>
+      ${
+        k.err.length
+          ? `<div class="pm-note r"><b>Corrige antes de importar:</b><ul>${k.err
+              .slice(0, 40)
+              .map(t => `<li>${esc(t)}</li>`)
+              .join('')}</ul>${k.err.length > 40 ? `<div>… y ${k.err.length - 40} más</div>` : ''}</div>`
+          : ''
+      }
+      ${
+        rojo.length
+          ? `<div class="pm-note r"><ul>${rojo
+              .slice(0, 30)
+              .map(w => `<li>${esc(w.t)}</li>`)
+              .join(
+                ''
+              )}</ul>${rojo.length > 30 ? `<div>… y ${rojo.length - 30} más</div>` : ''}<div>Puedes importar así y asignarlas después, pero mientras no tengan dependencia nadie las verá ni reportará su avance.</div></div>`
+          : ''
+      }
+      ${
+        amar.length
+          ? `<div class="pm-note y"><ul>${amar
+              .slice(0, 30)
+              .map(w => `<li>${esc(w.t)}</li>`)
+              .join('')}</ul>${amar.length > 30 ? `<div>… y ${amar.length - 30} más</div>` : ''}</div>`
+          : ''
+      }`;
+    $('#pmImpBtn').disabled = k.err.length > 0;
+    imp.__k = k;
+  };
+  out
+    .querySelectorAll('input,select,textarea')
+    .forEach(el => el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', sync));
+  $('#pmIFmt').addEventListener('change', () => {
+    const f = PM_FMT[$('#pmIFmt').value];
+    if (f && f.contraloria) $('#pmICtl').value = f.contraloria;
+    sync();
+  });
+  $('#pmIAll').addEventListener('change', e => {
+    if (!e.target.value) return;
+    document.querySelectorAll('.pmIDep').forEach(s => {
+      if (!s.value) s.value = e.target.value;
+    });
+    e.target.value = '';
+    sync();
+  });
+  sync();
+}
+async function pmDoImport(btn) {
+  const imp = PM.imp;
+  if (!imp || !imp.__k || imp.__k.err.length) return;
+  const p = imp.plan,
+    hoy = pmHoy();
+  const en = S.entes.find(x => pmKey(x.nombre) === pmKey(p.contraloria));
+  const payload = {
+    archivo: imp.archivo,
+    plan: { ...p, ente_id: en ? en.id : null },
+    hallazgos: imp.hall.map(h => ({
+      numero: h.numero,
+      descripcion: h.descripcion,
+      causa: h.causa,
+      efecto: h.efecto,
+      connotaciones: h.connotaciones,
+      cuantia: h.cuantia,
+      macroproceso: h.macroproceso,
+      acciones: h.acciones.map(a => {
+        const ok = a.avance != null && a.fecha_corte && a.fecha_corte <= hoy;
+        return {
+          dependencia_id: a.dependencia_id || null,
+          responsable: a.responsable,
+          accion: a.accion,
+          proposito: a.proposito,
+          actividad: a.actividad,
+          meta: a.meta,
+          unidad_medida: a.unidad_medida || 'Unidades',
+          cantidad: a.cantidad,
+          fuente_verificacion: a.fuente_verificacion,
+          lugar_verificacion: a.lugar_verificacion,
+          fecha_inicio: a.fini || p.fecha_suscripcion,
+          fecha_fin: a.ffin,
+          avance: ok ? a.avance : null,
+          fecha_corte: ok ? a.fecha_corte : null,
+          descripcion_avance: ok ? a.descripcion_avance : ''
+        };
+      })
+    }))
+  };
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Importando…';
+  }
+  try {
+    const id = await pmImportar(payload);
+    closeModal();
+    PM.imp = null;
+    PM.plan = id;
+    PM.tab = 'acciones';
+    toast(`Plan importado: ${payload.hallazgos.length} hallazgos y ${imp.__k.nAcc} acciones`);
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-file-import"></i> Importar';
+    }
+  }
+}
+
+/* ---------- exportación ---------- */
+function pmExportModal(p) {
+  openModal({
+    title: 'Exportar en el formato de la contraloría',
+    body: `
+      ${pmF('pmEFmt', 'Formato', `<select id="pmEFmt"><option value="PM_01_CGSC"${p.formato !== 'F14_CGR' ? ' selected' : ''}>PM_01 CGSC · formulación y avance (Contraloría de Cali)</option><option value="F14_CGR"${p.formato === 'F14_CGR' ? ' selected' : ''}>Formularios 14 y 14.1 · suscripción y seguimiento (CGR)</option></select>`)}
+      ${pmF('pmECorte', 'Fecha de corte / evaluación', pmIn('pmECorte', PM.eval || pmHoy(), 'type="date"'), 'Se toma el último avance VALIDADO hasta esta fecha. Los avances por validar no se incluyen.')}
+      <div class="hint">El archivo trae los cálculos del Formulario 14.1 (plazo, puntajes, cumplimiento y avance) como fórmulas de Excel. Revíselo antes de firmarlo y cargarlo en el aplicativo de la contraloría.</div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmDoExport" data-id="${esc(p.id)}"><i class="fa-solid fa-download"></i> Descargar Excel</button>`
+  });
+}
+const pmXDate = s => {
+  const d = parseD(s);
+  return Math.round(
+    (Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - Date.UTC(1899, 11, 30)) / 86400000
+  );
+};
+function pmPlanData(p) {
+  const hall = PM.hall.filter(h => h.plan_id === p.id).sort((a, b) => (a.orden || 0) - (b.orden || 0));
+  return hall.map(h => ({
+    h,
+    acc: PM.acc.filter(a => a.hallazgo_id === h.id).sort((a, b) => (a.orden || 0) - (b.orden || 0))
+  }));
+}
+function pmRespTxt(a) {
+  const d = pmDepN(a.dependencia_id),
+    r = pmTxt(a.responsable);
+  if (!r) return d;
+  if (!d || pmKey(r).includes(pmKey(d))) return r;
+  return r + ' - ' + d;
+}
+function pmSheetPM01(X, p, corte) {
+  const datos = pmPlanData(p);
+  const aoa = [
+    ['CONTRALORÍA GENERAL DE SANTIAGO DE CALI'],
+    ['FORMATO PM_01 CGSC - PLAN'],
+    [],
+    ['Entidad auditada (1): ' + (p.entidad || '')],
+    ['Nombre del ejercicio de fiscalización (2): ' + (p.ejercicio || '')],
+    ['Tipo de ejercicio de fiscalización (3):', '', '', '', '', '', '', '', '', p.tipo_ejercicio || ''],
+    [
+      'Fecha de suscripción (4): ' + fmtD(p.fecha_suscripcion),
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'Seguimiento de cumplimiento',
+      '',
+      'Vigencia PVCFT (5)',
+      p.vigencia_pvcft || ''
+    ],
+    [],
+    [
+      'FORMULACIÓN DEL PLAN DE MEJORAMIENTO',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'AVANCE DEL PLAN DE MEJORAMIENTO'
+    ],
+    [
+      'N° hallazgo (6)',
+      'Descripción de la condición y causa del hallazgo (7)',
+      'Connotación del hallazgo (8)',
+      'Macroproceso, criterio u otro (9)',
+      'Acción de Correctiva (10)',
+      'Meta (11)',
+      'Fuente de verificación (12)',
+      'Lugar de verificación (13)',
+      'Fecha terminación de la Actividad (14)',
+      'Responsable (Nombre y Cargo) (15)',
+      'Descripción del avance de la acción (16)',
+      'Fecha de Corte del Avance (17)',
+      '% de Avance (18)'
+    ]
+  ];
+  const merges = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 12 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 12 } },
+    { s: { r: 3, c: 0 }, e: { r: 3, c: 12 } },
+    { s: { r: 4, c: 0 }, e: { r: 4, c: 12 } },
+    { s: { r: 8, c: 0 }, e: { r: 8, c: 9 } },
+    { s: { r: 8, c: 10 }, e: { r: 8, c: 12 } }
+  ];
+  const fechas = [],
+    pcts = [];
+  datos.forEach(({ h, acc }) => {
+    const r0 = aoa.length;
+    const filas = acc.length ? acc : [null];
+    filas.forEach(a => {
+      const av = a ? pmAvAl(a, corte) : null;
+      const pct = a && av ? pmPct(a, av.cantidad) : a ? 0 : '';
+      const row = [
+        h.numero,
+        [h.descripcion, h.causa ? 'Causa: ' + h.causa : ''].filter(Boolean).join('\n'),
+        (h.connotaciones || []).map(c => PM_CONN[c] || c).join(' - '),
+        h.macroproceso || '',
+        a ? a.accion : '',
+        a ? pmMetaTxt(a) : '',
+        a ? a.fuente_verificacion : '',
+        a ? a.lugar_verificacion : '',
+        a ? pmXDate(a.fecha_fin) : '',
+        a ? pmRespTxt(a) : '',
+        av ? av.descripcion || '' : '',
+        av ? pmXDate(av.fecha_corte) : '',
+        pct
+      ];
+      if (a) fechas.push([aoa.length, 8]);
+      if (av) fechas.push([aoa.length, 11]);
+      if (a) pcts.push([aoa.length, 12]);
+      aoa.push(row);
+    });
+    if (filas.length > 1)
+      for (let c = 0; c <= 3; c++) merges.push({ s: { r: r0, c }, e: { r: aoa.length - 1, c } });
+  });
+  aoa.push(
+    [],
+    [],
+    [],
+    ['______________________________', '', '', '', '', '', '______________________________']
+  );
+  aoa.push([p.representante_legal || '', '', '', '', '', '', p.ordenador_gasto || '']);
+  aoa.push([
+    'Nombre y firma del Representante Legal del Sujeto de Vigilancia de Control Fiscal',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'Nombre y firma del Ordenador del Gasto del Punto de Control'
+  ]);
+  const ws = X.utils.aoa_to_sheet(aoa);
+  fechas.forEach(([r, c]) => {
+    const a = X.utils.encode_cell({ r, c });
+    if (ws[a] && ws[a].v !== '') Object.assign(ws[a], { t: 'n', z: 'dd/mm/yyyy' });
+  });
+  pcts.forEach(([r, c]) => {
+    const a = X.utils.encode_cell({ r, c });
+    if (ws[a] && ws[a].v !== '') Object.assign(ws[a], { t: 'n', z: '0%' });
+  });
+  ws['!merges'] = merges;
+  ws['!cols'] = [10, 60, 18, 22, 45, 28, 26, 22, 14, 32, 50, 14, 10].map(w => ({ wch: w }));
+  return ws;
+}
+function pmSheetsF14(X, p, corte) {
+  const datos = pmPlanData(p);
+  const filas = [];
+  datos.forEach(({ h, acc }) => acc.forEach(a => filas.push({ h, a })));
+  const enc = (titulo, form) => [
+    [],
+    ['INFORME PRESENTADO A LA CONTRALORIA GENERAL DE LA REPUBLICA'],
+    [titulo],
+    [form],
+    [],
+    ['ENTIDAD:', p.entidad || '', '', '', '', '', '', '', '', 'NIT:', p.nit || ''],
+    ['REPRESENTANTE LEGAL:', p.representante_legal || ''],
+    ['PERIODO FISCAL', p.periodo_auditado || p.vigencia_pvcft || ''],
+    ['MODALIDAD DE AUDITORIA:', p.modalidad || p.tipo_ejercicio || ''],
+    ['FECHA DE SUSCRIPCIÓN:', pmXDate(p.fecha_suscripcion)]
+  ];
+  const cab = [
+    'No.',
+    'Código hallazgo',
+    'Descripción hallazgo ',
+    'Causa del hallazgo',
+    'Efecto del hallazgo',
+    'Acción de mejoramiento',
+    'Propósito de la Acción de Mejora',
+    'Descripción de las Actividades ',
+    'Denominación de la Unidad de medida de la Actividad',
+    'Cantidad de Medida de la Actividad',
+    'Fecha iniciación de la Actividad',
+    'Fecha terminación de la Actividad',
+    'Plazo en semanas de la Actividad'
+  ];
+  const base = (x, i) => [
+    i + 1,
+    x.h.numero,
+    x.h.descripcion,
+    x.h.causa || '',
+    x.h.efecto || '',
+    x.a.accion,
+    x.a.proposito || '',
+    x.a.actividad || x.a.meta || '',
+    x.a.unidad_medida,
+    Number(x.a.cantidad),
+    pmXDate(x.a.fecha_inicio),
+    pmXDate(x.a.fecha_fin)
+  ];
+  const fecha = (ws, r, c) => {
+    const a = X.utils.encode_cell({ r, c });
+    if (ws[a]) Object.assign(ws[a], { t: 'n', z: 'dd/mm/yyyy' });
+  };
+  /* Formulario 14 · suscripción */
+  const a1 = enc('SUSCRIPCIÓN PLANES DE MEJORAMIENTO', 'FORMULARIO No 14');
+  a1.push([], [], [...cab, 'Area Responsable']);
+  const d1 = a1.length;
+  filas.forEach((x, i) =>
+    a1.push([...base(x, i), pmSemanas(x.a), pmDepN(x.a.dependencia_id) || x.a.responsable || ''])
+  );
+  a1.push(
+    [],
+    [],
+    [],
+    ['', '', '', '', '', '', '', '', '', 'FIRMA DEL REPRESENTANTE LEGAL'],
+    ['', '', '', '', '', '', '', '', '', 'Nombre: ' + (p.representante_legal || '')],
+    ['', '', '', '', '', '', '', '', '', 'Correo electrónico:']
+  );
+  const ws1 = X.utils.aoa_to_sheet(a1);
+  fecha(ws1, 9, 1);
+  filas.forEach((x, i) => {
+    const r = d1 + i,
+      n = r + 1;
+    fecha(ws1, r, 10);
+    fecha(ws1, r, 11);
+    ws1[X.utils.encode_cell({ r, c: 12 })] = { t: 'n', v: pmSemanas(x.a), f: `(+L${n}-K${n})/7`, z: '0.00' };
+  });
+  ws1['!cols'] = [6, 12, 50, 30, 30, 40, 30, 40, 18, 10, 12, 12, 10, 30].map(w => ({ wch: w }));
+  /* Formulario 14.1 · seguimiento */
+  const a2 = enc('SEGUIMIENTO PLANES DE MEJORAMIENTO', 'FORMULARIO No 14.1');
+  a2[5] = ['ENTIDAD:', p.entidad || '', '', '', '', '', '', '', '', '', '', '', '', '', 'NIT:', p.nit || ''];
+  a2.push([
+    'Fecha de Evaluación:',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    pmXDate(corte)
+  ]);
+  a2.push([
+    ...cab,
+    'Avance fisico de ejecución de las Actividades',
+    'Porcentaje de Avance fisico de ejecución de las Actividades',
+    'Puntaje  Logrado  por las Actividades  (PLAI)',
+    'Puntaje Logrado por las Actividades  Vencidas (PLAVI)  ',
+    'Puntaje atribuido a las actividades vencidas (PAAVI)',
+    'Observaciones'
+  ]);
+  a2.push([]);
+  const d2 = a2.length;
+  const tot = { plai: 0, plavi: 0, paavi: 0, pbea: 0 };
+  filas.forEach((x, i) => {
+    const av = pmAvAl(x.a, corte),
+      cant = av ? Number(av.cantidad) : 0,
+      s = pmSemanas(x.a),
+      pc = pmPct(x.a, cant),
+      venc = x.a.fecha_fin <= corte;
+    tot.pbea += s;
+    tot.plai += s * pc;
+    tot.plavi += venc ? s * pc : 0;
+    tot.paavi += venc ? s : 0;
+    a2.push([
+      ...base(x, i),
+      s,
+      cant,
+      pc,
+      s * pc,
+      venc ? s * pc : 0,
+      venc ? s : 0,
+      av ? av.descripcion || '' : ''
+    ]);
+  });
+  const rt = a2.length;
+  a2.push([
+    'TOTALES',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    tot.plai,
+    tot.plavi,
+    tot.paavi
+  ]);
+  a2.push(['Elaboró: ' + pmUser()], []);
+  a2.push(
+    ['', '', '', '', '', '', '', '', '', 'FIRMA DEL REPRESENTANTE LEGAL'],
+    ['', '', '', '', '', '', '', '', '', 'Nombre: ' + (p.representante_legal || '')],
+    ['', '', '', '', '', '', '', '', '', 'Correo electrónico:'],
+    []
+  );
+  const re = a2.length;
+  a2.push(['Convenciones: ', '', '', '', '', '', 'Evaluación del Plan de Mejoramiento']);
+  a2.push(['', '', '', '', '', '', 'Puntajes base de Evaluación:']);
+  a2.push([
+    '',
+    '',
+    'Columnas de calculo automático ',
+    '',
+    '',
+    '',
+    'Puntaje base de evalaluación de cumplimiento',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'PBEC',
+    '',
+    tot.paavi
+  ]);
+  a2.push([
+    '',
+    '',
+    'Informacion suministrada en el informe de la CGR ',
+    '',
+    '',
+    '',
+    'Puntaje base de evaluación de avance',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'PBEA',
+    '',
+    tot.pbea
+  ]);
+  a2.push([
+    '',
+    '',
+    'Fila de Totales',
+    '',
+    '',
+    '',
+    'Cumplimiento del Plan de Mejoramiento',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'CPM = POMMVi / PBEC',
+    '',
+    tot.paavi ? tot.plavi / tot.paavi : 0
+  ]);
+  a2.push([
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'Avance del plan de Mejoramiento',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'AP =  POMi / PBEA',
+    '',
+    tot.pbea ? tot.plai / tot.pbea : 0
+  ]);
+  const ws2 = X.utils.aoa_to_sheet(a2);
+  fecha(ws2, 9, 1);
+  const S11 = '$S$' + 11; /* celda de la fecha de evaluación, como en la plantilla oficial */
+  fecha(ws2, 10, 18);
+  const nPrimera = d2 + 1,
+    nUltima = d2 + filas.length;
+  filas.forEach((x, i) => {
+    const r = d2 + i,
+      n = r + 1,
+      av = pmAvAl(x.a, corte),
+      cant = av ? Number(av.cantidad) : 0,
+      s = pmSemanas(x.a),
+      pc = pmPct(x.a, cant),
+      venc = x.a.fecha_fin <= corte;
+    fecha(ws2, r, 10);
+    fecha(ws2, r, 11);
+    const set = (c, v, f, z) => (ws2[X.utils.encode_cell({ r, c })] = { t: 'n', v, f, z });
+    set(12, s, `(+L${n}-K${n})/7`, '0.00');
+    set(14, pc, `IF(N${n}/J${n}>1,1,+N${n}/J${n})`, '0%');
+    set(15, s * pc, `+M${n}*O${n}`, '0.00');
+    set(16, venc ? s * pc : 0, `IF(L${n}<=${S11},P${n},0)`, '0.00');
+    set(17, venc ? s : 0, `IF(${S11}>=L${n},M${n},0)`, '0.00');
+  });
+  if (filas.length) {
+    const nt = rt + 1;
+    ws2[X.utils.encode_cell({ r: rt, c: 15 })] = {
+      t: 'n',
+      v: tot.plai,
+      f: `SUM(P${nPrimera}:P${nUltima})`,
+      z: '0.00'
+    };
+    ws2[X.utils.encode_cell({ r: rt, c: 16 })] = {
+      t: 'n',
+      v: tot.plavi,
+      f: `SUM(Q${nPrimera}:Q${nUltima})`,
+      z: '0.00'
+    };
+    ws2[X.utils.encode_cell({ r: rt, c: 17 })] = {
+      t: 'n',
+      v: tot.paavi,
+      f: `SUM(R${nPrimera}:R${nUltima})`,
+      z: '0.00'
+    };
+    const c19 = (r, v, f, z) => (ws2[X.utils.encode_cell({ r, c: 19 })] = { t: 'n', v, f, z });
+    c19(re + 2, tot.paavi, `+R${nt}`, '0.00');
+    c19(re + 3, tot.pbea, `SUM(M${nPrimera}:M${nUltima})`, '0.00');
+    c19(re + 4, tot.paavi ? tot.plavi / tot.paavi : 0, `IF(Q${nt}=0,0,+Q${nt}/T${re + 3})`, '0.00%');
+    c19(re + 5, tot.pbea ? tot.plai / tot.pbea : 0, `IF(P${nt}=0,0,+P${nt}/T${re + 4})`, '0.00%');
+  }
+  ws2['!cols'] = [6, 12, 50, 30, 30, 40, 30, 40, 18, 10, 12, 12, 10, 12, 12, 12, 12, 12, 40, 12].map(w => ({
+    wch: w
+  }));
+  return [ws1, ws2];
+}
+async function pmDoExport(id, btn) {
+  const p = pmPlanOf(id),
+    fmt = $('#pmEFmt').value,
+    corte = $('#pmECorte').value;
+  if (!pmFecha(corte)) return toast('Indica la fecha de corte', 'err');
+  if (btn) btn.disabled = true;
+  try {
+    const X = await pmXlsx();
+    const wb = X.utils.book_new();
+    if (fmt === 'F14_CGR') {
+      const [w1, w2] = pmSheetsF14(X, p, corte);
+      X.utils.book_append_sheet(wb, w1, 'Informe Plan de mejoramiento ');
+      X.utils.book_append_sheet(wb, w2, 'Avance Plan de Mejoramiento');
+    } else X.utils.book_append_sheet(wb, pmSheetPM01(X, p, corte), 'PM_01 CGSC');
+    const nom = `${fmt === 'F14_CGR' ? 'F14_CGR' : 'PM_01_CGSC'}_${pmKey(p.numero_informe || p.ejercicio)
+      .replace(/[^a-z0-9]+/g, '_')
+      .slice(0, 40)}_corte_${corte}.xlsx`;
+    X.writeFile(wb, nom, { compression: true });
+    closeModal();
+    toast('Formato descargado: ' + nom);
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+/* =====================================================================
+   ACCIONES (las despacha 18-acciones.js: todo data-act que empieza por "pm")
+   ===================================================================== */
+async function pmAct(a, t) {
+  const id = t.dataset.id;
+  switch (a) {
+    case 'pmReload':
+      await pmRefresh();
+      break;
+    case 'pmCtl':
+      PM.f.ctl = t.dataset.k;
+      render();
+      break;
+    case 'pmOpen':
+      PM.plan = id;
+      PM.tab = 'acciones';
+      PM.fa = { est: '', dep: '', q: '' };
+      PM.eval = pmHoy();
+      render();
+      window.scrollTo(0, 0);
+      break;
+    case 'pmOpenAcc': {
+      const x = pmAccOf(id);
+      if (!x) break;
+      closeModal();
+      if (pmScoped()) {
+        PM.plan = null;
+      } else {
+        PM.plan = x.plan_id;
+        PM.tab = 'acciones';
+        PM.fa = { est: '', dep: '', q: '' };
+      }
+      if (S.view !== 'planes') go('planes');
+      else render();
+      setTimeout(() => {
+        const el = document.getElementById('pmA-' + id);
+        if (el) {
+          el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          el.classList.add('pm-flash');
+        }
+      }, 60);
+      break;
+    }
+    case 'pmBack':
+      PM.plan = null;
+      render();
+      break;
+    case 'pmTab':
+      PM.tab = t.dataset.tab;
+      render();
+      break;
+    case 'pmMore':
+      PM.abiertos[id] = !PM.abiertos[id];
+      render();
+      break;
+    case 'pmNewPlan':
+      pmPlanModal(null);
+      break;
+    case 'pmEditPlan':
+      pmPlanModal(pmPlanOf(id || PM.plan));
+      break;
+    case 'pmSavePlan':
+      await pmSavePlan(id);
+      break;
+    case 'pmDelPlan': {
+      const p = pmPlanOf(PM.plan);
+      if (
+        !p ||
+        !confirm(
+          `¿Eliminar el plan «${shortTxt(p.ejercicio, 80)}» con sus hallazgos y acciones? Esta acción queda en la auditoría y no se puede deshacer.`
+        )
+      )
+        break;
+      try {
+        await pmEliminarPlan(p.id);
+        PM.plan = null;
+        toast('Plan eliminado');
+        await pmRefresh();
+      } catch (e) {
+        toast(e.message, 'err');
+      }
+      break;
+    }
+    case 'pmNewHall':
+      pmHallModal(null, PM.plan);
+      break;
+    case 'pmEditHall': {
+      const h = pmHallOf(id);
+      if (h) pmHallModal(h, h.plan_id);
+      break;
+    }
+    case 'pmSaveHall':
+      await pmSaveHall(id, t.dataset.plan);
+      break;
+    case 'pmDelHall': {
+      const h = pmHallOf(id);
+      if (!h || !confirm(`¿Eliminar el hallazgo ${h.numero} y sus acciones?`)) break;
+      try {
+        await pmDelete('hall', id);
+        toast('Hallazgo eliminado');
+        await pmRefresh();
+      } catch (e) {
+        toast(e.message, 'err');
+      }
+      break;
+    }
+    case 'pmNewAcc':
+      closeModal();
+      if (pmHallOf(id)) pmAccModal(null, id);
+      break;
+    case 'pmEditAcc': {
+      const x = pmAccOf(id);
+      if (x) pmAccModal(x);
+      break;
+    }
+    case 'pmSaveAcc':
+      await pmSaveAcc(id, t.dataset.hall);
+      break;
+    case 'pmDelAcc': {
+      const x = pmAccOf(id);
+      if (!x || !confirm('¿Eliminar esta acción?')) break;
+      try {
+        await pmDelete('acc', id);
+        toast('Acción eliminada');
+        await pmRefresh();
+      } catch (e) {
+        toast(e.message, 'err');
+      }
+      break;
+    }
+    case 'pmReport': {
+      const x = pmAccOf(id);
+      if (x) pmReportModal(x);
+      break;
+    }
+    case 'pmSaveAv':
+      await pmSaveAv(id, t);
+      break;
+    case 'pmReview': {
+      const v = PM.av.find(x => x.id === id);
+      if (v) pmReviewModal(v);
+      break;
+    }
+    case 'pmDoReview':
+      await pmDoReview(id, t.dataset.estado);
+      break;
+    case 'pmHist': {
+      const x = pmAccOf(id);
+      if (x) pmHistModal(x);
+      break;
+    }
+    case 'pmNotify':
+      pmNotifyModal(t.dataset.dep);
+      break;
+    case 'pmSendNotif':
+      await pmSendNotif(t.dataset.dep, t.dataset.canal);
+      break;
+    case 'pmImport':
+      PM.imp = null;
+      pmImportModal();
+      break;
+    case 'pmDoImport':
+      await pmDoImport(t);
+      break;
+    case 'pmExport': {
+      const p = pmPlanOf(PM.plan);
+      if (p) pmExportModal(p);
+      break;
+    }
+    case 'pmDoExport':
+      await pmDoExport(id, t);
+      break;
+  }
+}
+
+/* ===== src/js/20-arranque.js ===== */
+/**
+ * src/js/20-arranque.js
+ * Arranque y autenticación: crea el cliente Supabase o entra en modo demostración, inicio de sesión, service worker y gancho de pruebas.
+ * Depende de: Todos los anteriores (siempre es el último archivo: arranca la app).
+ *
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -9402,6 +13133,7 @@ async function enterApp() {
   await loadNotifs();
   await loadCruceMeta();
   if (S.demo) syncDemoDep();
+  await pmLoad();
   await reload();
   const v = location.hash.slice(1);
   go(TITLES[v] ? v : defaultView());
