@@ -3564,6 +3564,29 @@ body::before {
   }
 }
 
+/* Barra superior: el reloj y el indicador "En línea" nunca se encogen ni se cortan.
+   Si falta espacio, se acorta el subtítulo de la pantalla con puntos suspensivos. */
+.topbar .hud,
+.topbar .mode,
+.topbar select {
+  flex: none;
+}
+.topbar .title {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+.topbar .title h2,
+.topbar .title small {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar .mode {
+  padding: 5px 12px;
+}
+
 </style>
 </head>
 <body>
@@ -3630,7 +3653,7 @@ body::before {
 'use strict';
 
 /* Generado por scripts/build.mjs: no editar el archivo publicado, editar src/js/ */
-const CE_BUILD = {"variante":"institucional","version":"2.1.0","construido":"2026-10-17","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
+const CE_BUILD = {"variante":"institucional","version":"2.2.0","construido":"2026-10-17","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
 
 /* ===== src/js/01-configuracion.js ===== */
 /**
@@ -4258,7 +4281,13 @@ const db = {
       return { hash };
     }
     if (file) {
-      path = `${r.vigencia}/${r.radicado}_${Date.now()}.pdf`;
+      // Los radicados del histórico traen espacios, barras y tildes: el nombre del archivo se limpia
+      const seguro = String(r.radicado)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^A-Za-z0-9._-]+/g, '_')
+        .slice(0, 60);
+      path = `${r.vigencia}/${seguro}_${Date.now()}.pdf`;
       const up = await sb.storage
         .from('soportes')
         .upload(path, file, { contentType: 'application/pdf', upsert: false });
@@ -4959,6 +4988,7 @@ function vCarga(c) {
   c.innerHTML = `<div class="card" style="max-width:640px">
     <h3>Registrar respuesta ORFEO</h3><div class="sub">Vigencia <b class="mono" style="color:var(--glow)">${S.vigencia}</b> · el cierre queda firmado en la pista de auditoría</div>
     <form id="cargaForm" novalidate>
+      <div class="field"><label>Buscar caso</label><input id="cBus" placeholder="Radicado, ente, dependencia o asunto" autocomplete="off"><div class="hint" id="cBusN">${abiertos.length} caso(s) abiertos en la vigencia ${S.vigencia}</div></div>
       <div class="field"><label>Requerimiento pendiente</label><select id="cSel">${abiertos.map(r => `<option value="${esc(r.id)}"${String(r.id) === String(S.preselect) ? ' selected' : ''}>${esc(r.radicado)} · ${esc(r.ente_s || r.ente_n)} · ${esc(r.dep_n)} (${r.sem === 'rojo' ? 'crítico' : 'en término'})</option>`).join('')}</select></div>
       <div class="field"><label>Radicado ORFEO de salida</label><input id="cOrfeo" class="mono" inputmode="numeric" placeholder="202641430100000171" maxlength="20"><div class="hint">Solo dígitos (10 a 20). Se valida contra duplicados.</div><div class="err hidden" id="cOrfeoErr"></div></div>
       <div class="row2">
@@ -4969,6 +4999,24 @@ function vCarga(c) {
       <button class="btn primary" id="cBtn" type="submit"><i class="fa-solid fa-check-circle"></i> Guardar y marcar en verde</button>
     </form></div>`;
   S.preselect = null;
+  $('#cBus').addEventListener('input', e => {
+    const q = nrmTxt(e.target.value).trim(),
+      sel = $('#cSel');
+    let n = 0,
+      primero = null;
+    [...sel.options].forEach(o => {
+      const r = abiertos.find(x => String(x.id) === o.value),
+        ok = !q || [r.radicado, r.ente_n, r.ente_s, r.dep_n, r.asunto].some(v => nrmTxt(v).includes(q));
+      o.hidden = !ok;
+      o.disabled = !ok;
+      if (ok) {
+        n++;
+        if (!primero) primero = o;
+      }
+    });
+    if (sel.selectedOptions[0] && sel.selectedOptions[0].disabled && primero) sel.value = primero.value;
+    $('#cBusN').textContent = n + ' de ' + abiertos.length + ' caso(s)';
+  });
   $('#cOrfeo').addEventListener('input', e => {
     e.target.value = e.target.value.replace(/\D/g, '');
     const v = e.target.value,
@@ -5010,6 +5058,11 @@ function vCarga(c) {
     try {
       const res = await db.closeReq(r, orfeo, fecha, file);
       toast(`${r.radicado} cerrado · huella ${res.hash.slice(0, 10)}…`);
+      // Si el caso viene del histórico, el cumplimiento se actualiza sin recargar la página
+      if (r.hist_key) {
+        const h = HIST.rows.find(x => rowKey(x) === r.hist_key);
+        if (h) aplicarCierre(h, fecha, orfeo);
+      }
       await reload();
       go('requerimientos');
     } catch (e) {
@@ -5926,6 +5979,7 @@ async function loadHist() {
         from += 1000;
       }
       HIST = histFromDb(out);
+      await aplicarCierresApp();
       return;
     } catch (e) {
       console.error(e);
@@ -5933,6 +5987,46 @@ async function loadHist() {
     }
   }
   HIST.loaded = true;
+}
+/* Cierres hechos en la app sobre casos del histórico (supabase/12): el registro original no se
+   modifica; al cargar, cada caso cerrado en "Cargar respuesta ORFEO" se muestra como respondido
+   (a tiempo o tarde) y el cumplimiento se recalcula. Sobrevive a una recarga del histórico. */
+function habilesEntre(a, b) {
+  const d = new Date(a + 'T00:00:00'),
+    f = new Date(b + 'T00:00:00');
+  let n = 0;
+  while (d < f) {
+    d.setDate(d.getDate() + 1);
+    const w = d.getDay();
+    if (w !== 0 && w !== 6) n++;
+  }
+  return n;
+}
+function aplicarCierre(r, fecha, orfeo) {
+  r.fresp = fecha;
+  r.orfR = orfeo;
+  r.resp = 1;
+  r.cerradaApp = true;
+  if (r.fmax) {
+    r.opo = fecha <= r.fmax ? 0 : 1;
+    r.ret = r.opo === 1 ? habilesEntre(r.fmax, fecha) : null;
+  } else r.opo = 4;
+  if (r.rec) r.tiem = habilesEntre(r.rec, fecha);
+}
+async function aplicarCierresApp() {
+  if (S.demo || !sb || !HIST.rows.length) return;
+  const { data, error } = await sb
+    .from('requerimientos')
+    .select('hist_key, orfeo_salida, fecha_cierre')
+    .not('hist_key', 'is', null)
+    .eq('estado', 'cerrado');
+  if (error || !data || !data.length) return;
+  const m = new Map(data.map(x => [x.hist_key, x]));
+  HIST.rows.forEach(r => {
+    const c = m.get(rowKey(r));
+    if (c && (r.opo === 2 || r.opo === 3))
+      aplicarCierre(r, String(c.fecha_cierre).slice(0, 10), c.orfeo_salida);
+  });
 }
 async function loadDir() {
   DIRLIST = [];
