@@ -1245,16 +1245,16 @@ tr.click td .org {
   font-size: 0.78rem;
   color: #b9cbea;
 }
-.live {
+.pulso-vivo {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #3be07e;
   box-shadow: 0 0 0 0 rgba(59, 224, 126, 0.7);
-  animation: live 2s infinite;
+  animation: pulsoVivo 2s infinite;
   flex: none;
 }
-@keyframes live {
+@keyframes pulsoVivo {
   70% {
     box-shadow: 0 0 0 8px rgba(59, 224, 126, 0);
   }
@@ -1539,7 +1539,7 @@ tr.click td .org {
   border-radius: 50%;
   background: rgb(255, 92, 112);
   box-shadow: 0 0 0 0 rgba(255, 92, 112, 0.7);
-  animation: live 2s infinite;
+  animation: pulsoVivo 2s infinite;
 }
 .tile:hover {
   transform: translateY(-2px);
@@ -1708,6 +1708,9 @@ tr.click td .org {
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 6px;
+}
+.tmbar .tm-vent {
+  flex: none;
 }
 
 /* ===== src/css/08-barra-de-pestanas.css ===== */
@@ -2155,7 +2158,7 @@ tr.click td .org {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .live,
+  .pulso-vivo,
   .tile.rojo::after,
   .tk-track,
   .pill.rojo i,
@@ -4175,6 +4178,69 @@ label.pm-checks {
   }
 }
 
+/* ---------- resumen en el centro de mando ---------- */
+.pm-mando {
+  margin-top: 14px;
+  border-left: 4px solid var(--oro);
+}
+.pm-mando-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------- carga del Excel de control ---------- */
+.ce-vig {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  background: var(--bg2);
+}
+.ce-vig-h {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.ce-vig-h .muted {
+  font-size: 0.76rem;
+  overflow-wrap: anywhere;
+}
+.ce-num {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+.ce-num div {
+  display: flex;
+  flex-direction: column;
+}
+.ce-num small {
+  font-size: 0.68rem;
+  color: var(--faint);
+  font-weight: 700;
+}
+.ce-num b {
+  font-size: 1.3rem;
+  font-variant-numeric: tabular-nums;
+}
+.ce-num b.ce-ojo {
+  color: var(--sem-a-ink, #ffc23d);
+}
+.ce-num span {
+  font-size: 0.72rem;
+  color: var(--soft);
+}
+.ce-tipos {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
 </style>
 </head>
 <body>
@@ -4207,7 +4273,7 @@ label.pm-checks {
     <div class="user">
       <div class="avatar"><i class="fa-regular fa-user"></i></div>
       <div class="user-t"><b id="uEmail">—</b><small id="uRole">—</small></div>
-      <button class="icon-btn logout" data-act="miClave" title="Cambiar mi contraseña" aria-label="Cambiar mi contraseña"><i class="fa-solid fa-key"></i></button>
+      <button class="icon-btn logout" data-act="miClave" title="Mi cuenta y seguridad" aria-label="Mi cuenta y seguridad"><i class="fa-solid fa-key"></i></button>
       <button class="icon-btn logout" id="btnLogout" title="Cerrar sesión" aria-label="Cerrar sesión"><i class="fa-solid fa-right-from-bracket"></i></button>
     </div>
   </aside>
@@ -4241,7 +4307,7 @@ label.pm-checks {
 'use strict';
 
 /* Generado por scripts/build.mjs: no editar el archivo publicado, editar src/js/ */
-const CE_BUILD = {"variante":"institucional","version":"2.3.0","construido":"2026-10-17","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
+const CE_BUILD = {"variante":"institucional","version":"2.5.0","construido":"2026-10-18","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
 
 /* ===== src/js/01-configuracion.js ===== */
 /**
@@ -4249,7 +4315,7 @@ const CE_BUILD = {"variante":"institucional","version":"2.3.0","construido":"202
  * Configuración leída de configuracion.json (URL y clave pública de Supabase, remitente de correos) y variante construida.
  * Depende de: CE_BUILD (inyectado por scripts/build.mjs).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -4277,7 +4343,7 @@ const ES_PRIVADA = CE_BUILD.variante === 'privada';
  * Utilidades generales: selectores $/$$, escape HTML (esc), fechas, almacenamiento local (lsGet/lsSet), SHA-256.
  * Depende de: Nada; todos los demás archivos usan estas funciones.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -4342,13 +4408,87 @@ const ROLES = {
 };
 const SEM = { rojo: 'Crítico', amarillo: 'En término', verde: 'Cerrado' };
 
+/* ---------- Días hábiles en Colombia ----------
+   Festivos según la Ley 51 de 1983 ("Ley Emiliani") y la Ley 2578 de 2026: fijos; trasladables al lunes siguiente;
+   y los que dependen de la Pascua (Jueves y Viernes Santo, Ascensión, Corpus Christi y Sagrado Corazón). */
+const FESTIVOS_CO = {};
+function pascua(y) {
+  const a = y % 19,
+    b = Math.floor(y / 100),
+    c = y % 100,
+    d = Math.floor(b / 4),
+    e = b % 4,
+    f = Math.floor((b + 8) / 25),
+    g = Math.floor((b - f + 1) / 3),
+    h = (19 * a + b - d - g + 15) % 30,
+    i = Math.floor(c / 4),
+    k = c % 4,
+    l = (32 + 2 * e + 2 * i - h - k) % 7,
+    m = Math.floor((a + 11 * h + 22 * l) / 451),
+    mes = Math.floor((h + l - 7 * m + 114) / 31),
+    dia = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(y, mes - 1, dia);
+}
+function festivosCO(y) {
+  if (FESTIVOS_CO[y]) return FESTIVOS_CO[y];
+  const s = new Set();
+  const lunes = d => {
+    const w = d.getDay();
+    if (w !== 1) d.setDate(d.getDate() + ((8 - w) % 7));
+    return d;
+  };
+  [
+    [1, 1],
+    [5, 1],
+    [7, 20],
+    [8, 7],
+    [12, 8],
+    [12, 25]
+  ].forEach(([m, d]) => s.add(iso(new Date(y, m - 1, d))));
+  [
+    [1, 6],
+    [3, 19],
+    [6, 29],
+    [8, 15],
+    [10, 12],
+    [11, 1],
+    [11, 11]
+  ].forEach(([m, d]) => s.add(iso(lunes(new Date(y, m - 1, d)))));
+  /* Ley 2578 de 2026: Día de Nuestra Señora del Rosario de Chiquinquirá (9 de julio), trasladable */
+  if (y >= 2026) s.add(iso(lunes(new Date(y, 6, 9))));
+  const p = pascua(y),
+    mas = n => {
+      const d = new Date(p);
+      d.setDate(d.getDate() + n);
+      return d;
+    };
+  s.add(iso(mas(-3)));
+  s.add(iso(mas(-2)));
+  [39, 60, 68].forEach(n => s.add(iso(lunes(mas(n)))));
+  return (FESTIVOS_CO[y] = s);
+}
+function esHabil(d) {
+  const w = d.getDay();
+  return w !== 0 && w !== 6 && !festivosCO(d.getFullYear()).has(iso(d));
+}
+/* Fecha que resulta de sumar n días hábiles a una fecha (AAAA-MM-DD), sin contar el día inicial */
+function sumarHabiles(desde, n) {
+  const d = new Date(desde + 'T00:00:00');
+  let k = 0;
+  while (k < n) {
+    d.setDate(d.getDate() + 1);
+    if (esHabil(d)) k++;
+  }
+  return iso(d);
+}
+
 /* ===== src/js/03-estado-y-permisos.js ===== */
 /**
  * src/js/03-estado-y-permisos.js
  * Estado global de la sesión (S), roles (ROLES), menú y permisos por pantalla (NAV) y títulos (TITLES). NAV es la fuente única de qué ve cada rol.
  * Depende de: 02-utilidades.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -4497,7 +4637,7 @@ const canEscalate = () => canRole(['admin', 'alcalde', 'control_interno', 'enlac
  * Capa de datos: objeto db con todas las lecturas y escrituras. Con Supabase usa la API real; sin conexión simula la base en memoria (DEMO) con auditoría equivalente.
  * Depende de: 01 (CFG), 02, 03 (S). En la variante privada usa HIST de 10.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -5118,7 +5258,7 @@ function dbErr(e) {
  * Reglas del módulo operativo: semáforo de cada requerimiento vivo (decorate) y recarga de datos (reload).
  * Depende de: 04 (db), 03 (S).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -5169,7 +5309,7 @@ async function reload() {
  * Interfaz común: avisos (toast), ventanas modales, menú lateral, barra de pestañas del celular, navegación entre pantallas (go/render).
  * Depende de: 03 (NAV, TITLES), todas las vistas v*().
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -5183,14 +5323,16 @@ function toast(msg, type) {
   $('#toasts').appendChild(t);
   setTimeout(() => t.remove(), type === 'err' ? 6000 : 3800);
 }
-function openModal({ title, body, footer, wide }) {
+function openModal({ title, body, footer, wide, fija }) {
   closeModal();
   const el = document.createElement('div');
   el.className = 'overlay';
   el.id = 'modalOv';
-  el.innerHTML = `<div class="modal" role="dialog" aria-modal="true" ${wide ? 'style="width:min(720px,100%)"' : ''}><header><h3>${esc(title)}</h3><button class="icon-btn" data-act="closeModal" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button></header><div class="body">${body}</div>${footer ? `<footer>${footer}</footer>` : ''}</div>`;
+  el.innerHTML = `<div class="modal" role="dialog" aria-modal="true" ${wide ? 'style="width:min(720px,100%)"' : ''}><header><h3>${esc(title)}</h3>${fija ? '' : '<button class="icon-btn" data-act="closeModal" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>'}</header><div class="body">${body}</div>${footer ? `<footer>${footer}</footer>` : ''}</div>`;
+  /* Una ventana fija (verificación obligatoria) no se cierra con clic afuera ni con Escape */
+  if (fija) el.dataset.fija = '1';
   el.addEventListener('mousedown', e => {
-    if (e.target === el) closeModal();
+    if (e.target === el && !fija) closeModal();
   });
   $('#modalRoot').appendChild(el);
   const f = el.querySelector('input,select,textarea');
@@ -5200,7 +5342,8 @@ function closeModal() {
   $('#modalRoot').innerHTML = '';
 }
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
+  const ov = $('#modalOv');
+  if (e.key === 'Escape' && !(ov && ov.dataset.fija)) closeModal();
 });
 
 function renderNav() {
@@ -5372,7 +5515,7 @@ async function render() {
  * Pantallas del módulo operativo: Tablero, Requerimientos, Cargar respuesta ORFEO y Alertas y escalamiento.
  * Depende de: 04 (db), 05, 06.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -5539,10 +5682,19 @@ function newReqModal() {
     <div class="field"><label>Asunto</label><textarea id="nrAsu" placeholder="Describe el requerimiento…"></textarea></div>
     <div class="row2">
       <div class="field"><label>Fecha de radicación</label><input id="nrFr" type="date" value="${hoy}" max="${hoy}"></div>
-      <div class="field"><label>Fecha límite de respuesta</label><input id="nrFl" type="date" value="${addDays(15)}"></div>
-    </div><div id="nrErr" class="err hidden"></div>`,
+      <div class="field"><label>Término para responder (días hábiles)</label><input id="nrTe" type="number" min="1" max="90" value="10" inputmode="numeric"></div>
+    </div>
+    <div class="field"><label>Fecha límite de respuesta</label><input id="nrFl" type="date" value="${sumarHabiles(hoy, 10)}"><div class="hint" id="nrFlH">Calculada sin sábados, domingos ni festivos de Colombia. Puede ajustarla si el oficio indica otra fecha.</div></div>
+    <div id="nrErr" class="err hidden"></div>`,
     footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="saveReq"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>`
-  });
+  }); /* La fecha límite se recalcula con el término en días hábiles, salvo que se haya escrito a mano */
+  const calc = () => {
+    const fr = $('#nrFr').value,
+      n = parseInt($('#nrTe').value, 10);
+    if (fr && n > 0) $('#nrFl').value = sumarHabiles(fr, n);
+  };
+  $('#nrFr').addEventListener('change', calc);
+  $('#nrTe').addEventListener('input', calc);
 }
 async function saveReq() {
   const err = m => {
@@ -5743,7 +5895,7 @@ function vAlertas(c) {
  * Pantallas de catálogos (entes, dependencias), reportes, auditoría (verificación de la cadena SHA-256), cuentas y roles, configuración.
  * Depende de: 04 (db), 06.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -6160,6 +6312,245 @@ async function guardarClave() {
   toast('Contraseña actualizada');
 }
 
+/* ---------- Verificación en dos pasos (código de una app autenticadora) ----------
+   Supabase Auth con factor TOTP. La base de datos (supabase/14) no reconoce un rol de supervisión
+   a quien ya la activó si entró solo con la contraseña. Es obligatoria para el Super administrador. */
+const MFA = { pendiente: null, resolver: null };
+const mfaRolesObligatorio = ['admin'];
+const mfaRolesRecomendado = ['alcalde', 'control_interno'];
+async function mfaFactores() {
+  const { data, error } = await sb.auth.mfa.listFactors();
+  if (error) throw error;
+  return { verificados: (data.totp || []).filter(f => f.status === 'verified'), todos: data.all || [] };
+}
+async function miCuentaModal() {
+  let estado = '<div class="muted">No disponible en modo demostración.</div>',
+    botones = '';
+  if (!S.demo && sb) {
+    try {
+      const f = await mfaFactores();
+      if (f.verificados.length) {
+        const fx = f.verificados[0];
+        estado = `<div><span class="pill verde">Activa</span> <span class="muted" style="font-size:.8rem">desde el ${fmtD((fx.created_at || '').slice(0, 10))}</span></div>`;
+        botones = mfaRolesObligatorio.includes(rol())
+          ? '<div class="hint">Es obligatoria para el Super administrador. Si cambió de celular, actívela de nuevo en el celular nuevo y luego quite la anterior.</div><button class="btn sm" data-act="mfaActivar" style="margin-top:8px"><i class="fa-solid fa-mobile-screen"></i> Agregar otro celular</button>' +
+            (f.verificados.length > 1
+              ? f.verificados
+                  .map(
+                    x =>
+                      `<button class="btn sm" data-act="mfaQuitar" data-id="${esc(x.id)}" style="margin:8px 0 0 8px">Quitar ${esc(x.friendly_name || 'dispositivo')}</button>`
+                  )
+                  .join('')
+              : '')
+          : f.verificados
+              .map(
+                x =>
+                  `<button class="btn sm" data-act="mfaQuitar" data-id="${esc(x.id)}" style="margin-top:8px">Quitar ${esc(x.friendly_name || 'dispositivo')}</button>`
+              )
+              .join(' ');
+      } else {
+        estado = `<div><span class="pill ${mfaRolesObligatorio.includes(rol()) ? 'rojo' : 'amarillo'}">No activa</span></div>`;
+        botones =
+          '<button class="btn primary sm" data-act="mfaActivar" style="margin-top:10px"><i class="fa-solid fa-shield-halved"></i> Activar verificación en dos pasos</button>';
+      }
+    } catch (e) {
+      estado = `<div class="muted">No se pudo consultar: ${esc(e.message)}</div>`;
+    }
+  }
+  openModal({
+    title: 'Mi cuenta y seguridad',
+    body: `<div class="field"><label>Cuenta</label><div>${esc((S.user || {}).email || '')}<div class="muted" style="font-size:.8rem">${esc(ROLES[rol()] || '')}</div></div></div>
+      <div class="field"><label>Contraseña</label><button class="btn sm" data-act="miClaveCambiar"><i class="fa-solid fa-key"></i> Cambiar mi contraseña</button></div>
+      <div class="field"><label>Verificación en dos pasos</label>${estado}
+        <div class="hint" style="margin-top:6px">Además de la contraseña, al ingresar se pide un código de 6 dígitos que genera una app en su celular (Google Authenticator o Microsoft Authenticator). Así, una contraseña robada no basta para entrar.</div>${botones}</div>`,
+    footer: '<button class="btn" data-act="closeModal">Cerrar</button>'
+  });
+}
+/* Inscribe un celular: muestra el código QR y pide el primer código para confirmarlo */
+async function mfaInscribir(obligatoria) {
+  if (S.demo || !sb) return toast('No disponible en modo demostración', 'err');
+  try {
+    const f = await mfaFactores();
+    /* intentos anteriores sin terminar */
+    for (const x of f.todos.filter(x => x.status !== 'verified'))
+      await sb.auth.mfa.unenroll({ factorId: x.id });
+    const nombre =
+      'Celular ' + (f.verificados.length + 1) + ' (' + new Date().toLocaleDateString('es-CO') + ')';
+    const { data, error } = await sb.auth.mfa.enroll({ factorType: 'totp', friendlyName: nombre });
+    if (error) throw error;
+    MFA.pendiente = data.id;
+    openModal({
+      title: obligatoria ? 'Active la verificación en dos pasos' : 'Activar verificación en dos pasos',
+      fija: !!obligatoria,
+      body: `${obligatoria ? '<div class="pm-note y" style="margin:0 0 12px">Por seguridad, la cuenta de Super administrador debe tener verificación en dos pasos. Toma un minuto.</div>' : ''}
+        <ol style="margin:0 0 12px 18px;line-height:1.6">
+          <li>Instale en su celular <b>Google Authenticator</b> o <b>Microsoft Authenticator</b> (gratis).</li>
+          <li>En la app, agregue una cuenta y escanee este código:</li>
+        </ol>
+        <div style="text-align:center;margin:10px 0"><img src="${data.totp.qr_code}" alt="Código QR para la app autenticadora" style="width:210px;height:210px;background:#fff;padding:8px;border-radius:10px"></div>
+        <div class="hint" style="text-align:center">Si no puede escanear, escriba esta clave en la app: <span class="mono" style="user-select:all">${esc(data.totp.secret)}</span></div>
+        <div class="field" style="margin-top:14px"><label for="mfaCod">3. Escriba el código de 6 dígitos que muestra la app</label><input id="mfaCod" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="mono" style="font-size:1.4rem;letter-spacing:.3em;text-align:center"></div>
+        <div id="mfaErr" class="hint err hidden"></div>`,
+      footer: `${obligatoria ? '<button class="btn" data-act="mfaSalir">Cerrar sesión</button>' : '<button class="btn" data-act="mfaCancelar">Cancelar</button>'}<button class="btn primary" data-act="mfaConfirmar"><i class="fa-solid fa-check"></i> Confirmar</button>`
+    });
+  } catch (e) {
+    toast('No se pudo iniciar la verificación en dos pasos: ' + e.message, 'err');
+  }
+}
+async function mfaConfirmar(btn) {
+  const code = ($('#mfaCod').value || '').replace(/\D/g, '');
+  const err = m => {
+    const e = $('#mfaErr');
+    e.textContent = m;
+    e.classList.remove('hidden');
+  };
+  if (code.length !== 6) return err('Escriba los 6 dígitos que muestra la app.');
+  if (btn) btn.disabled = true;
+  const { error } = await sb.auth.mfa.challengeAndVerify({ factorId: MFA.pendiente, code });
+  if (btn) btn.disabled = false;
+  if (error) return err('El código no es correcto o ya cambió. Escriba el código actual de la app.');
+  MFA.pendiente = null;
+  closeModal();
+  toast('Verificación en dos pasos activada. Desde ahora se pedirá el código al ingresar.');
+}
+async function mfaCancelar() {
+  if (MFA.pendiente) await sb.auth.mfa.unenroll({ factorId: MFA.pendiente }).catch(() => {});
+  MFA.pendiente = null;
+  closeModal();
+}
+async function mfaQuitar(id) {
+  const f = await mfaFactores().catch(() => ({ verificados: [] }));
+  if (mfaRolesObligatorio.includes(rol()) && f.verificados.length <= 1)
+    return toast('Es obligatoria para el Super administrador: agregue primero otro celular.', 'err');
+  if (!confirm('¿Quitar este celular de la verificación en dos pasos?')) return;
+  const { error } = await sb.auth.mfa.unenroll({ factorId: id });
+  if (error)
+    return toast(
+      'No se pudo quitar: ' + error.message + '. Ingrese de nuevo con el código e inténtelo otra vez.',
+      'err'
+    );
+  toast('Celular quitado de la verificación en dos pasos');
+  await miCuentaModal();
+}
+/* Al ingresar: si la cuenta tiene verificación activa, pide el código antes de abrir la app */
+function mfaPedirCodigo() {
+  return new Promise(resolve => {
+    MFA.resolver = resolve;
+    openModal({
+      title: 'Verificación en dos pasos',
+      fija: true,
+      body: `<div class="sub" style="margin-bottom:12px">Abra la app autenticadora de su celular y escriba el código de 6 dígitos de Control de Entes.</div>
+        <div class="field"><label for="mfaCod">Código</label><input id="mfaCod" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="mono" style="font-size:1.4rem;letter-spacing:.3em;text-align:center"></div>
+        <div id="mfaErr" class="hint err hidden"></div>
+        <div class="hint">Si perdió el celular, pida al Super administrador o al soporte técnico que restablezca su verificación.</div>`,
+      footer:
+        '<button class="btn" data-act="mfaSalir">Cancelar</button><button class="btn primary" data-act="mfaVerificar"><i class="fa-solid fa-unlock"></i> Ingresar</button>'
+    });
+    const i = $('#mfaCod');
+    if (i)
+      i.addEventListener('keydown', e => {
+        if (e.key === 'Enter') $('[data-act="mfaVerificar"]').click();
+      });
+  });
+}
+async function mfaVerificarCodigo(btn) {
+  const code = ($('#mfaCod').value || '').replace(/\D/g, '');
+  const err = m => {
+    const e = $('#mfaErr');
+    e.textContent = m;
+    e.classList.remove('hidden');
+  };
+  if (code.length !== 6) return err('Escriba los 6 dígitos.');
+  try {
+    if (btn) btn.disabled = true;
+    const f = await mfaFactores();
+    const fx = f.verificados[0];
+    const { error } = await sb.auth.mfa.challengeAndVerify({ factorId: fx.id, code });
+    if (btn) btn.disabled = false;
+    if (error) return err('El código no es correcto o ya cambió. Escriba el código actual.');
+    closeModal();
+    const r = MFA.resolver;
+    MFA.resolver = null;
+    if (r) r(true);
+  } catch (e) {
+    if (btn) btn.disabled = false;
+    err('No se pudo verificar: ' + e.message);
+  }
+}
+async function mfaSalir() {
+  MFA.pendiente = null;
+  closeModal();
+  const r = MFA.resolver;
+  MFA.resolver = null;
+  if (r) r(false);
+  else {
+    await sb.auth.signOut();
+    location.reload();
+  }
+}
+/* Después de ingresar: obliga al Super administrador a activarla y la recomienda a la supervisión */
+async function mfaRevisarTrasIngreso() {
+  if (S.demo || !sb) return;
+  try {
+    const f = await mfaFactores();
+    if (f.verificados.length) return;
+    if (mfaRolesObligatorio.includes(rol())) return mfaInscribir(true);
+    if (mfaRolesRecomendado.includes(rol()) && !sessionStorage.getItem('ce_mfa_aviso')) {
+      sessionStorage.setItem('ce_mfa_aviso', '1');
+      toast('Recomendado: active la verificación en dos pasos en Mi cuenta (botón de la llave).');
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+/* ---------- Resumen semanal por correo (Edge Function resumen-semanal, supabase/14) ---------- */
+async function guardarResumen() {
+  if (!('resumen_activo' in S.cfg) && !S.demo)
+    return toast('Primero ejecute el script supabase/14_seguridad_y_resumen.sql', 'err');
+  try {
+    await db.saveConfig({ resumen_activo: $('#cfRes').checked });
+    await db.catalogs();
+    toast(
+      $('#cfRes').checked
+        ? 'Resumen semanal activado: se enviará los lunes a las 7:00 a. m.'
+        : 'Resumen semanal desactivado'
+    );
+    render();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+async function probarResumen(btn) {
+  if (S.demo || !sb) return toast('En modo demostración no se envían correos', 'err');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando…';
+  }
+  try {
+    const { data, error } = await sb.functions.invoke('resumen-semanal', { body: { prueba: true } });
+    if (error) throw new Error((data && data.error) || error.message);
+    if (data && data.error) throw new Error(data.error);
+    toast(
+      data.enviados
+        ? 'Correo de prueba enviado a ' + S.user.email + '. Revise su bandeja de entrada.'
+        : 'No hay dependencias con pendientes para armar la prueba.'
+    );
+  } catch (e) {
+    toast(
+      'No se pudo enviar la prueba: ' +
+        e.message +
+        '. Revise que la función resumen-semanal esté desplegada con sus secretos.',
+      'err'
+    );
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar prueba a mi correo';
+    }
+  }
+}
+
 function vConfig(c) {
   c.innerHTML = `<div class="grid g-2">
     <div class="card"><h3>Parámetros del semáforo</h3><div class="sub">Se guardan en la base de datos y aplican a toda la entidad.</div>
@@ -6169,7 +6560,34 @@ function vConfig(c) {
     <div class="card"><h3>Conexión a Supabase</h3><div class="sub">${S.demo ? 'Estás en modo demostración. Pega los datos de tu proyecto para conectar la base real.' : 'Conectado a tu proyecto Supabase.'}</div>
       <div class="field"><label>Project URL</label><input id="cfUrl" value="${esc(CFG.SUPABASE_URL || lsGet('ce_url') || '')}" placeholder="https://xxxx.supabase.co"></div>
       <div class="field"><label>anon public key</label><input id="cfKey" value="${esc(CFG.SUPABASE_ANON_KEY || lsGet('ce_key') || '')}" placeholder="eyJ…"><div class="hint">Nunca uses la service_role key en este archivo.</div></div>
-      <button class="btn" data-act="saveConn"><i class="fa-solid fa-plug"></i> Guardar en este navegador y recargar</button></div></div>`;
+      <button class="btn" data-act="saveConn"><i class="fa-solid fa-plug"></i> Guardar en este navegador y recargar</button></div>
+    <div class="card"><h3>Resumen semanal por correo</h3><div class="sub">Cada lunes a las 7:00 a. m. se envía a cada secretario o director, a su correo institucional, lo que su dependencia tiene pendiente: requerimientos vencidos y por vencer, y acciones de planes de mejoramiento vencidas, por vencer o devueltas. Cada envío queda en la bitácora de notificaciones.</div>
+      ${
+        !S.demo && !('resumen_activo' in S.cfg)
+          ? '<div class="pm-note y">Para usarlo, ejecute en Supabase el script <span class="mono">14_seguridad_y_resumen.sql</span> y despliegue la función <span class="mono">resumen-semanal</span> (ver docs/DESPLIEGUE.md).</div>'
+          : `<label class="pm-checks" style="margin:6px 0 12px"><input type="checkbox" id="cfRes" ${S.cfg.resumen_activo ? 'checked' : ''}> Enviar el resumen semanal automáticamente</label>
+      ${S.cfg.resumen_ultimo ? `<div class="hint" style="margin-bottom:10px">Último envío: ${fmtTs(S.cfg.resumen_ultimo)}. ${esc(S.cfg.resumen_ultimo_detalle || '')}</div>` : ''}
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-act="saveResumen"><i class="fa-solid fa-floppy-disk"></i> Guardar</button><button class="btn" data-act="probarResumen"><i class="fa-solid fa-paper-plane"></i> Enviar prueba a mi correo</button></div>`
+      }</div>
+    <div class="card"><h3>Datos desde el Excel de control</h3><div class="sub">Actualice el histórico cargando el Excel de control de la vigencia. Antes de guardar se muestra qué cambia y qué filas revisar.</div>
+      <button class="btn primary" data-act="ceAbrir"><i class="fa-solid fa-file-arrow-up"></i> Cargar Excel de control</button>
+      <div id="ceUltimas" class="hint" style="margin-top:12px"></div></div></div>`;
+  ceUltimasCargas().then(l => {
+    const el = $('#ceUltimas');
+    if (!el) return;
+    if (l === null)
+      el.innerHTML =
+        'Para guardar las cargas en la base de datos, ejecute el script <span class="mono">16_carga_excel.sql</span>.';
+    else if (l.length)
+      el.innerHTML =
+        '<b>Últimas cargas</b><br>' +
+        l
+          .map(
+            x =>
+              `${fmtTs(x.created_at)}: vigencia ${esc((x.vigencias || []).join(' y '))}, ${nf(x.registros)} registros, por ${esc(x.usuario)}`
+          )
+          .join('<br>');
+  });
 }
 
 /* ===== src/js/09-cumplimiento-e-historico.js ===== */
@@ -6178,7 +6596,7 @@ function vConfig(c) {
  * Semáforo histórico (SEMP, semOf), ranking de cumplimiento por secretaría, histórico de radicados y detalle de un radicado.
  * Depende de: 10 (HIST, statsOf), 11 (temas y cruces en el detalle).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -6377,6 +6795,7 @@ function vHistorico(c) {
       <select id="horg">${so([...new Set(hrows().map(r => r.org))].sort(), Hs.org, 'Todos los organismos')}</select>
       <select id="hopo"><option value="">Todo estado</option>${OPO_PILL.map((p, i) => `<option value="${i}"${String(i) === Hs.opo ? ' selected' : ''}>${p[1][0] + p[1].slice(1).toLowerCase()}</option>`).join('')}</select>
       <button class="btn no-print" data-act="histCsv"><i class="fa-solid fa-file-csv"></i> Exportar</button>
+      ${rol() === 'admin' ? '<button class="btn primary no-print" data-act="ceAbrir"><i class="fa-solid fa-file-arrow-up"></i> Cargar Excel de control</button>' : ''}
     </div>
     <div class="tbl-wrap"><table class="tbl" style="min-width:1180px"><thead><tr><th>Vig.</th><th>N.º radicación ente</th><th>ORFEO entrada</th><th>Organismo</th><th class="right">Término</th><th>Fecha máx.</th><th>Fecha resp.</th><th>ORFEO respuesta</th><th>¿Respondió?</th><th>¿Tardía?</th><th class="right">Retraso</th><th>Estado</th></tr></thead><tbody id="hBody"></tbody></table></div>
     <div class="pager"><span class="muted" id="hCount" style="margin-right:auto;font-size:.78rem"></span><button class="btn sm" data-act="hPage" data-d="-1">Anterior</button><span class="mono" id="hPg"></span><button class="btn sm" data-act="hPage" data-d="1">Siguiente</button></div>`;
@@ -6458,7 +6877,7 @@ function histDetail(i) {
  * Datos del histórico 2024-2026 (HIST), directorio del gabinete (DIRLIST), bitácora de notificaciones, alcance por dependencia (scopeOrg/hrows), estadísticas y enmascaramiento de datos personales (maskPII).
  * Depende de: 04 (sb), 03 (S).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -6601,8 +7020,7 @@ function habilesEntre(a, b) {
   let n = 0;
   while (d < f) {
     d.setDate(d.getDate() + 1);
-    const w = d.getDay();
-    if (w !== 0 && w !== 6) n++;
+    if (esHabil(d)) n++; /* sin sábados, domingos ni festivos de Colombia */
   }
   return n;
 }
@@ -6915,7 +7333,7 @@ const shortTxt = (s, n) => {
  * Cruce de información: tema de cada requerimiento por reglas fijas, cruces exactos entre entes (mismo contrato, expediente, radicado o documento) y alertas de mismo tema en 90 días. Pantalla "Cruces y temas".
  * Depende de: 10 (HIST, maskPII, scopeOrg), 06.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -7651,7 +8069,7 @@ function vCruces(c) {
  * Centro de mando del Alcalde: cifra global, mosaico de dependencias con máquina del tiempo, cinta de seguimiento, lectura del corte y cola de acción.
  * Depende de: 09 (semOf), 10 (HIST, statsOf), 11 (cruceData), 14 (notificar).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -7660,7 +8078,15 @@ function vCruces(c) {
    ===================================================================== */
 const X = { org: null };
 const Q = { vigs: { 2026: true, 2025: false, 2024: false } };
-const TM = { idx: 0, timer: null, months: [], tiles: [] };
+const TM = {
+  idx: 0,
+  timer: null,
+  months: [],
+  tiles: [],
+  ventana: [3, 6, 12].includes(+lsGet('ce_ventana')) ? +lsGet('ce_ventana') : 6
+};
+const ventanaTxt = () =>
+  TM.ventana === 12 ? 'los últimos 12 meses' : 'los últimos ' + TM.ventana + ' meses';
 function stopPlay() {
   if (TM.timer) {
     clearInterval(TM.timer);
@@ -7690,8 +8116,9 @@ function monthsList() {
   return out;
 }
 function windowStatsByOrg(endIso) {
+  /* Ventana móvil de TM.ventana meses que termina en endIso (el inicio no se incluye) */
   const d = new Date(endIso + 'T00:00:00');
-  d.setDate(d.getDate() - 89);
+  d.setMonth(d.getMonth() - TM.ventana);
   const start = iso(d);
   const m = new Map();
   HIST.rows.forEach(r => {
@@ -7737,7 +8164,7 @@ function vMando(c) {
     .join('');
   c.innerHTML = `
     <section class="cmd">
-      <div class="cmd-line"><span class="live"></span>Corte ${fmtD(HIST.corte)}${S.demo ? (ES_PRIVADA ? ' · datos reales' : ' · datos de ejemplo') : ''}</div>
+      <div class="cmd-line"><span class="pulso-vivo"></span>Corte ${fmtD(HIST.corte)}${S.demo ? (ES_PRIVADA ? ' · datos reales' : ' · datos de ejemplo') : ''}</div>
       <div class="cmd-fig">
         <h2 class="cmd-head" id="cmdHead"></h2>
         <p>En el histórico, el <b><span id="bigNum">0</span> %</b> de los ${nf(g.ev)} requerimientos evaluados se respondió tarde o sigue sin respuesta. La meta es bajar de ${SEMP.verde_lt * 100} %.</p>
@@ -7751,10 +8178,11 @@ function vMando(c) {
       <div class="cmd-h"><b>Tablero de dependencias</b><span>De mayor a menor incumplimiento. Toca una tecla para ver su detalle</span></div>
       <div class="tmbar"><button class="btn sm" data-act="tmPlay" id="tmPlay"><i class="fa-solid fa-play"></i> Reproducir</button>
         <input type="range" id="tmRange" min="0" max="${Math.max(0, TM.months.length - 1)}" value="${TM.idx}" aria-label="Mes">
-        <span class="tmlabel" id="tmLabel"></span></div>
+        <span class="tmlabel" id="tmLabel"></span>
+        <div class="seg tm-vent" role="group" aria-label="Ventana de tiempo">${[3, 6, 12].map(n => `<button data-act="tmVentana" data-n="${n}" class="${TM.ventana === n ? 'on' : ''}" aria-pressed="${TM.ventana === n}">${n} meses</button>`).join('')}</div></div>
       <div class="tm" id="tm"></div>
       <div class="tm-det" id="tmDet" aria-live="polite"></div>
-      <div class="cmd-legend"><span><i class="sw-r"></i>Rojo, desde ${SEMP.rojo_ge * 100} %</span><span><i class="sw-y"></i>Amarillo, de ${SEMP.verde_lt * 100} % a ${SEMP.rojo_ge * 100} %</span><span><i class="sw-g"></i>Verde, menos de ${SEMP.verde_lt * 100} %</span><span><i class="sw-n"></i>Sin muestra: menos de 3 casos evaluados</span><span class="cmd-legend-w">Ventana de los últimos 3 meses</span></div>
+      <div class="cmd-legend"><span><i class="sw-r"></i>Rojo, desde ${SEMP.rojo_ge * 100} %</span><span><i class="sw-y"></i>Amarillo, de ${SEMP.verde_lt * 100} % a ${SEMP.rojo_ge * 100} %</span><span><i class="sw-g"></i>Verde, menos de ${SEMP.verde_lt * 100} %</span><span><i class="sw-n"></i>Sin muestra: menos de 3 casos evaluados</span><span class="cmd-legend-w">Ventana de ${ventanaTxt()}</span></div>
       ${tick.length ? `<div class="ticker" aria-label="Requerimientos en seguimiento"><span class="tk-lbl">En seguimiento</span><div class="tk-track">${tickHtml}${tickHtml}</div></div>` : ''}
     </section>
     <div class="trio">
@@ -7762,6 +8190,7 @@ function vMando(c) {
       <button data-act="go" data-view="historico"><b class="t-y">${nf(pend)}</b><small>por vencer en término</small></button>
       <button data-act="go" data-view="cumplimiento"><b class="t-b">${pct1(g.tasa)}</b><small>incumplimiento histórico</small></button>
     </div>
+    ${pmResumenMando()}
     <div class="card brief" id="brief"></div>
     <div class="card"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
         <div style="flex:1;min-width:220px"><h3>Cola de acción</h3><div class="sub" style="margin:2px 0 0">Dependencias con requerimientos sin respuesta registrada. Notifica a cada secretario o director por WhatsApp.</div></div>
@@ -7811,7 +8240,7 @@ function renderBrief() {
       `<p><mark>${esc(shortOrg(top.org))}</mark> concentra ${nf(top.venc)} de los ${nf(tot)} requerimientos sin respuesta registrada (${pct1(top.venc / tot)}).</p>`
     );
   p.push(
-    `<p><mark class="r">${TM.nRojo || 0} dependencias</mark> están en rojo en la ventana de los últimos 3 meses; ${q.length} tienen casos sin respuesta en las vigencias seleccionadas.</p>`
+    `<p><mark class="r">${TM.nRojo || 0} dependencias</mark> están en rojo en la ventana de ${ventanaTxt()}; ${q.length} tienen casos sin respuesta en las vigencias seleccionadas.</p>`
   );
   if (eTop)
     p.push(
@@ -7883,7 +8312,8 @@ function paintTreemap() {
     t.el.title =
       t.org + (ev ? `: ${o.inc} de ${ev} con incumplimiento (${pct1(tasa)})` : ': sin casos en el periodo');
   });
-  $('#tmLabel').textContent = mo.label.charAt(0).toUpperCase() + mo.label.slice(1) + ' · ventana de 3 meses';
+  $('#tmLabel').textContent =
+    mo.label.charAt(0).toUpperCase() + mo.label.slice(1) + ' · ventana de ' + TM.ventana + ' meses';
   $('#tmRange').value = TM.idx;
   $('#kRojo').textContent = nr;
   $('#kAma').textContent = na;
@@ -7919,7 +8349,7 @@ function renderTmDet() {
     <button class="btn primary" data-act="openOrg" data-org="${esc(TM.sel)}"><i class="fa-solid fa-folder-open"></i> Abrir expediente</button></div>
     ${
       x.sem === 'gris'
-        ? `<p class="tmd-n">${x.ev ? 'Con menos de 3 casos evaluados no se asigna color, para no dar una lectura injusta.' : 'No tuvo requerimientos evaluados en esta ventana de 3 meses.'}</p>`
+        ? `<p class="tmd-n">${x.ev ? 'Con menos de 3 casos evaluados no se asigna color, para no dar una lectura injusta.' : 'No tuvo requerimientos evaluados en esta ventana de ' + TM.ventana + ' meses.'}</p>`
         : `<div class="tmd-trk" role="img" aria-label="Incumplimiento ${pct1(x.tasa)}"><i style="width:${ancho}%"></i></div>
     <div class="tmd-esc"><span>0 %</span><span>Cambia de color en ${SEMP.verde_lt * 100} % y ${SEMP.rojo_ge * 100} %</span><span>100 %</span></div>`
     }`;
@@ -7991,7 +8421,7 @@ function renderQueue() {
  * Expediente de una dependencia (o "Mi dependencia" para secretarios): indicadores, gráficos y pendientes.
  * Depende de: 09, 10.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -8155,7 +8585,7 @@ function vDependencia(c) {
  * Notificaciones por WhatsApp y correo institucional: plantillas de mensaje (buildMsg), envío individual, modo despacho y bitácora.
  * Depende de: 10 (DIRLIST, contactsOf, NOTIF), 01 (REMITENTE).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -8480,7 +8910,7 @@ function vNotificaciones(c) {
  * Directorio del gabinete: un responsable por dependencia, con validación de nombre completo, celular y duplicados.
  * Depende de: 10 (DIRLIST, saveDirRow, normPhone).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -8595,7 +9025,7 @@ function vDirectorio(c) {
  * Informe ejecutivo descargable en PDF: modelo de datos del informe, narrativa, gráficos SVG y registro con huella SHA-256.
  * Depende de: 09, 10, 02 (sha256Hex).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -8891,6 +9321,7 @@ function reportHtml(m, huella, gen) {
     ${m.critical.length ? m.critical.map(r => `<tr><td>${esc(shortOrg(r.org))}</td><td>${esc(r.ente)}</td><td>${esc(r.rad || 'sin número')}</td><td>${r.v}</td><td>${fmtD(r.fmax)}</td><td style="text-align:right">${r.ret == null ? '—' : r.ret}</td></tr>`).join('') : '<tr><td colspan="6">No hay requerimientos sin respuesta registrada.</td></tr>'}</tbody></table></div>`
       : ''
   }
+  ${pmSeccionInforme(m.org, (m.org ? 5 : 6) + (RP.casos ? 1 : 0))}
   ${m.nots.length ? `<div class="rsec"><h2>Notificaciones enviadas</h2><table class="rt"><thead><tr><th>Fecha</th><th>Dependencia</th><th>Destinatario</th><th>Mensaje</th></tr></thead><tbody>${m.nots.map(n => `<tr><td>${fmtTs(n.ts)}</td><td>${esc(shortOrg(n.org))}</td><td>${esc(n.nombre || '—')}</td><td>${esc((TPL[n.tpl] || [n.tpl])[0])}</td></tr>`).join('')}</tbody></table></div>` : ''}
   <div class="rsec"><h2>Metodología y notas</h2><ul class="rsmall" style="margin:0;padding-left:16px;line-height:1.55">
     <li>Fuente: Control de Requerimientos de Entes de Control (Excel consolidados 2024-2026). Corte de datos: ${fmtD(m.corte)}.</li>
@@ -9007,7 +9438,7 @@ async function rpPdf() {
  * Actividad y cambios: quién modificó, notificó, ingresó o generó informes, a partir de la auditoría.
  * Depende de: 04 (db), 10.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -9254,7 +9685,7 @@ async function vActividad(c) {
  * Delegación de eventos: un único manejador de clics que despacha cada botón según su atributo data-act. Para agregar un botón nuevo, agrega su case aquí.
  * Depende de: Todas las vistas.
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -9268,6 +9699,8 @@ document.addEventListener('click', async e => {
     id = t.dataset.id;
   /* Planes de mejoramiento: sus botones los atiende 19-planes-de-mejoramiento.js */
   if (a.startsWith('pm')) return pmAct(a, t);
+  /* Carga del Excel de control: 20-carga-excel.js */
+  if (a.startsWith('ce')) return ceAct(a, t);
   switch (a) {
     case 'go':
       go(t.dataset.view);
@@ -9372,8 +9805,40 @@ document.addEventListener('click', async e => {
     case 'ctaInvitarGuardar':
       await guardarInvitacion();
       break;
+    case 'tmVentana':
+      TM.ventana = +t.dataset.n;
+      lsSet('ce_ventana', String(TM.ventana));
+      render();
+      break;
     case 'miClave':
+      await miCuentaModal();
+      break;
+    case 'miClaveCambiar':
       claveModal(false);
+      break;
+    case 'mfaActivar':
+      await mfaInscribir(false);
+      break;
+    case 'mfaConfirmar':
+      await mfaConfirmar(t);
+      break;
+    case 'mfaCancelar':
+      await mfaCancelar();
+      break;
+    case 'mfaQuitar':
+      await mfaQuitar(t.dataset.id);
+      break;
+    case 'mfaVerificar':
+      await mfaVerificarCodigo(t);
+      break;
+    case 'mfaSalir':
+      await mfaSalir();
+      break;
+    case 'saveResumen':
+      await guardarResumen();
+      break;
+    case 'probarResumen':
+      await probarResumen(t);
       break;
     case 'miClaveGuardar':
       await guardarClave();
@@ -9952,7 +10417,7 @@ window.addEventListener('hashchange', () => {
  * Depende de: 02 (utilidades), 03 (S, rol), 04 (db, DEMO, demoAudit, dbErr), 06 (toast, openModal, render),
  *             10 (contactsOf, normPhone, normMail, logNotif, shortOrg, orgKey). Supabase: supabase/13_planes_mejoramiento.sql
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -13066,13 +13531,1212 @@ async function pmAct(a, t) {
   }
 }
 
-/* ===== src/js/20-arranque.js ===== */
+/* =====================================================================
+   RESÚMENES PARA EL CENTRO DE MANDO Y EL INFORME EJECUTIVO
+   ===================================================================== */
+function pmResumenMando() {
+  if (!PM.ok || pmScoped()) return '';
+  const hoy = pmHoy(),
+    activos = PM.planes.filter(p => p.estado !== 'cerrado'),
+    ids = new Set(activos.map(p => p.id)),
+    acc = PM.acc.filter(a => ids.has(a.plan_id)),
+    cn = pmCounts(acc),
+    ind = pmIndic(acc, hoy),
+    porVal = PM.av.filter(v => v.estado === 'reportado' && ids.has(v.plan_id)).length;
+  if (!PM.planes.length)
+    return `<div class="card pm-mando"><div class="pm-mando-h"><div><h3>Planes de mejoramiento</h3><div class="sub" style="margin:2px 0 0">Aún no hay planes cargados. Cuando Control Interno los entregue, su cumplimiento aparecerá aquí.</div></div><button class="btn sm" data-act="go" data-view="planes">Abrir planes</button></div></div>`;
+  return `<div class="card pm-mando">
+    <div class="pm-mando-h"><div><h3>Planes de mejoramiento</h3><div class="sub" style="margin:2px 0 0">${activos.length} plan${activos.length === 1 ? '' : 'es'} vigente${activos.length === 1 ? '' : 's'} con la Contraloría de Cali y la Contraloría General de la República</div></div>
+      <button class="btn sm" data-act="go" data-view="planes">Ver planes</button></div>
+    <div class="pm-ind" style="margin:12px 0">${pmMeter('Cumplimiento de metas vencidas', ind.cpm, 'var(--sem-v)', ind.cpm == null ? 'Aún no hay metas vencidas' : '')}${pmMeter('Avance de los planes', ind.ap, 'var(--neo, #4c8dff)')}</div>
+    <div class="pm-chips"><span class="pm-chip">${cn.n} acciones</span>${cn.cumplida ? `<span class="pm-chip g">${cn.cumplida} cumplidas</span>` : ''}${cn.vencida ? `<span class="pm-chip r">${cn.vencida} vencidas sin cumplir</span>` : ''}${cn.proxima ? `<span class="pm-chip y">${cn.proxima} vencen en ${PM_ALERTA_DIAS} días</span>` : ''}${porVal ? `<span class="pm-chip b">${porVal} avances por validar</span>` : ''}</div>
+  </div>`;
+}
+/* Sección del informe ejecutivo. org: nombre de la dependencia si el informe es de una sola. */
+function pmSeccionInforme(org, num) {
+  if (!PM.ok || !PM.planes.length) return '';
+  const hoy = pmHoy();
+  const accOrg = a => !org || pmDepN(a.dependencia_id) === org;
+  const planes = PM.planes.filter(
+    p => p.estado !== 'cerrado' && PM.acc.some(a => a.plan_id === p.id && accOrg(a))
+  );
+  if (!planes.length) return '';
+  const filas = planes.map(p => {
+    const l = PM.acc.filter(a => a.plan_id === p.id && accOrg(a)),
+      k = pmCounts(l),
+      i = pmIndic(l, hoy);
+    return `<tr><td>${esc((PM_FMT[p.formato] || PM_FMT.OTRO).corto)}</td><td>${esc(shortTxt(p.ejercicio, 70))}</td><td>${fmtD(p.fecha_suscripcion)}</td><td style="text-align:right">${k.n}</td><td style="text-align:right">${k.cumplida}</td><td style="text-align:right"><b>${k.vencida}</b></td><td style="text-align:right">${pmPctTxt(i.cpm)}</td><td style="text-align:right">${pmPctTxt(i.ap)}</td></tr>`;
+  });
+  const venc = PM.acc
+    .filter(a => planes.some(p => p.id === a.plan_id) && accOrg(a) && pmEstado(a).k === 'vencida')
+    .sort((a, b) => String(a.fecha_fin).localeCompare(String(b.fecha_fin)))
+    .slice(0, 12);
+  return `<div class="rsec"><h2>${num}. Planes de mejoramiento</h2><div class="rsmall" style="margin-bottom:6px">Cumplimiento (CPM) y avance (AP) con las fórmulas del Formulario 14.1 de la Contraloría General de la República, solo con avances validados al ${fmtD(hoy)}.</div>
+    <table class="rt"><thead><tr><th>Contraloría</th><th>Plan</th><th>Suscrito</th><th>Acciones</th><th>Cumplidas</th><th>Vencidas</th><th>Cumplimiento</th><th>Avance</th></tr></thead><tbody>${filas.join('')}</tbody></table>
+    ${venc.length ? `<h3 style="margin-top:12px">Acciones vencidas sin cumplir</h3><table class="rt"><thead><tr><th>Dependencia</th><th>Hallazgo</th><th>Acción</th><th>Terminaba</th><th>Avance</th></tr></thead><tbody>${venc.map(a => `<tr><td>${esc(shortOrg(pmDepN(a.dependencia_id)) || '—')}</td><td>${esc((pmHallOf(a.hallazgo_id) || {}).numero || '')}</td><td>${esc(shortTxt(a.accion, 80))}</td><td>${fmtD(a.fecha_fin)}</td><td style="text-align:right">${pmPctTxt(pmPct(a))}</td></tr>`).join('')}</tbody></table>` : ''}</div>`;
+}
+
+/* ===== src/js/20-carga-excel.js ===== */
 /**
- * src/js/20-arranque.js
+ * src/js/20-carga-excel.js
+ * Carga de los Excel de control desde la app (reemplaza al ETL en Python de etl/): lee las hojas CONTROL y
+ * NO RESPUESTA, unifica organismos, mide la oportunidad con días hábiles y festivos de Colombia, muestra una vista
+ * previa con los cambios y las filas con problemas, y reemplaza la vigencia en Supabase en una sola operación.
+ * La lectura reproduce etl/load.py y etl/clean.py regla por regla (verificado registro por registro contra el CSV del ETL).
+ * Depende de: 02 (utilidades, festivosCO), 03 (S, rol), 04 (db, dbErr), 06 (toast, openModal, render),
+ *             10 (HIST, loadHist), 19 (pmXlsx). Supabase: supabase/16_carga_excel.sql
+ *
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
+ * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
+ * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
+ */
+/* =====================================================================
+   1. VALORES DE CELDA CON LA MISMA SEMÁNTICA DE PYTHON/OPENPYXL
+   Una celda queda como: null | texto | {n, f, raw} (número; f = era decimal en el archivo) | {d, h} (fecha)
+   ===================================================================== */
+const CE = { res: null, cargando: false };
+/* Texto crudo de cada celda numérica, leído del XML del archivo: openpyxl distingue "1" (entero) de "1.0"
+   (decimal) y esa diferencia cambia cómo Python escribe el valor como texto. */
+function ceNumerosCrudos(wb, idx) {
+  const out = new Map();
+  try {
+    const path = (wb.Directory.sheets[idx] || '').replace(/^\//, '');
+    const f = wb.files && (wb.files[path] || wb.files['/' + path]);
+    if (!f) return out;
+    const xml = new TextDecoder('utf-8').decode(f.content);
+    const re = /<c r="([A-Z]+[0-9]+)"([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g;
+    let m;
+    while ((m = re.exec(xml))) {
+      if (/\bt="(s|str|inlineStr|b|e|d)"/.test(m[2]) || !m[3]) continue;
+      const v = /<v>([^<]*)<\/v>/.exec(m[3]);
+      if (v) out.set(m[1], v[1]);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return out;
+}
+function ceLimpiar(v) {
+  if (v == null) return null;
+  if (typeof v === 'string') {
+    const t = v
+      .replace(/\u00a0/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return t === '' || t === '-' ? null : t;
+  }
+  return v;
+}
+function ceCelda(X, ws, crudos, r, c) {
+  const ref = X.utils.encode_cell({ r, c }),
+    cell = ws[ref];
+  if (!cell || cell.v == null) return null;
+  if (cell.t === 's' || cell.t === 'str') return ceLimpiar(String(cell.v));
+  if (cell.t === 'b') return cell.v ? 'True' : 'False';
+  if (cell.t === 'e') return ceLimpiar(cell.w || '#N/A');
+  if (cell.t === 'd' && cell.v instanceof Date) return { d: iso(cell.v), h: '00:00:00' };
+  if (cell.t === 'n') {
+    if (cell.z && X.SSF.is_date(cell.z)) {
+      const p = X.SSF.parse_date_code(cell.v);
+      if (p && p.y)
+        return {
+          d: p.y + '-' + pad(p.m) + '-' + pad(p.d),
+          h: pad(p.H || 0) + ':' + pad(p.M || 0) + ':' + pad(Math.floor(p.S || 0))
+        };
+    }
+    const raw = crudos.get(ref) || String(cell.v);
+    return { n: cell.v, f: /[.eE]/.test(raw), raw };
+  }
+  return ceLimpiar(String(cell.v));
+}
+const ceEsNum = v => v != null && typeof v === 'object' && 'n' in v;
+const ceEsFecha = v => v != null && typeof v === 'object' && 'd' in v;
+/* bool(v) de Python: None, '', 0 y 0.0 son falsos */
+const ceVerdad = v => v != null && v !== '' && !(ceEsNum(v) && v.n === 0);
+/* str(v) de Python */
+function cePyFloat(n) {
+  if (!isFinite(n)) return isNaN(n) ? 'nan' : n > 0 ? 'inf' : '-inf';
+  const a = Math.abs(n);
+  if (Number.isInteger(n) && a < 1e16) return n.toFixed(0) + '.0';
+  if (a >= 1e16 || (a < 1e-4 && n !== 0)) {
+    const [m, e] = n.toExponential().split('e');
+    const s = e[0] === '-' ? '-' : '+',
+      d = e.replace(/^[+-]/, '');
+    return m + 'e' + s + (d.length < 2 ? '0' + d : d);
+  }
+  return String(n);
+}
+function cePyStr(v) {
+  if (v == null) return 'None';
+  if (typeof v === 'string') return v;
+  if (ceEsNum(v)) return v.f ? cePyFloat(v.n) : v.raw;
+  if (ceEsFecha(v)) return v.d + ' ' + v.h;
+  return String(v);
+}
+const ceTexto = v => (v == null ? null : cePyStr(v));
+function ceIdStr(v) {
+  if (v == null) return null;
+  const t = cePyStr(v).trim();
+  return /^\d+\.0$/.test(t) ? t.slice(0, -2) : t;
+}
+/* int(float(v)) de Python, o null si no se puede */
+function ceEntero(v) {
+  if (v == null || ceEsFecha(v)) return null;
+  if (ceEsNum(v)) return isFinite(v.n) ? Math.trunc(v.n) : null;
+  const s = String(v).trim();
+  if (!/^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(s)) return null;
+  const n = parseFloat(s);
+  return isFinite(n) ? Math.trunc(n) : null;
+}
+
+/* =====================================================================
+   2. FECHAS, TEXTO Y ORGANISMOS (etl/clean.py)
+   ===================================================================== */
+const CE_MES = {
+  ene: 1,
+  feb: 2,
+  mar: 3,
+  abr: 4,
+  apr: 4,
+  may: 5,
+  jun: 6,
+  jul: 7,
+  ago: 8,
+  aug: 8,
+  sep: 9,
+  sept: 9,
+  oct: 10,
+  nov: 11,
+  dic: 12,
+  dec: 12
+};
+function ceFechaValida(y, m, d) {
+  if (y < 100) y += 2000;
+  if (m < 1 || m > 12 || d < 1 || d > new Date(y, m, 0).getDate()) return null;
+  return y + '-' + pad(m) + '-' + pad(d);
+}
+/* pdate(): devuelve { d: 'AAAA-MM-DD' | null, malo: texto original si no se pudo leer } */
+function ceFecha(v) {
+  if (v == null) return { d: null, malo: null };
+  if (ceEsFecha(v)) return { d: v.d, malo: null };
+  const s = cePyStr(v).trim().toLowerCase();
+  let m = /^(\d{1,2})[-/ ]([a-z]{3,4})\.?[-/ ](\d{2,4})$/.exec(s);
+  if (m && CE_MES[m[2]]) {
+    const r = ceFechaValida(+m[3], CE_MES[m[2]], +m[1]);
+    if (r) return { d: r, malo: null };
+  }
+  m = /^(\d{1,2})[-/](\d{1,2})[-/](\d{2,4})$/.exec(s);
+  if (m) {
+    const r = ceFechaValida(+m[3], +m[2], +m[1]);
+    if (r) return { d: r, malo: null };
+  }
+  return { d: null, malo: cePyStr(v) };
+}
+/* Quita los signos diacríticos (unicodedata.combining en Python) */
+const ceSinTildes = s =>
+  String(s)
+    .normalize('NFKD')
+    .replace(/\p{Mn}/gu, '');
+/* fold() de clean.py */
+const ceFold = s =>
+  ceSinTildes(s)
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+/* _fold() de load.py (conserva la puntuación) */
+const ceFoldEnc = s =>
+  ceSinTildes(s == null ? '' : cePyStr(s))
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+
+/* Reglas de unificación de organismos: (patrón sobre texto sin tildes, nombre oficial, tipo, confianza).
+   Mismo orden y mismo contenido que RULES en etl/clean.py. */
+const CE_SUB = 'Subunidad';
+const CE_REGLAS = [
+  /* EXTRA3 */
+  ['contrav', 'Oficina de Contravenciones (padre por confirmar)', 'Subunidad', 'media'],
+  ['comiaria', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  [
+    'talento humane',
+    'Departamento Administrativo de Desarrollo e Innovación Institucional',
+    'Departamento',
+    'alta'
+  ],
+  ['politica de segurdad', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  ['infaestructura', 'Secretaría de Infraestructura', 'Secretaría', 'alta'],
+  [
+    'defensa judicial|defense judicial|prevencion del dano antijuridico',
+    'Departamento Administrativo de Gestión Jurídica Pública',
+    'Departamento',
+    'alta'
+  ],
+  ['patrimonio|bibliotecas', 'Secretaría de Cultura', 'Secretaría', 'alta'],
+  ['inspeccion urbano de policia', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  /* EXTRA2 */
+  ['^\\d{1,3}( y \\d{1,3})?$|^y \\d+$', 'Sin dato', 'Otro', 'baja'],
+  ['comis\\w*ri|corregidor', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  ['secretaria de (ed\\w*c\\w*n|edcuac\\w*|eduac\\w*)', 'Secretaría de Educación', 'Secretaría', 'alta'],
+  ['cobertura educativa', 'Secretaría de Educación', 'Secretaría', 'alta'],
+  ['seguridad y j\\w+|secretaria de inspeccion', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  ['infra\\w{3,}ructura', 'Secretaría de Infraestructura', 'Secretaría', 'alta'],
+  ['sec+retaria privada', 'Oficina de la Secretaría Privada y Despacho del Alcalde', 'Despacho', 'alta'],
+  ['etnias', 'Subsecretaría de Poblaciones y Etnias (padre por confirmar)', 'Subunidad', 'media'],
+  ['contra\\w+ publica', 'Departamento Administrativo de Contratación Pública', 'Departamento', 'alta'],
+  [
+    'cobro (coactivo|persuasivo|coativo)|tesoreria|administracion de pagos',
+    'Departamento Administrativo de Hacienda Municipal',
+    'Departamento',
+    'alta'
+  ],
+  [
+    'subdireccion desarrollo integral',
+    'Departamento Administrativo de Planeación Municipal',
+    'Departamento',
+    'alta'
+  ],
+  ['transparencia', 'Oficina de Transparencia (padre por confirmar)', 'Subunidad', 'media'],
+  ['contravenciones', 'Oficina de Contravenciones (padre por confirmar)', 'Subunidad', 'media'],
+  /* EXTRA */
+  ['insp\\w* polic|inspeccion de policia', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  ['acceso a (servicios de )?(la )?justicia', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  [
+    '(subsecretari[ao] (de )?(la )?)?politica de seguridad',
+    'Secretaría de Seguridad y Justicia',
+    'Secretaría',
+    'alta'
+  ],
+  ['derechos humanos y construccion de paz', 'Secretaría de Paz y Cultura Ciudadana', 'Secretaría', 'alta'],
+  ['mejoramiento integral y legalizacion', 'Secretaría de Vivienda Social y Hábitat', 'Secretaría', 'alta'],
+  ['catast|finanzas publicas', 'Departamento Administrativo de Hacienda Municipal', 'Departamento', 'alta'],
+  [
+    'doctrina y asuntos normativos',
+    'Departamento Administrativo de Gestión Jurídica Pública',
+    'Departamento',
+    'alta'
+  ],
+  [
+    'centro de administracion local integrada|\\bcali \\d|cali rural',
+    'Secretaría de Desarrollo Territorial y Participación Ciudadana',
+    'Secretaría',
+    'alta'
+  ],
+  ['takeshima', 'Unidad Administrativa Especial Estudios Takeshima', 'UAE', 'alta'],
+  [
+    'gestion ambiental',
+    'Departamento Administrativo de Gestión del Medio Ambiente (DAGMA)',
+    'Departamento',
+    'alta'
+  ],
+  ['contrataci', 'Departamento Administrativo de Contratación Pública', 'Departamento', 'alta'],
+  [
+    'tecnolog|tenolog',
+    'Departamento Administrativo de Tecnologías de la Información y las Comunicaciones',
+    'Departamento',
+    'alta'
+  ],
+  ['suguridad|seguridad y just', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  ['educac', 'Secretaría de Educación', 'Secretaría', 'alta'],
+  [
+    'proteccion an\\w*mal|\\buepa\\b|\\buaepa\\b',
+    'Unidad Administrativa Especial de Protección Animal',
+    'UAE',
+    'alta'
+  ],
+  [
+    'contador del distrito|contaduria',
+    'Departamento Administrativo de Hacienda Municipal',
+    'Departamento',
+    'alta'
+  ],
+  [
+    'gestion del medio',
+    'Departamento Administrativo de Gestión del Medio Ambiente (DAGMA)',
+    'Departamento',
+    'alta'
+  ],
+  ['\\bsgred\\b', 'Secretaría de Gestión del Riesgo de Emergencias y Desastres', 'Secretaría', 'alta'],
+  [
+    '\\bdatic\\b',
+    'Departamento Administrativo de Tecnologías de la Información y las Comunicaciones',
+    'Departamento',
+    'alta'
+  ],
+  [
+    'disciplinario interno',
+    'Departamento Administrativo de Control Disciplinario Interno',
+    'Departamento',
+    'alta'
+  ],
+  [
+    'subsecretari[ao] (de )?(la )?primera infancia',
+    'Subsecretaría de Primera Infancia (padre por confirmar)',
+    'Subunidad',
+    'media'
+  ],
+  [
+    'subsecretari[ao] (de )?equidad',
+    'Subsecretaría de Equidad de Género (padre por confirmar)',
+    'Subunidad',
+    'media'
+  ],
+  [
+    'subsecretari[ao] (de )?(poblaciones y etnias|etnias y poblaciones)',
+    'Subsecretaría de Poblaciones y Etnias (padre por confirmar)',
+    'Subunidad',
+    'media'
+  ],
+  [
+    'subsecretari[ao] (de )?atencion',
+    'Subsecretaría de Atención Integral a Víctimas (padre por confirmar)',
+    'Subunidad',
+    'media'
+  ],
+  [
+    'subsecretari[ao] (de )?inspeccion|^vigilancia y control',
+    'Subsecretaría de Inspección, Vigilancia y Control (padre por confirmar)',
+    'Subunidad',
+    'media'
+  ],
+  [
+    'tramites servicios y gestion documental',
+    'Subdirección de Trámites, Servicios y Gestión Documental (padre por confirmar)',
+    'Subunidad',
+    'media'
+  ],
+  /* subunidades con padre de confianza alta */
+  [
+    'subsecretaria de acceso a servicios de justicia|comisaria|inspeccion de policia|inspector',
+    'Secretaría de Seguridad y Justicia',
+    'Secretaría',
+    'alta'
+  ],
+  ['subsecretaria de la politica de seguridad', 'Secretaría de Seguridad y Justicia', 'Secretaría', 'alta'],
+  [
+    'subsecretaria de promocion y fortalecimiento de la participacion',
+    'Secretaría de Desarrollo Territorial y Participación Ciudadana',
+    'Secretaría',
+    'alta'
+  ],
+  [
+    'subsecretaria (proteccion de la salud|de promocion prevencion)|subsecretaria de salud|promocion prevencion y produccion social',
+    'Secretaría de Salud Pública',
+    'Secretaría',
+    'alta'
+  ],
+  [
+    'subsecretaria de infraestructura y mantenimiento vial',
+    'Secretaría de Infraestructura',
+    'Secretaría',
+    'alta'
+  ],
+  [
+    'subsecretaria de infraestructura deportiva',
+    'Secretaría del Deporte y la Recreación',
+    'Secretaría',
+    'alta'
+  ],
+  ['subsecretaria de movilidad sostenible', 'Secretaría de Movilidad', 'Secretaría', 'alta'],
+  ['subsecretaria de artes', 'Secretaría de Cultura', 'Secretaría', 'alta'],
+  [
+    'subdireccion (de )?(finanzas publicas|tesoreria|de impuestos|de catastro)|oficina tecnica operativa de cobro coactivo|contaduria',
+    'Departamento Administrativo de Hacienda Municipal',
+    'Departamento',
+    'alta'
+  ],
+  [
+    'subdireccion (de )?(planificacion del territorio|de espacio publico|de desarrollo integral)',
+    'Departamento Administrativo de Planeación Municipal',
+    'Departamento',
+    'alta'
+  ],
+  [
+    '(subdireccion|subsecretaria) (de )?gesti\\w* estrategica (de )?(del )?talento humano|subdireccion estrategica de talento humano|talento humano',
+    'Departamento Administrativo de Desarrollo e Innovación Institucional',
+    'Departamento',
+    'alta'
+  ],
+  /* subunidades sin padre confirmado */
+  [
+    'subsecretaria de equidad de gener',
+    'Subsecretaría de Equidad de Género (padre por confirmar)',
+    CE_SUB,
+    'media'
+  ],
+  [
+    'subsecretaria de poblaciones y etnias',
+    'Subsecretaría de Poblaciones y Etnias (padre por confirmar)',
+    CE_SUB,
+    'media'
+  ],
+  [
+    'subsecretaria de atencion (integral )?a victimas',
+    'Subsecretaría de Atención Integral a Víctimas (padre por confirmar)',
+    CE_SUB,
+    'media'
+  ],
+  [
+    'subsecretaria de inspeccion',
+    'Subsecretaría de Inspección, Vigilancia y Control (padre por confirmar)',
+    CE_SUB,
+    'media'
+  ],
+  /* organismos principales */
+  [
+    'secretaria privada|despacho (del )?alcalde|^alcalde|^alcaldia$|^alcalde$',
+    'Oficina de la Secretaría Privada y Despacho del Alcalde',
+    'Despacho',
+    'alta'
+  ],
+  ['todos los organismos', 'Todos los organismos', 'Otro', 'alta'],
+  ['paz y cultura', 'Secretaría de Paz y Cultura Ciudadana', 'Secretaría', 'alta'],
+  [
+    'seguridad y just|seguridad y justcia|seguridad y jus',
+    'Secretaría de Seguridad y Justicia',
+    'Secretaría',
+    'alta'
+  ],
+  ['educacion', 'Secretaría de Educación', 'Secretaría', 'alta'],
+  ['movilidad', 'Secretaría de Movilidad', 'Secretaría', 'alta'],
+  ['bienestar|binestar', 'Secretaría de Bienestar Social', 'Secretaría', 'alta'],
+  ['salud', 'Secretaría de Salud Pública', 'Secretaría', 'alta'],
+  ['infraestructura', 'Secretaría de Infraestructura', 'Secretaría', 'alta'],
+  ['hacienda', 'Departamento Administrativo de Hacienda Municipal', 'Departamento', 'alta'],
+  [
+    'desarrollo (e )?innovacion|desarrollo institucional|dadii|desarrollo e inovacion',
+    'Departamento Administrativo de Desarrollo e Innovación Institucional',
+    'Departamento',
+    'alta'
+  ],
+  ['planeacion', 'Departamento Administrativo de Planeación Municipal', 'Departamento', 'alta'],
+  [
+    'desarrollo territorial|participacion ciudadana',
+    'Secretaría de Desarrollo Territorial y Participación Ciudadana',
+    'Secretaría',
+    'alta'
+  ],
+  ['gobierno', 'Secretaría de Gobierno', 'Secretaría', 'alta'],
+  [
+    'medio ambiente|dagma',
+    'Departamento Administrativo de Gestión del Medio Ambiente (DAGMA)',
+    'Departamento',
+    'alta'
+  ],
+  ['desarrollo economico', 'Secretaría de Desarrollo Económico', 'Secretaría', 'alta'],
+  ['cultura', 'Secretaría de Cultura', 'Secretaría', 'alta'],
+  ['bienes y servicios', 'Unidad Administrativa Especial de Gestión de Bienes y Servicios', 'UAE', 'alta'],
+  [
+    'control disciplinario',
+    'Departamento Administrativo de Control Disciplinario Interno',
+    'Departamento',
+    'alta'
+  ],
+  ['control interno', 'Departamento Administrativo de Control Interno', 'Departamento', 'alta'],
+  [
+    'servicios publicos|uaesp',
+    'Unidad Administrativa Especial de Servicios Públicos Municipales',
+    'UAE',
+    'alta'
+  ],
+  [
+    'gestion juridica|juridica',
+    'Departamento Administrativo de Gestión Jurídica Pública',
+    'Departamento',
+    'alta'
+  ],
+  ['deporte', 'Secretaría del Deporte y la Recreación', 'Secretaría', 'alta'],
+  ['contratacion publica', 'Departamento Administrativo de Contratación Pública', 'Departamento', 'alta'],
+  ['vivienda', 'Secretaría de Vivienda Social y Hábitat', 'Secretaría', 'alta'],
+  ['riesgo', 'Secretaría de Gestión del Riesgo de Emergencias y Desastres', 'Secretaría', 'alta'],
+  [
+    'tecnologias de la informacion|\\btic\\b',
+    'Departamento Administrativo de Tecnologías de la Información y las Comunicaciones',
+    'Departamento',
+    'alta'
+  ],
+  ['turismo', 'Secretaría de Turismo', 'Secretaría', 'alta'],
+  ['proteccion animal', 'Unidad Administrativa Especial de Protección Animal', 'UAE', 'alta'],
+  ['teatro municipal', 'Teatro Municipal Enrique Buenaventura', 'UAE', 'alta']
+].map(([p, n, l, c]) => [new RegExp(p), n, l, c]);
+const CE_PADRE = {
+  'Subsecretaría de Equidad de Género (padre por confirmar)': [
+    'Secretaría de Bienestar Social',
+    'Secretaría'
+  ],
+  'Subsecretaría de Poblaciones y Etnias (padre por confirmar)': [
+    'Secretaría de Bienestar Social',
+    'Secretaría'
+  ],
+  'Subsecretaría de Atención Integral a Víctimas (padre por confirmar)': [
+    'Secretaría de Bienestar Social',
+    'Secretaría'
+  ],
+  'Subsecretaría de Primera Infancia (padre por confirmar)': ['Secretaría de Bienestar Social', 'Secretaría'],
+  'Subsecretaría de Inspección, Vigilancia y Control (padre por confirmar)': [
+    'Secretaría de Seguridad y Justicia',
+    'Secretaría'
+  ],
+  'Oficina de Contravenciones (padre por confirmar)': ['Secretaría de Movilidad', 'Secretaría'],
+  'Subdirección de Trámites, Servicios y Gestión Documental (padre por confirmar)': [
+    'Departamento Administrativo de Desarrollo e Innovación Institucional',
+    'Departamento'
+  ],
+  'Oficina de Transparencia (padre por confirmar)': [
+    'Oficina de la Secretaría Privada y Despacho del Alcalde',
+    'Despacho'
+  ]
+};
+function ceCanonUno(txt) {
+  const f = ceFold(txt);
+  for (const [rx, n0, l0] of CE_REGLAS)
+    if (rx.test(f)) {
+      const [n, l] = CE_PADRE[n0] || [n0, l0];
+      return [n, l];
+    }
+  return null;
+}
+/* Un texto puede nombrar varios organismos ("Despacho Alcalde, Secretaría X y Secretaría Y") */
+const CE_SEP =
+  /\s*(?:,|;|\/|\+|\sy\s(?=(?:secretar|departamento|despacho|oficina|unidad|subsecretar|subdirec|dagma|alcald)))\s*/i;
+function ceOrganismos(txt) {
+  if (txt == null) return [];
+  const out = [];
+  cePyStr(txt)
+    .split(CE_SEP)
+    .forEach(p => {
+      if (!p || !p.trim()) return;
+      const c = ceCanonUno(p);
+      const k = c || [p.trim().replace(/\s+/g, ' '), 'Sin clasificar'];
+      if (!out.some(o => o[0] === k[0])) out.push(k);
+    });
+  return out;
+}
+/* Días hábiles en (a, b]; negativo si b < a (busday_count de numpy con festivos de Colombia) */
+function ceHabiles(a, b) {
+  if (!a || !b) return null;
+  const cuenta = (x, y) => {
+    const d = new Date(x + 'T00:00:00'),
+      f = new Date(y + 'T00:00:00');
+    let n = 0;
+    while (d < f) {
+      d.setDate(d.getDate() + 1);
+      const w = d.getDay();
+      /* igual que el ETL: festivos desde 2023 (fechas anteriores son errores de digitación del año) */
+      if (w !== 0 && w !== 6 && !(d.getFullYear() >= 2023 && festivosCO(d.getFullYear()).has(iso(d)))) n++;
+    }
+    return n;
+  };
+  return b >= a ? cuenta(a, b) : -cuenta(b, a);
+}
+const CE_NOAPL = /^(n\/?a|no aplica|no aplic\w*|sin respuesta|ninguno)$/i;
+const CE_SINNUM = /^(sin n[uú]mero|sin numero|s\/?n|none|nan|)$/i;
+const ceTokens = x =>
+  new Set(
+    cePyStr(x == null ? '' : x)
+      .replace(/(\d)\.0\b/g, '$1')
+      .match(/\d{12,}/g) || []
+  );
+
+/* =====================================================================
+   3. LECTURA DE UN LIBRO (etl/load.py)
+   ===================================================================== */
+const CE_ENC_2026 = {
+  0: 'no. orden',
+  1: 'radicado ente',
+  2: 'ente externo',
+  3: 'radicacion en',
+  4: 'fecha radicacion',
+  5: 'clase',
+  6: 'organismo',
+  7: 'asunto',
+  8: 'dias habiles',
+  9: 'fecha maxima',
+  10: 'orfeo',
+  11: 'fecha de respuesta',
+  12: 'estado',
+  13: 'observaciones'
+};
+function ceFilas(X, wb, nombre) {
+  const idx = wb.SheetNames.indexOf(nombre);
+  if (idx < 0) return null;
+  const ws = wb.Sheets[nombre],
+    crudos = ceNumerosCrudos(wb, idx);
+  if (!ws['!ref']) return { filas: [] };
+  const rg = X.utils.decode_range(ws['!ref']),
+    ncol = Math.max(rg.e.c + 1, 16),
+    filas = [];
+  for (let r = 0; r <= rg.e.r; r++) {
+    const fila = [];
+    for (let c = 0; c < ncol; c++) fila.push(ceCelda(X, ws, crudos, r, c));
+    filas.push(fila);
+  }
+  return { filas };
+}
+/* Formato 2026 en adelante: la tabla empieza debajo de la fila "No. Orden"; 2024-2025 empiezan en la fila 6 */
+function ceInicio(filas) {
+  for (let i = 0; i < Math.min(15, filas.length); i++) {
+    const a = ceFoldEnc(filas[i][0]);
+    if (a.startsWith('no. orden') || a === 'no orden') {
+      const faltan = Object.entries(CE_ENC_2026)
+        .filter(([c, t]) => !ceFoldEnc(filas[i][+c]).includes(t))
+        .map(([c, t]) => String.fromCharCode(65 + +c) + ': "' + t + '"');
+      return { fila: i + 2, nuevo: true, faltan };
+    }
+  }
+  return { fila: 6, nuevo: false, faltan: [] };
+}
+function ceLeerControl(filas, vig, ini) {
+  const out = [];
+  for (let i = ini.fila; i <= filas.length; i++) {
+    const r = filas[i - 1];
+    if (!ini.nuevo) {
+      if (!r.slice(1, 15).some(ceVerdad)) continue;
+      out.push({
+        vigencia: vig,
+        hoja: 'CONTROL',
+        fila_excel: i,
+        rad_ente: r[1],
+        fecha_oficio: r[2],
+        ente: r[3],
+        orfeo_entrada: r[4],
+        fecha_radicacion: r[5],
+        fecha_daci: r[6],
+        dirigido: r[7],
+        asunto: r[8],
+        dias_habiles: r[9],
+        fecha_max: r[10],
+        responde: r[11],
+        orfeo_resp: r[12],
+        fecha_resp: r[13],
+        estado: r[14],
+        obs: r[15],
+        clase: null
+      });
+    } else {
+      if (!r.slice(1, 13).some(ceVerdad)) continue;
+      out.push({
+        vigencia: vig,
+        hoja: 'CONTROL',
+        fila_excel: i,
+        rad_ente: r[1],
+        fecha_oficio: null,
+        ente: r[2],
+        orfeo_entrada: r[3],
+        fecha_radicacion: r[4],
+        fecha_daci: null,
+        dirigido: r[6],
+        asunto: r[7],
+        dias_habiles: r[8],
+        fecha_max: r[9],
+        responde: null,
+        orfeo_resp: r[10],
+        fecha_resp: r[11],
+        estado: r[12],
+        obs: r[13],
+        clase: r[5]
+      });
+    }
+  }
+  return out;
+}
+/* 2024 y 2025: la hoja "NO RESPUESTA" registra oficios que no exigen respuesta; se incorporan como
+   "No requiere respuesta" los que no estén ya en CONTROL (mismo ORFEO de entrada, mismo número del ente,
+   o mismo ente + misma fecha + mismo inicio del asunto). */
+function ceNoRespuesta(filasNR, control, vig) {
+  if (!filasNR) return [];
+  const T = new Set(),
+    R = new Set(),
+    A = new Set();
+  control.forEach(c => {
+    ceTokens(c.orfeo_entrada).forEach(t => T.add(t));
+    if (!CE_SINNUM.test(cePyStr(ceVerdad(c.rad_ente) ? c.rad_ente : '').trim()))
+      R.add(cePyStr(c.rad_ente).trim().toLowerCase());
+    A.add(
+      [
+        ceFold(cePyStr(c.ente)).slice(0, 40),
+        (ceFecha(c.fecha_radicacion).d || 'NaT').slice(0, 10),
+        ceFold(cePyStr(c.asunto)).slice(0, 40)
+      ].join('\u0001')
+    );
+  });
+  const vistos = new Set(),
+    out = [];
+  for (let i = 6; i <= filasNR.length; i++) {
+    const r = filasNR[i - 1];
+    if (!r.slice(1, 9).some(ceVerdad)) continue;
+    const nr = {
+      rad_ente: r[1],
+      fecha_oficio: r[2],
+      ente: r[3],
+      orfeo_entrada: r[4],
+      fecha_radicacion: r[5],
+      fecha_daci: r[6],
+      dirigido: r[7],
+      asunto: r[8]
+    };
+    const t = ceTokens(nr.orfeo_entrada),
+      rad = cePyStr(ceVerdad(nr.rad_ente) ? nr.rad_ente : '')
+        .trim()
+        .toLowerCase();
+    if ((t.size && [...t].some(x => T.has(x))) || (rad && !CE_SINNUM.test(rad) && R.has(rad))) continue;
+    if (
+      A.has(
+        [
+          ceFold(cePyStr(nr.ente)).slice(0, 40),
+          (ceFecha(nr.fecha_radicacion).d || 'NaT').slice(0, 10),
+          ceFold(cePyStr(nr.asunto)).slice(0, 40)
+        ].join('\u0001')
+      )
+    )
+      continue;
+    const k = [[...t].sort().join(','), rad, ceFold(cePyStr(nr.asunto)).slice(0, 60)].join('\u0001');
+    if (vistos.has(k)) continue;
+    vistos.add(k);
+    out.push({
+      vigencia: vig,
+      hoja: 'NO RESPUESTA',
+      fila_excel: i,
+      ...nr,
+      dias_habiles: null,
+      fecha_max: null,
+      responde: null,
+      orfeo_resp: null,
+      fecha_resp: null,
+      estado: 'No requiere respuesta',
+      obs: null,
+      clase: 'Informativo'
+    });
+  }
+  return out;
+}
+
+/* =====================================================================
+   4. CLASIFICACIÓN (build() de etl/clean.py)
+   ===================================================================== */
+function ceCorte(regs) {
+  let max = null;
+  regs.forEach(r =>
+    [r.fecha_radicacion, r.fecha_resp].forEach(v => {
+      const f = ceFecha(v).d;
+      if (f && (!max || f > max)) max = f;
+    })
+  );
+  return max;
+}
+function ceClasificar(regs, HOY) {
+  const out = [],
+    calidad = [];
+  regs.forEach(r => {
+    const q = (tipo, detalle) =>
+      calidad.push({
+        vigencia: r.vigencia,
+        hoja: r.hoja,
+        fila_excel: r.fila_excel,
+        rad_ente: ceIdStr(r.rad_ente),
+        tipo,
+        detalle
+      });
+    const fm = ceFecha(r.fecha_max),
+      fr = ceFecha(r.fecha_resp),
+      frad = ceFecha(r.fecha_radicacion).d,
+      fdaci = ceFecha(r.fecha_daci).d;
+    const fmax = fm.d,
+      fresp = fr.d,
+      frecibo = fdaci || frad;
+    const dh = ceEntero(r.dias_habiles);
+    const requiere = r.hoja === 'NO RESPUESTA' ? false : r.vigencia >= 2026 ? dh != null && dh > 0 : true;
+    if (r.vigencia < 2026 && dh == null)
+      q('Término sin dato', 'Días hábiles vacío o no numérico: ' + cePyStr(r.dias_habiles));
+    const base = ceVerdad(r.responde) ? r.responde : r.dirigido;
+    let orgs = ceOrganismos(base);
+    if (!orgs.length) orgs = ceOrganismos(r.dirigido);
+    let org, nivel;
+    if (orgs.length) [org, nivel] = orgs[0];
+    else {
+      org = 'Sin dato';
+      nivel = 'Otro';
+      q('Organismo vacío', 'No hay organismo responsable registrado');
+    }
+    if (nivel === 'Sin clasificar') q('Organismo sin clasificar', cePyStr(base));
+    const orfeoTxt =
+      r.orfeo_resp == null || CE_NOAPL.test(cePyStr(r.orfeo_resp)) ? null : cePyStr(r.orfeo_resp);
+    const cerrado = cePyStr(r.estado).toLowerCase() === 'cerrado';
+    if (fr.malo) q('Fecha de respuesta ilegible', 'Valor en Excel: ' + fr.malo);
+    if (fm.malo && requiere) q('Fecha máxima ilegible', 'Valor en Excel: ' + fm.malo);
+    const respondio = !!fresp || (cerrado && orfeoTxt != null);
+    let oport;
+    if (requiere) {
+      if (fresp && fmax) oport = fresp <= fmax ? 'A tiempo' : 'Tardía';
+      else if (respondio) {
+        oport = 'Respondida (sin fecha para medir)';
+        q(
+          'Respondida sin fecha medible',
+          'Tiene ORFEO/estado cerrado pero la fecha de respuesta falta o es ilegible'
+        );
+      } else if (!fmax) {
+        oport = 'Pendiente en término';
+        q('Sin fecha máxima', 'No se puede evaluar el vencimiento');
+      } else if (fmax < HOY) oport = 'Sin respuesta (vencida)';
+      else oport = 'Pendiente en término';
+    } else oport = 'No requiere respuesta';
+    if (requiere && cerrado && !respondio)
+      q('Cerrado sin respuesta', 'Estado Cerrado pero sin fecha ni radicado ORFEO de respuesta');
+    if (requiere && !cerrado && respondio && r.estado != null)
+      q('Abierto con respuesta', 'Estado "Abierto" pero ya tiene respuesta registrada');
+    if (fresp && frecibo && fresp < frecibo)
+      q('Respuesta anterior a recepción', 'Fecha de respuesta menor a la fecha de recibo');
+    const retraso =
+      oport === 'Tardía'
+        ? ceHabiles(fmax, fresp)
+        : oport === 'Sin respuesta (vencida)'
+          ? ceHabiles(fmax, HOY)
+          : null;
+    const tiempo = requiere && fresp ? ceHabiles(frecibo, fresp) : null;
+    out.push({
+      vigencia: r.vigencia,
+      hoja_excel: r.hoja,
+      radicacion_ente: ceIdStr(r.rad_ente),
+      ente: ceTexto(r.ente),
+      orfeo_entrada: ceIdStr(r.orfeo_entrada),
+      fecha_recibo: frecibo || null,
+      organismo: org,
+      tipo_organismo: nivel,
+      asunto: ceTexto(r.asunto),
+      termino_dias_habiles: dh,
+      fecha_maxima: fmax || null,
+      orfeo_respuesta: orfeoTxt,
+      fecha_respuesta: fresp || null,
+      respondio: requiere ? (respondio ? 'Sí' : 'No') : 'No aplica',
+      tardia: requiere ? (oport === 'Tardía' ? 'Sí' : 'No') : 'No aplica',
+      oportunidad: oport,
+      retraso_dias_habiles: retraso,
+      dias_habiles_responder: tiempo,
+      estado_excel: ceTexto(r.estado),
+      observaciones: ceTexto(r.obs),
+      fila_excel: r.fila_excel
+    });
+  });
+  return { filas: out, calidad };
+}
+/* Vigencia de un libro: la del nombre del archivo ("Vigencia 2026") o, si no, el año más frecuente de radicación */
+function ceVigencia(nombreArchivo, regs) {
+  const m = /vigencia[\s_-]*(20\d\d)/i.exec(nombreArchivo || '');
+  if (m) return +m[1];
+  const n = {};
+  regs.forEach(r => {
+    const f = ceFecha(r.fecha_radicacion).d;
+    if (f) n[f.slice(0, 4)] = (n[f.slice(0, 4)] || 0) + 1;
+  });
+  const y = Object.entries(n).sort((a, b) => b[1] - a[1])[0];
+  return y ? +y[0] : null;
+}
+/* Lee un libro completo. Devuelve los registros sin clasificar (la clasificación necesita el corte de todos los libros). */
+function ceLeerLibro(X, wb, nombreArchivo, vigForzada) {
+  const ctl = ceFilas(X, wb, 'CONTROL');
+  if (!ctl) throw new Error('«' + nombreArchivo + '» no tiene la hoja CONTROL.');
+  const ini = ceInicio(ctl.filas);
+  let vig = vigForzada || null;
+  let control = ceLeerControl(ctl.filas, vig || 0, ini);
+  if (!vig) vig = ceVigencia(nombreArchivo, control);
+  if (!vig)
+    throw new Error(
+      'No se pudo saber la vigencia de «' +
+        nombreArchivo +
+        '». Inclúyala en el nombre del archivo, por ejemplo "Vigencia 2026".'
+    );
+  if (ini.nuevo && ini.faltan.length)
+    throw new Error(
+      `Vigencia ${vig}: la hoja CONTROL cambió de columnas en la fila ${ini.fila - 1}. No coinciden: ${ini.faltan.join('; ')}`
+    );
+  if (!ini.nuevo && vig >= 2026)
+    throw new Error(`Vigencia ${vig}: no se encontró la fila de encabezados "No. Orden" en la hoja CONTROL.`);
+  control.forEach(c => (c.vigencia = vig));
+  const nr = vig < 2026 ? ceFilas(X, wb, 'NO RESPUESTA') : null;
+  const norep = ceNoRespuesta(nr && nr.filas, control, vig);
+  return { archivo: nombreArchivo, vigencia: vig, control, norep, registros: control.concat(norep) };
+}
+
+/* =====================================================================
+   5. PANTALLA DE CARGA (Super administrador)
+   ===================================================================== */
+const ceClave = f => [f.vigencia, f.orfeo_entrada || '', f.radicacion_ente || '', f.organismo].join('|');
+const CE_ABIERTO = ['Sin respuesta (vencida)', 'Pendiente en término'];
+function ceAbrir() {
+  if (rol() !== 'admin') return toast('Solo el Super administrador carga el Excel de control', 'err');
+  CE.res = null;
+  openModal({
+    title: 'Cargar Excel de control',
+    wide: true,
+    body: `<div class="pm-drop">
+        <i class="fa-solid fa-file-excel"></i>
+        <b>Seleccione el Excel de control de la vigencia</b>
+        <div class="muted">Puede elegir uno o varios archivos (por ejemplo, 2025 y 2026). La app lee las hojas CONTROL y NO RESPUESTA, le muestra qué cambia frente a lo que ya está cargado y las filas con problemas. Nada se guarda hasta que usted confirme.</div>
+        <input type="file" id="ceFile" multiple accept=".xlsx,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+      </div>
+      <div id="ceOut"></div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" id="ceBtn" data-act="ceGuardar" disabled><i class="fa-solid fa-database"></i> Cargar</button>`
+  });
+  $('#ceFile').addEventListener('change', e => ceLeerArchivos([...e.target.files]));
+}
+async function ceLeerArchivos(files) {
+  const out = $('#ceOut');
+  if (!files.length) return;
+  out.innerHTML =
+    '<div class="empty"><i class="fa-solid fa-spinner fa-spin"></i>Leyendo ' +
+    files.length +
+    ' archivo(s)…</div>';
+  $('#ceBtn').disabled = true;
+  try {
+    const X = await pmXlsx();
+    const libros = [];
+    for (const f of files) {
+      const wb = X.read(new Uint8Array(await f.arrayBuffer()), {
+        type: 'array',
+        cellNF: true,
+        bookFiles: true
+      });
+      libros.push(ceLeerLibro(X, wb, f.name));
+    }
+    const vigs = libros.map(l => l.vigencia);
+    const dup = vigs.find((v, i) => vigs.indexOf(v) !== i);
+    if (dup) throw new Error('Eligió dos archivos de la vigencia ' + dup + '. Deje solo el más reciente.');
+    /* Corte: la fecha más reciente de los archivos o de lo ya cargado (si se carga solo una vigencia antigua,
+       sus vencidos se miden hasta la misma fecha que el resto), nunca posterior a hoy */
+    let corte = ceCorte(libros.flatMap(l => l.registros)) || '';
+    if (HIST.corte && HIST.corte > corte) corte = HIST.corte;
+    if (!corte || corte > pmHoy()) corte = pmHoy();
+    const { filas, calidad } = ceClasificar(
+      libros.flatMap(l => l.registros),
+      corte
+    );
+    CE.res = { libros, vigs, corte, filas, calidad };
+    ceVistaPrevia();
+  } catch (e) {
+    CE.res = null;
+    out.innerHTML = `<div class="pm-note r"><i class="fa-solid fa-circle-exclamation"></i> ${esc(e.message)}</div>`;
+  }
+}
+/* Comparación con lo que ya está cargado y vista previa */
+function ceVistaPrevia() {
+  const R = CE.res,
+    out = $('#ceOut');
+  const resumenes = R.libros.map(l => {
+    const nuevas = R.filas.filter(f => f.vigencia === l.vigencia);
+    const antes = HIST.rows.filter(r => r.v === l.vigencia);
+    const kAntes = new Map(antes.map(r => [rowKey(r), r])),
+      kNuevas = new Map(nuevas.map(f => [ceClave(f), f]));
+    let nuevos = 0,
+      cambian = 0;
+    nuevas.forEach(f => {
+      const a = kAntes.get(ceClave(f));
+      if (!a) nuevos++;
+      else if (!a.cerradaApp && OPO_NAMES[a.opo] !== f.oportunidad) cambian++;
+    });
+    const salen = antes.filter(r => !kNuevas.has(rowKey(r))).length;
+    const abN = nuevas.filter(f => CE_ABIERTO.includes(f.oportunidad)).length,
+      abA = antes.filter(r => r.opo === 2 || r.opo === 3).length;
+    return {
+      l,
+      n: nuevas.length,
+      ctl: l.control.length,
+      nr: l.norep.length,
+      nuevos,
+      cambian,
+      salen,
+      abN,
+      abA,
+      hay: antes.length
+    };
+  });
+  const porTipo = {};
+  R.calidad.forEach(q => (porTipo[q.tipo] = (porTipo[q.tipo] || 0) + 1));
+  const sinClas = {};
+  R.filas
+    .filter(f => f.tipo_organismo === 'Sin clasificar')
+    .forEach(f => (sinClas[f.organismo] = (sinClas[f.organismo] || 0) + 1));
+  const graves = R.calidad.filter(q => /ilegible|vacío/.test(q.tipo)).length;
+  out.innerHTML = `
+    <div class="pm-imp-k"><span class="pm-chip">Corte de datos: ${fmtD(R.corte)}</span><span class="pm-chip">${R.filas.length} registros leídos</span>${R.calidad.length ? `<span class="pm-chip y">${R.calidad.length} filas para revisar</span>` : '<span class="pm-chip g">Sin filas con problemas</span>'}</div>
+    ${resumenes
+      .map(
+        s => `<div class="ce-vig"><div class="ce-vig-h"><b>Vigencia ${s.l.vigencia}</b><span class="muted">${esc(s.l.archivo)}</span></div>
+      <div class="ce-num">
+        <div><small>Registros</small><b>${nf(s.n)}</b><span>${s.ctl} de CONTROL${s.nr ? ' y ' + s.nr + ' de NO RESPUESTA' : ''}</span></div>
+        <div><small>Ya cargados</small><b>${nf(s.hay)}</b><span>${s.hay ? 'se reemplazan' : 'vigencia nueva'}</span></div>
+        <div><small>Nuevos</small><b>${nf(s.nuevos)}</b><span>no estaban en la app</span></div>
+        <div><small>Cambian de estado</small><b>${nf(s.cambian)}</b><span>por ejemplo, ya respondidos</span></div>
+        <div><small>Ya no aparecen</small><b class="${s.salen ? 'ce-ojo' : ''}">${nf(s.salen)}</b><span>${s.salen ? 'revise si se borraron filas o cambió el radicado' : 'ninguno'}</span></div>
+        <div><small>Abiertos</small><b>${nf(s.abN)}</b><span>antes ${nf(s.abA)}</span></div>
+      </div></div>`
+      )
+      .join('')}
+    ${
+      Object.keys(sinClas).length
+        ? `<div class="pm-note y"><b>Organismos que no se reconocieron (${Object.keys(sinClas).length}).</b> Se cargan con el texto del Excel y no cuentan en el semáforo de ninguna dependencia. Corrija el nombre en el Excel si es un error de digitación.<ul>${Object.entries(
+            sinClas
+          )
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 12)
+            .map(([o, n]) => `<li>${esc(o)} <span class="muted">(${n})</span></li>`)
+            .join('')}</ul></div>`
+        : ''
+    }
+    ${
+      R.calidad.length
+        ? `<div class="field" style="margin-top:12px"><label>Filas para revisar en el Excel</label>
+      <div class="ce-tipos">${Object.entries(porTipo)
+        .sort((a, b) => b[1] - a[1])
+        .map(
+          ([t, n]) =>
+            `<span class="pm-chip ${/ilegible|vacío|Cerrado sin/.test(t) ? 'r' : ''}">${esc(t)}: ${n}</span>`
+        )
+        .join('')}</div>
+      <div class="hint">No impiden la carga: se aplican las mismas reglas de siempre (por ejemplo, una fecha ilegible no se puede medir). Descargue la lista para corregirlas en el Excel.</div>
+      <button class="btn sm" data-act="ceCalidad" style="margin-top:8px"><i class="fa-solid fa-file-csv"></i> Descargar filas para revisar</button></div>`
+        : ''
+    }
+    ${graves ? `<div class="hint" style="margin-top:6px">${graves} filas tienen fechas ilegibles u organismo vacío.</div>` : ''}
+    <div class="pm-note b" style="margin-top:12px">Al cargar se <b>reemplaza</b> la${R.vigs.length > 1 ? 's vigencias' : ' vigencia'} ${R.vigs.join(' y ')} con lo que trae el Excel. Las respuestas registradas en la app con radicado ORFEO y PDF se conservan. Los casos abiertos nuevos pasan a "Cargar respuesta ORFEO".</div>`;
+  const b = $('#ceBtn');
+  b.disabled = false;
+  b.innerHTML = `<i class="fa-solid fa-database"></i> Cargar vigencia${R.vigs.length > 1 ? 's' : ''} ${R.vigs.join(' y ')}`;
+}
+function ceDescargarCalidad() {
+  const R = CE.res;
+  if (!R) return;
+  csvDownload(
+    'filas_para_revisar_' + R.vigs.join('_') + '.csv',
+    ['Vigencia', 'Hoja', 'Fila del Excel', 'Radicado del ente', 'Problema', 'Detalle'],
+    R.calidad.map(q => [q.vigencia, q.hoja, q.fila_excel, q.rad_ente || '', q.tipo, q.detalle])
+  );
+}
+/* En modo demostración o en la versión con datos en el equipo, la carga se aplica solo en este navegador */
+function ceAplicarEnMemoria(R) {
+  const otras = HIST.rows.filter(r => !R.vigs.includes(r.v));
+  const nuevas = histFromDb(R.filas).rows;
+  const rows = otras.concat(nuevas).map((r, i) => ({ ...r, i }));
+  let corte = '';
+  rows.forEach(r => [r.fresp, r.rec].forEach(d => d && d > corte && (corte = d)));
+  HIST = {
+    ...HIST,
+    rows,
+    corte: String(corte).slice(0, 10),
+    entes: [...new Set(rows.map(r => r.ente))].sort(),
+    orgs: [...new Set(rows.map(r => r.org))],
+    loaded: true
+  };
+}
+async function ceGuardar(btn) {
+  const R = CE.res;
+  if (!R || CE.cargando) return;
+  if (
+    !confirm(
+      `¿Reemplazar la${R.vigs.length > 1 ? 's vigencias' : ' vigencia'} ${R.vigs.join(' y ')} con ${nf(R.filas.length)} registros del Excel?`
+    )
+  )
+    return;
+  CE.cargando = true;
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Cargando…';
+  }
+  try {
+    let res;
+    if (S.demo || !sb) {
+      ceAplicarEnMemoria(R);
+      res = { registros: R.filas.length, demo: true };
+    } else {
+      const { data, error } = await sb.rpc('cargar_historico', {
+        p: { vigencias: R.vigs, archivos: R.libros.map(l => l.archivo), corte: R.corte, filas: R.filas }
+      });
+      if (error) {
+        if (
+          /cargar_historico/.test(error.message || '') &&
+          /function|exist|schema cache/i.test(error.message || '')
+        )
+          throw new Error('Falta ejecutar en Supabase el script supabase/16_carga_excel.sql');
+        throw dbErr(error);
+      }
+      res = data;
+      HIST.loaded = false;
+      await loadHist();
+    }
+    await reload();
+    closeModal();
+    CE.res = null;
+    ceResultado(R, res);
+    render();
+  } catch (e) {
+    toast(e.message, 'err');
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-database"></i> Cargar';
+    }
+  } finally {
+    CE.cargando = false;
+  }
+}
+function ceResultado(R, res) {
+  const filas = [
+    ['Registros cargados', nf(res.registros)],
+    res.abiertos_nuevos != null
+      ? ['Casos abiertos nuevos en "Cargar respuesta ORFEO"', nf(res.abiertos_nuevos)]
+      : null,
+    res.abiertos_retirados != null
+      ? ['Casos que el Excel ya trae respondidos y salieron de pendientes', nf(res.abiertos_retirados)]
+      : null,
+    res.abiertos_conservados_con_escalamiento
+      ? [
+          'Casos ya respondidos en el Excel que siguen en pendientes porque tienen escalamientos registrados (ciérrelos en "Cargar respuesta ORFEO")',
+          nf(res.abiertos_conservados_con_escalamiento)
+        ]
+      : null,
+    res.respuestas_app_sin_caso
+      ? [
+          'Respuestas registradas en la app cuyo caso cambió en el Excel (radicado u organismo distinto)',
+          nf(res.respuestas_app_sin_caso)
+        ]
+      : null
+  ].filter(Boolean);
+  openModal({
+    title: 'Excel cargado',
+    body: `<div class="pm-note ${res.demo ? 'y' : 'b'}" style="margin:0 0 12px">${res.demo ? 'Modo demostración: la carga se aplicó solo en este navegador y no se guardó en la base de datos.' : 'La vigencia ' + R.vigs.join(' y ') + ' quedó actualizada con corte al ' + fmtD(R.corte) + '. La carga quedó registrada en la auditoría.'}</div>
+      <table class="tbl"><tbody>${filas.map(([a, b]) => `<tr><td>${esc(a)}</td><td class="mono" style="text-align:right">${b}</td></tr>`).join('')}</tbody></table>`,
+    footer: '<button class="btn primary" data-act="closeModal">Listo</button>'
+  });
+}
+/* Últimas cargas (Configuración) */
+async function ceUltimasCargas() {
+  if (S.demo || !sb) return [];
+  const { data, error } = await sb
+    .from('historico_cargas')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(5);
+  return error ? null : data;
+}
+async function ceAct(a, t) {
+  switch (a) {
+    case 'ceAbrir':
+      ceAbrir();
+      break;
+    case 'ceGuardar':
+      await ceGuardar(t);
+      break;
+    case 'ceCalidad':
+      ceDescargarCalidad();
+      break;
+  }
+}
+
+/* ===== src/js/21-arranque.js ===== */
+/**
+ * src/js/21-arranque.js
  * Arranque y autenticación: crea el cliente Supabase o entra en modo demostración, inicio de sesión, service worker y gancho de pruebas.
  * Depende de: Todos los anteriores (siempre es el último archivo: arranca la app).
  *
- * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 20, en orden,
+ * Este archivo es una sección de la aplicación: scripts/build.mjs une src/js/01 a 21, en orden,
  * dentro de un único ámbito compartido. Las funciones declaradas aquí se pueden usar desde cualquier
  * archivo; las constantes, una vez se haya ejecutado el archivo que las declara. Ver docs/GUIA_DESARROLLO.md.
  */
@@ -13148,10 +14812,24 @@ async function afterLogin(session) {
     await sb.auth.signOut();
     return showLogin('Tu cuenta está pendiente de activación por un administrador.');
   }
+  /* Verificación en dos pasos: si la cuenta la tiene activa, se pide el código antes de entrar */
+  try {
+    const { data: aal } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (aal && aal.nextLevel === 'aal2' && aal.currentLevel !== 'aal2') {
+      const ok = await mfaPedirCodigo();
+      if (!ok) {
+        await sb.auth.signOut();
+        return showLogin('Ingreso cancelado.');
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
   S.user = { email: session.user.email };
   S.profile = p;
   await enterApp();
   if (LLEGADA_CLAVE) claveModal(true);
+  else await mfaRevisarTrasIngreso();
 }
 function showLogin(msg) {
   $('#app').classList.add('hidden');
