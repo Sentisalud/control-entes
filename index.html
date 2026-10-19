@@ -4241,6 +4241,37 @@ label.pm-checks {
   flex-wrap: wrap;
 }
 
+/* resultado de la carga: título a la izquierda y número a la derecha, sin desplazamiento */
+.ce-res > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+.ce-res > div:last-child {
+  border-bottom: 0;
+}
+.ce-res b {
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+/* Requerimientos: radicados largos sin espacios se parten y el botón Cerrar queda siempre a la vista */
+.tbl td.mono {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 20ch;
+}
+.tbl .req-acc {
+  position: sticky;
+  right: 0;
+  background: var(--panel);
+  box-shadow: -10px 0 12px -10px rgba(0, 0, 0, 0.45);
+}
+
 </style>
 </head>
 <body>
@@ -4307,7 +4338,7 @@ label.pm-checks {
 'use strict';
 
 /* Generado por scripts/build.mjs: no editar el archivo publicado, editar src/js/ */
-const CE_BUILD = {"variante":"institucional","version":"2.5.0","construido":"2026-10-18","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
+const CE_BUILD = {"variante":"institucional","version":"2.5.1","construido":"2026-10-19","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
 
 /* ===== src/js/01-configuracion.js ===== */
 /**
@@ -5592,7 +5623,7 @@ function vReqs(c) {
       <select id="fdep">${opts(S.deps, S.f.dep, 'Todas las dependencias')}</select>
       ${canWrite() ? '<button class="btn primary" data-act="newReq"><i class="fa-solid fa-plus"></i> Nuevo</button>' : ''}
     </div>
-    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Estado</th><th>Radicado</th><th>Ente</th><th>Dependencia</th><th>Asunto</th><th>Límite</th><th></th></tr></thead><tbody id="reqBody"></tbody></table></div>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Estado</th><th>Radicado</th><th>Ente</th><th>Dependencia</th><th>Asunto</th><th>Límite</th><th class="req-acc"></th></tr></thead><tbody id="reqBody"></tbody></table></div>
     <div class="muted" style="margin-top:10px;font-size:.78rem" id="reqCount"></div>`;
   $('#fsem').value = S.f.sem;
   const upd = () => {
@@ -5633,7 +5664,7 @@ function renderReqRows() {
       <td>${pill(r.sem)}</td><td class="mono">${esc(r.radicado)}</td>
       <td>${esc(r.ente_s || r.ente_n)}</td><td>${esc(r.dep_n)}</td><td class="asunto">${esc(r.asunto)}</td>
       <td style="white-space:nowrap">${fmtD(r.fecha_limite)}<div class="muted" style="font-size:.72rem">${r.estado === 'abierto' ? diasTxt(r.dias) : 'Cerrado ' + fmtD(r.fecha_cierre)}</div></td>
-      <td class="right">${r.estado === 'abierto' && canClose() ? `<button class="btn sm" data-act="closeFor" data-id="${esc(r.id)}"><i class="fa-solid fa-check"></i> Cerrar</button>` : ''}</td>
+      <td class="right req-acc">${r.estado === 'abierto' && canClose() ? `<button class="btn sm" data-act="closeFor" data-id="${esc(r.id)}"><i class="fa-solid fa-check"></i> Cerrar</button>` : ''}</td>
     </tr>`
         )
         .join('')
@@ -6531,18 +6562,18 @@ async function probarResumen(btn) {
     const { data, error } = await sb.functions.invoke('resumen-semanal', { body: { prueba: true } });
     if (error) throw new Error((data && data.error) || error.message);
     if (data && data.error) throw new Error(data.error);
+    /* si el servidor de correo rechazó el envío, se muestra su respuesta (antes se confundía con "sin pendientes") */
+    if (data && data.errores && data.errores.length)
+      throw new Error('el servidor de correo respondió: ' + data.errores[0]);
     toast(
       data.enviados
-        ? 'Correo de prueba enviado a ' + S.user.email + '. Revise su bandeja de entrada.'
+        ? 'Correo de prueba enviado a ' +
+            S.user.email +
+            '. Revise su bandeja de entrada y la carpeta de spam.'
         : 'No hay dependencias con pendientes para armar la prueba.'
     );
   } catch (e) {
-    toast(
-      'No se pudo enviar la prueba: ' +
-        e.message +
-        '. Revise que la función resumen-semanal esté desplegada con sus secretos.',
-      'err'
-    );
+    toast('No se pudo enviar la prueba: ' + e.message, 'err');
   } finally {
     if (btn) {
       btn.disabled = false;
@@ -14702,7 +14733,7 @@ function ceResultado(R, res) {
   openModal({
     title: 'Excel cargado',
     body: `<div class="pm-note ${res.demo ? 'y' : 'b'}" style="margin:0 0 12px">${res.demo ? 'Modo demostración: la carga se aplicó solo en este navegador y no se guardó en la base de datos.' : 'La vigencia ' + R.vigs.join(' y ') + ' quedó actualizada con corte al ' + fmtD(R.corte) + '. La carga quedó registrada en la auditoría.'}</div>
-      <table class="tbl"><tbody>${filas.map(([a, b]) => `<tr><td>${esc(a)}</td><td class="mono" style="text-align:right">${b}</td></tr>`).join('')}</tbody></table>`,
+      <div class="ce-res">${filas.map(([a, b]) => `<div><span>${esc(a)}</span><b class="mono">${b}</b></div>`).join('')}</div>`,
     footer: '<button class="btn primary" data-act="closeModal">Listo</button>'
   });
 }
