@@ -4272,6 +4272,46 @@ label.pm-checks {
   box-shadow: -10px 0 12px -10px rgba(0, 0, 0, 0.45);
 }
 
+/* Copias de seguridad y salud del sistema */
+.rp-lista,
+.sl-lista {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rp-lista > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.rp-lista > div .mono {
+  flex: 1;
+  min-width: 140px;
+}
+.sl-lista > div {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: start;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.sl-lista .muted {
+  font-size: 0.74rem;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 560px) {
+  .sl-lista > div {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4338,7 +4378,7 @@ label.pm-checks {
 'use strict';
 
 /* Generado por scripts/build.mjs: no editar el archivo publicado, editar src/js/ */
-const CE_BUILD = {"variante":"institucional","version":"2.5.1","construido":"2026-10-19","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
+const CE_BUILD = {"variante":"institucional","version":"2.5.3","construido":"2026-10-22","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
 
 /* ===== src/js/01-configuracion.js ===== */
 /**
@@ -5157,7 +5197,25 @@ const db = {
         dep = d.id;
       }
       let r;
-      if (accion === 'invitar') {
+      if (accion === 'preparar') {
+        let p = P.find(x => x.email === correo);
+        if (!p) {
+          p = { id: 'u' + (P.length + 1) + '_' + Date.now(), email: correo };
+          P.push(p);
+        }
+        Object.assign(p, {
+          nombre: datos.nombre,
+          rol: datos.rol || 'secretario',
+          dependencia_id: dep,
+          activo: false
+        });
+        r = { ok: true, id: p.id, mensaje: `Cuenta preparada para ${correo}, sin activar (simulado).` };
+      } else if (accion === 'activar_invitar') {
+        const p = P.find(x => x.id === datos.id);
+        if (!p) throw new Error('La cuenta no existe.');
+        p.activo = true;
+        r = { ok: true, mensaje: `Cuenta activada. Enlace enviado a ${p.email} (simulado).` };
+      } else if (accion === 'invitar') {
         let p = P.find(x => x.email === correo);
         if (!p) {
           p = { id: 'u' + (P.length + 1) + '_' + Date.now(), email: correo };
@@ -6128,7 +6186,7 @@ function estadoCuenta(org) {
     return mail && fullName(t.nombre)
       ? ['sin', 'rojo', 'Sin cuenta']
       : ['incompleto', 'neutral', 'Faltan datos del titular'];
-  if (!p.activo) return ['inactiva', 'neutral', 'Desactivada'];
+  if (!p.activo) return ['inactiva', 'neutral', 'Preparada, sin activar'];
   if (mail && String(p.email).toLowerCase() !== mail)
     return ['distinto', 'amarillo', 'Correo distinto al directorio'];
   return ['activa', 'verde', 'Activa'];
@@ -6147,12 +6205,12 @@ async function vCuentas(c) {
       <div class="card kpi g"><small>Dependencias con cuenta activa</small><b>${n('activa')}<span class="kpi-of"> / ${orgs.length}</span></b></div>
       <div class="card kpi r"><small>Sin cuenta</small><b>${n('sin')}</b></div>
       <div class="card kpi y"><small>Correo distinto al directorio</small><b>${n('distinto')}</b></div>
-      <div class="card kpi"><small>Faltan datos o desactivadas</small><b>${n('incompleto') + n('inactiva')}</b></div>
+      <div class="card kpi"><small>Preparadas sin activar o sin datos</small><b>${n('incompleto') + n('inactiva')}</b></div>
     </div>
     <div class="card" style="margin-bottom:14px">
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start">
-        <div style="flex:1;min-width:240px"><h3>Cuentas por dependencia</h3><div class="sub">Cada dependencia ingresa con el correo institucional de su secretario o director y solo ve sus requerimientos. Al crear la cuenta, el titular recibe un correo para definir su propia contraseña.</div></div>
-        ${pendientes.length ? `<button class="btn primary" data-act="ctaCrearTodas"><i class="fa-solid fa-user-plus"></i> Crear cuentas pendientes (${pendientes.length})</button>` : ''}
+        <div style="flex:1;min-width:240px"><h3>Cuentas por dependencia</h3><div class="sub">Cada dependencia ingresa con el correo institucional de su secretario o director y solo ve sus requerimientos. Las cuentas se pueden <b>preparar</b> sin enviar ningún correo: quedan creadas y bloqueadas. Al <b>activarlas</b>, el titular recibe el enlace para definir su propia contraseña.</div></div>
+        ${pendientes.length ? `<button class="btn primary" data-act="ctaPrepararTodas"><i class="fa-solid fa-user-lock"></i> Preparar cuentas sin activar (${pendientes.length})</button>` : ''}
       </div>
       <div class="dir-list">${est
         .map(([o, e]) => {
@@ -6166,10 +6224,11 @@ async function vCuentas(c) {
           <div><dt>Cuenta de acceso</dt><dd>${p ? esc(p.email) : '<span class="muted">—</span>'}</dd></div>
         </dl>
         <div class="dir-a" style="margin-top:10px">
-          ${!p && e[0] === 'sin' ? `<button class="btn sm primary" data-act="ctaCrear" data-org="${esc(o)}"><i class="fa-solid fa-user-plus"></i> Crear cuenta</button>` : ''}
+          ${!p && e[0] === 'sin' ? `<button class="btn sm primary" data-act="ctaPreparar" data-org="${esc(o)}"><i class="fa-solid fa-user-lock"></i> Preparar cuenta</button><button class="btn sm" data-act="ctaCrear" data-org="${esc(o)}"><i class="fa-solid fa-user-plus"></i> Crear e invitar ya</button>` : ''}
+          ${p && !p.activo ? `<button class="btn sm primary" data-act="ctaActivarInvitar" data-id="${esc(p.id)}" data-correo="${esc(p.email)}"><i class="fa-solid fa-paper-plane"></i> Activar e invitar</button>` : ''}
           <button class="btn sm" data-act="ctaTitular" data-org="${esc(o)}"><i class="fa-solid fa-user-pen"></i> Cambiar titular</button>
           ${p && p.activo ? `<button class="btn sm" data-act="ctaEnlace" data-correo="${esc(p.email)}"><i class="fa-solid fa-key"></i> Reenviar enlace de contraseña</button>` : ''}
-          ${p ? `<button class="btn sm" data-act="${p.activo ? 'ctaDesactivar' : 'ctaActivar'}" data-id="${esc(p.id)}">${p.activo ? 'Desactivar' : 'Activar'}</button>` : ''}
+          ${p && p.activo ? `<button class="btn sm" data-act="ctaDesactivar" data-id="${esc(p.id)}">Desactivar</button>` : ''}
         </div></div>`;
         })
         .join('')}</div>
@@ -6602,7 +6661,13 @@ function vConfig(c) {
       }</div>
     <div class="card"><h3>Datos desde el Excel de control</h3><div class="sub">Actualice el histórico cargando el Excel de control de la vigencia. Antes de guardar se muestra qué cambia y qué filas revisar.</div>
       <button class="btn primary" data-act="ceAbrir"><i class="fa-solid fa-file-arrow-up"></i> Cargar Excel de control</button>
-      <div id="ceUltimas" class="hint" style="margin-top:12px"></div></div></div>`;
+      <div id="ceUltimas" class="hint" style="margin-top:12px"></div></div>
+    <div class="card"><h3>Copias de seguridad</h3><div class="sub">Cada domingo a las 11:00 p. m. se guarda una copia completa de la información (se conservan las 12 más recientes). Descargue una copia a su computador al menos una vez al mes.</div>
+      <div id="rpCaja"><div class="hint"><i class="fa-solid fa-spinner fa-spin"></i> Consultando…</div></div></div>
+    <div class="card"><h3>Salud del sistema</h3><div class="sub">Errores y avisos de las funciones automáticas (resumen semanal, copias de seguridad) y de la app en los equipos de los usuarios.</div>
+      <div id="slCaja"><div class="hint"><i class="fa-solid fa-spinner fa-spin"></i> Consultando…</div></div></div></div>`;
+  respaldoCargar();
+  saludCargar();
   ceUltimasCargas().then(l => {
     const el = $('#ceUltimas');
     if (!el) return;
@@ -6620,6 +6685,146 @@ function vConfig(c) {
           .join('<br>');
   });
 }
+
+/* =====================================================================
+   COPIAS DE SEGURIDAD Y SALUD DEL SISTEMA (supabase/17 y función "respaldo")
+   ===================================================================== */
+/* respaldo_2026-10-25_2300.json.gz → 25/10/2026, 11:00 p. m. */
+const rpFecha = n => {
+  const m = /respaldo_(\d{4})-(\d{2})-(\d{2})_(\d{2})(\d{2})/.exec(n);
+  if (!m) return n;
+  const h = +m[4],
+    hh = h % 12 || 12;
+  return `${m[3]}/${m[2]}/${m[1]}, ${hh}:${m[5]} ${h < 12 ? 'a. m.' : 'p. m.'}`;
+};
+const sinScript17 = () => !S.demo && !('respaldo_ultimo' in S.cfg);
+async function respaldoCargar() {
+  const caja = $('#rpCaja');
+  if (!caja) return;
+  if (S.demo) {
+    caja.innerHTML = '<div class="hint">En modo demostración no se crean copias de seguridad.</div>';
+    return;
+  }
+  if (sinScript17()) {
+    caja.innerHTML =
+      '<div class="pm-note y">Para activarlas, ejecute en Supabase el script <span class="mono">17_respaldos_y_monitoreo.sql</span> y despliegue la función <span class="mono">respaldo</span> (ver docs/RESPALDOS.md).</div>';
+    return;
+  }
+  const { data, error } = await sb.storage
+    .from('respaldos')
+    .list('', { limit: 20, sortBy: { column: 'name', order: 'desc' } });
+  const lista = (data || []).filter(f => /^respaldo_.*\.json\.gz$/.test(f.name));
+  caja.innerHTML = `${S.cfg.respaldo_ultimo ? `<div class="hint" style="margin-bottom:10px">Última copia: ${fmtTs(S.cfg.respaldo_ultimo)}. ${esc(S.cfg.respaldo_ultimo_detalle || '')}</div>` : '<div class="hint" style="margin-bottom:10px">Todavía no hay copias. Cree la primera ahora.</div>'}
+    <button class="btn primary" data-act="rpCrear"><i class="fa-solid fa-shield-halved"></i> Crear copia ahora</button>
+    ${
+      error
+        ? `<div class="hint err" style="margin-top:10px">No se pudo consultar la lista: ${esc(error.message)}</div>`
+        : lista.length
+          ? `<div class="rp-lista">${lista
+              .map(
+                f =>
+                  `<div><span class="mono">${esc(rpFecha(f.name))}</span><span class="muted">${f.metadata && f.metadata.size ? (f.metadata.size / 1024).toFixed(0) + ' KB' : ''}</span><button class="btn sm" data-act="rpDescargar" data-n="${esc(f.name)}"><i class="fa-solid fa-download"></i> Descargar</button></div>`
+              )
+              .join('')}</div>`
+          : ''
+    }`;
+}
+async function respaldoCrear(btn) {
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creando copia…';
+  }
+  try {
+    const { data, error } = await sb.functions.invoke('respaldo', { body: {} });
+    if (error) throw new Error((data && data.error) || error.message);
+    if (data && data.error) throw new Error(data.error);
+    toast(`Copia creada: ${nf(data.registros)} registros, ${data.kb} KB.`);
+    await db.catalogs();
+  } catch (e) {
+    toast('No se pudo crear la copia: ' + e.message, 'err');
+  }
+  respaldoCargar();
+  saludCargar();
+}
+async function respaldoDescargar(nombre) {
+  const { data, error } = await sb.storage
+    .from('respaldos')
+    .createSignedUrl(nombre, 120, { download: nombre });
+  if (error) return toast('No se pudo descargar: ' + error.message, 'err');
+  const a = document.createElement('a');
+  a.href = data.signedUrl;
+  a.download = nombre;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+async function saludCargar() {
+  const caja = $('#slCaja');
+  if (!caja) return;
+  if (S.demo) {
+    caja.innerHTML = '<div class="hint">En modo demostración no hay funciones automáticas.</div>';
+    return;
+  }
+  if (sinScript17()) {
+    caja.innerHTML =
+      '<div class="hint">Disponible al ejecutar el script <span class="mono">17_respaldos_y_monitoreo.sql</span>.</div>';
+    return;
+  }
+  const { data, error } = await sb
+    .from('eventos_sistema')
+    .select('*')
+    .in('nivel', ['error', 'aviso'])
+    .eq('revisado', false)
+    .order('created_at', { ascending: false })
+    .limit(20);
+  if (error) {
+    caja.innerHTML = `<div class="hint err">${esc(error.message)}</div>`;
+    return;
+  }
+  caja.innerHTML = data.length
+    ? `<div class="sl-lista">${data
+        .map(
+          e =>
+            `<div><span class="pill ${e.nivel === 'error' ? 'rojo' : 'amarillo'}"><i></i>${e.nivel === 'error' ? 'Error' : 'Aviso'}</span><div><b>${esc(e.mensaje)}</b><div class="muted">${fmtTs(e.created_at)} · ${esc(e.origen)}${e.usuario ? ' · ' + esc(e.usuario) : ''}</div>${e.detalle && e.detalle.error ? `<div class="muted mono">${esc(String(e.detalle.error).slice(0, 200))}</div>` : ''}</div><button class="btn sm" data-act="slRevisado" data-id="${e.id}">Marcar revisado</button></div>`
+        )
+        .join('')}</div>`
+    : '<div class="pm-note g" style="margin:0"><i class="fa-solid fa-circle-check"></i> Sin errores pendientes.</div>';
+}
+async function saludRevisado(id) {
+  const { error } = await sb.from('eventos_sistema').update({ revisado: true }).eq('id', id);
+  if (error) return toast(error.message, 'err');
+  saludCargar();
+}
+/* Errores del navegador: se registran en eventos_sistema (máximo 5 por sesión; el servidor limita 20 por hora) */
+let errAppN = 0;
+function reportarErrorApp(mensaje, detalle) {
+  if (S.demo || !sb || !S.user || errAppN >= 5) return;
+  errAppN++;
+  try {
+    sb.rpc('registrar_error_app', {
+      p_mensaje: String(mensaje || 'Error').slice(0, 500),
+      p_detalle: {
+        ...detalle,
+        vista: S.view || '',
+        version: (CE_BUILD && CE_BUILD.version) || '',
+        navegador: navigator.userAgent.slice(0, 160)
+      }
+    }).then(
+      () => {},
+      () => {}
+    );
+  } catch (e) {
+    /* nunca interrumpir la app por el reporte */
+  }
+}
+window.addEventListener('error', ev =>
+  reportarErrorApp(ev.message, { archivo: ev.filename ? 'app' : '', linea: ev.lineno, columna: ev.colno })
+);
+window.addEventListener('unhandledrejection', ev =>
+  reportarErrorApp(ev.reason && ev.reason.message ? ev.reason.message : String(ev.reason), {
+    tipo: 'promesa'
+  })
+);
 
 /* ===== src/js/09-cumplimiento-e-historico.js ===== */
 /**
@@ -9868,6 +10073,15 @@ document.addEventListener('click', async e => {
     case 'saveResumen':
       await guardarResumen();
       break;
+    case 'rpCrear':
+      await respaldoCrear(t);
+      break;
+    case 'rpDescargar':
+      await respaldoDescargar(t.dataset.n);
+      break;
+    case 'slRevisado':
+      await saludRevisado(t.dataset.id);
+      break;
     case 'probarResumen':
       await probarResumen(t);
       break;
@@ -9891,6 +10105,69 @@ document.addEventListener('click', async e => {
         });
         toast(r.mensaje);
         await refrescarDeps();
+        render();
+      } catch (e) {
+        t.disabled = false;
+        toast(e.message, 'err');
+      }
+      break;
+    }
+    case 'ctaPreparar':
+    case 'ctaPrepararTodas': {
+      const lista =
+        a === 'ctaPreparar' ? [t.dataset.org] : mainOrgsAll().filter(o => estadoCuenta(o)[0] === 'sin');
+      if (a === 'ctaPreparar') {
+        const x = titularDe(lista[0]);
+        if (!x || !normMail(x.correo) || !fullName(x.nombre)) {
+          titularModal(lista[0]);
+          break;
+        }
+      }
+      if (
+        !lista.length ||
+        (a === 'ctaPrepararTodas' &&
+          !confirm(
+            `Se prepararán ${lista.length} cuenta(s) con el correo institucional de cada titular. Quedarán bloqueadas y NO se enviará ningún correo hasta que usted las active. ¿Continuar?`
+          ))
+      )
+        break;
+      t.disabled = true;
+      let ok = 0;
+      const fallas = [];
+      for (const o of lista) {
+        const x = titularDe(o);
+        try {
+          await db.cuenta('preparar', {
+            correo: normMail(x.correo),
+            nombre: x.nombre,
+            rol: 'secretario',
+            dependencia: o
+          });
+          ok++;
+        } catch (e) {
+          fallas.push(shortOrg(o) + ': ' + e.message);
+        }
+      }
+      await refrescarDeps();
+      render();
+      toast(
+        `${ok} cuenta(s) preparada(s), sin activar y sin enviar correos` +
+          (fallas.length ? `. No se pudo en ${fallas.length}: ${fallas.slice(0, 2).join(' · ')}` : ''),
+        fallas.length ? 'err' : undefined
+      );
+      break;
+    }
+    case 'ctaActivarInvitar': {
+      if (
+        !confirm(
+          `Se activará la cuenta y se enviará a ${t.dataset.correo} el enlace para definir su contraseña. ¿Continuar?`
+        )
+      )
+        break;
+      t.disabled = true;
+      try {
+        const r = await db.cuenta('activar_invitar', { id: t.dataset.id });
+        toast(r.mensaje);
         render();
       } catch (e) {
         t.disabled = false;
