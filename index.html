@@ -9,9 +9,8 @@
 <title>Control de Entes · Alcaldía de Cali</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="vendor/fuentes.css">
 <!-- Estilos: src/css/*.css, unidos en orden por scripts/build.mjs -->
 <style>
 /* ===== src/css/01-base-y-variables.css ===== */
@@ -4312,6 +4311,138 @@ label.pm-checks {
   }
 }
 
+/* Sugerencias de acciones según la causa */
+.pm-sug {
+  border: 1px dashed var(--line2, var(--line));
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  background: var(--bg2);
+}
+.pm-sug-h {
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.pm-sug-h .muted {
+  font-weight: 400;
+}
+.pm-sug-g {
+  margin-top: 6px;
+  font-size: 0.8rem;
+}
+.pm-sug-a {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+.pm-sug-a .muted {
+  font-size: 0.74rem;
+}
+/* Traslados del hallazgo */
+.pm-tras {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+.pm-tras-h {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pm-tras-h .btn {
+  margin-left: auto;
+}
+.pm-tras-r {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.pm-tras-r > span:nth-child(2) {
+  flex: 1;
+  min-width: 160px;
+}
+
+/* Calificación según la metodología de la CGSC */
+.pm-cgsc {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg2);
+}
+.pm-cgsc-h {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-size: 0.85rem;
+}
+.pm-cgsc-h .muted {
+  font-size: 0.74rem;
+}
+.pm-cgsc-g {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 10px 0 6px;
+}
+.pm-cgsc-g > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pm-cgsc-g small {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.pm-cgsc-g b {
+  font-size: 1.35rem;
+}
+.pm-cgsc-g .muted {
+  font-size: 0.72rem;
+}
+.pm-cgsc-g .pill {
+  align-self: flex-start;
+}
+/* Oficio de remisión enlazado */
+.pm-req {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+.pm-req > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+.pm-req small {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.pm-cal {
+  color: var(--ink2, inherit);
+}
+
 </style>
 </head>
 <body>
@@ -4371,14 +4502,14 @@ label.pm-checks {
 <div id="toasts"></div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script><script src="vendor/supabase.min.js"></script>
 <!-- Lógica: src/js/*.js, unidos en orden por scripts/build.mjs dentro de un único ámbito -->
 <script>
 (function(){
 'use strict';
 
 /* Generado por scripts/build.mjs: no editar el archivo publicado, editar src/js/ */
-const CE_BUILD = {"variante":"institucional","version":"2.5.3","construido":"2026-10-22","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
+const CE_BUILD = {"variante":"institucional","version":"2.6.0","construido":"2026-10-25","supabaseUrl":"https://qwpburivxydbetceumyd.supabase.co","supabaseAnonKey":"sb_publishable_mYbjO81WBmrsmLl3UMAdYg_iFDmzNhE","remitente":"erika.torres@cali.gov.co","pruebas":false};
 
 /* ===== src/js/01-configuracion.js ===== */
 /**
@@ -4401,9 +4532,14 @@ const CE_BUILD = {"variante":"institucional","version":"2.5.3","construido":"202
    - Si quedan vacíos, la app corre en MODO DEMOSTRACIÓN en memoria.
    - remitente: cuenta de Google Workspace que firma los correos de notificación.
    ===================================================================== */
-const CFG = { SUPABASE_URL: CE_BUILD.supabaseUrl || '', SUPABASE_ANON_KEY: CE_BUILD.supabaseAnonKey || '' };
+/* config.js (publicado junto a index.html) tiene prioridad: así DATIC cambia de servidor sin reconstruir la app */
+const CE_CONF = (typeof window !== 'undefined' && window.CE_CONFIG) || {};
+const CFG = {
+  SUPABASE_URL: CE_CONF.supabaseUrl || CE_BUILD.supabaseUrl || '',
+  SUPABASE_ANON_KEY: CE_CONF.supabaseAnonKey || CE_BUILD.supabaseAnonKey || ''
+};
 /* Cuenta de Google Workspace desde la que se envían los correos de notificación */
-const REMITENTE = CE_BUILD.remitente || '';
+const REMITENTE = CE_CONF.remitente || CE_BUILD.remitente || '';
 /* Variante construida: 'institucional' (Supabase), 'demo' (datos ficticios) o 'privada' (datos reales sin conexión) */
 const ES_DEMO_PUBLICA = CE_BUILD.variante === 'demo';
 const ES_PRIVADA = CE_BUILD.variante === 'privada';
@@ -5385,6 +5521,9 @@ const opts = (arr, sel, all) =>
 async function reload() {
   try {
     S.reqs = (await db.reqs(S.vigencia)).map(decorate);
+    /* Vista previa por rol: la misma restricción que aplicaría la base de datos a esa dependencia */
+    if (typeof VP !== 'undefined' && VP.real && ['secretario', 'enlace'].includes(rol()))
+      S.reqs = S.reqs.filter(r => r.dependencia_id === S.profile.dependencia_id);
   } catch (e) {
     toast(e.message || 'No se pudieron cargar los datos', 'err');
     S.reqs = [];
@@ -5835,15 +5974,16 @@ function vCarga(c) {
     <form id="cargaForm" novalidate>
       <div class="field"><label>Buscar caso</label><input id="cBus" placeholder="Radicado, ente, dependencia o asunto" autocomplete="off"><div class="hint" id="cBusN">${abiertos.length} caso(s) abiertos en la vigencia ${S.vigencia}</div></div>
       <div class="field"><label>Requerimiento pendiente</label><select id="cSel">${abiertos.map(r => `<option value="${esc(r.id)}"${String(r.id) === String(S.preselect) ? ' selected' : ''}>${esc(r.radicado)} · ${esc(r.ente_s || r.ente_n)} · ${esc(r.dep_n)} (${r.sem === 'rojo' ? 'crítico' : 'en término'})</option>`).join('')}</select></div>
-      <div class="field"><label>Radicado ORFEO de salida</label><input id="cOrfeo" class="mono" inputmode="numeric" placeholder="202641430100000171" maxlength="20"><div class="hint">Solo dígitos (10 a 20). Se valida contra duplicados.</div><div class="err hidden" id="cOrfeoErr"></div></div>
+      <div class="field"><label>Radicado ORFEO de salida</label><input id="cOrfeo" class="mono" inputmode="numeric" placeholder="202641430100000171" maxlength="20" value="${esc(S.preselectOrfeo || '')}"><div class="hint">Solo dígitos (10 a 20). Se valida contra duplicados.</div><div class="err hidden" id="cOrfeoErr"></div></div>
       <div class="row2">
-        <div class="field"><label>Fecha de envío oficial</label><input id="cFecha" type="date" value="${hoy}" max="${hoy}"></div>
+        <div class="field"><label>Fecha de envío oficial</label><input id="cFecha" type="date" value="${S.preselectFecha && S.preselectFecha <= hoy ? S.preselectFecha : hoy}" max="${hoy}"></div>
         <div class="field"><label>Soporte PDF</label><input id="cFile" type="file" accept="application/pdf,.pdf"><div class="hint">Máx. 10 MB · se calcula su huella SHA-256</div></div>
       </div>
       <div class="err hidden" id="cErr" style="margin-bottom:12px"></div>
       <button class="btn primary" id="cBtn" type="submit"><i class="fa-solid fa-check-circle"></i> Guardar y marcar en verde</button>
     </form></div>`;
   S.preselect = null;
+  S.preselectOrfeo = S.preselectFecha = null;
   $('#cBus').addEventListener('input', e => {
     const q = nrmTxt(e.target.value).trim(),
       sel = $('#cSel');
@@ -6400,6 +6540,20 @@ async function guardarClave() {
   if (error) return err('No se pudo guardar: ' + error.message);
   closeModal();
   toast('Contraseña actualizada');
+  /* Llegada por invitación o recuperación: la verificación en dos pasos se pide de inmediato, no en el próximo ingreso */
+  if (LLEGADA_CLAVE) await mfaRevisarTrasIngreso();
+}
+
+/* El código QR llega como "data:image/svg+xml;utf-8,<svg …>" sin codificar: las comillas y los '#' de los colores
+   cortan la dirección de la imagen. Se codifica el SVG para que el navegador lo dibuje completo. */
+function qrSeguro(qr) {
+  const s = String(qr || '');
+  const i = s.indexOf(',');
+  if (i < 0 || !/^data:image\/svg\+xml/i.test(s) || /;base64,/i.test(s.slice(0, i + 1))) return s;
+  const svg = s.slice(i + 1);
+  return (
+    'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(/%3C/i.test(svg) ? decodeURIComponent(svg) : svg)
+  );
 }
 
 /* ---------- Verificación en dos pasos (código de una app autenticadora) ----------
@@ -6477,7 +6631,7 @@ async function mfaInscribir(obligatoria) {
           <li>Instale en su celular <b>Google Authenticator</b> o <b>Microsoft Authenticator</b> (gratis).</li>
           <li>En la app, agregue una cuenta y escanee este código:</li>
         </ol>
-        <div style="text-align:center;margin:10px 0"><img src="${data.totp.qr_code}" alt="Código QR para la app autenticadora" style="width:210px;height:210px;background:#fff;padding:8px;border-radius:10px"></div>
+        <div style="text-align:center;margin:10px 0"><img src="${esc(qrSeguro(data.totp.qr_code))}" alt="Código QR para la app autenticadora" style="width:210px;height:210px;background:#fff;padding:8px;border-radius:10px"></div>
         <div class="hint" style="text-align:center">Si no puede escanear, escriba esta clave en la app: <span class="mono" style="user-select:all">${esc(data.totp.secret)}</span></div>
         <div class="field" style="margin-top:14px"><label for="mfaCod">3. Escriba el código de 6 dígitos que muestra la app</label><input id="mfaCod" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="mono" style="font-size:1.4rem;letter-spacing:.3em;text-align:center"></div>
         <div id="mfaErr" class="hint err hidden"></div>`,
@@ -6663,7 +6817,10 @@ function vConfig(c) {
       <button class="btn primary" data-act="ceAbrir"><i class="fa-solid fa-file-arrow-up"></i> Cargar Excel de control</button>
       <div id="ceUltimas" class="hint" style="margin-top:12px"></div></div>
     <div class="card"><h3>Copias de seguridad</h3><div class="sub">Cada domingo a las 11:00 p. m. se guarda una copia completa de la información (se conservan las 12 más recientes). Descargue una copia a su computador al menos una vez al mes.</div>
-      <div id="rpCaja"><div class="hint"><i class="fa-solid fa-spinner fa-spin"></i> Consultando…</div></div></div>
+      <div id="rpCaja"><div class="hint"><i class="fa-solid fa-spinner fa-spin"></i> Consultando…</div></div>
+      <div class="rp-arch"><b>Archivos (PDF y documentos)</b><div class="sub">La copia anterior guarda los datos. Los archivos se respaldan aparte: verifique que estén completos y sin alteraciones, y descárguelos en un ZIP con su manifiesto de huellas digitales.</div>
+        <div class="toolbar"><button class="btn sm" data-act="archVerificar"><i class="fa-solid fa-shield-halved"></i> Verificar archivos</button><button class="btn sm" data-act="archZip"><i class="fa-solid fa-file-zipper"></i> Descargar archivos (ZIP)</button></div>
+        <div id="respArchivos" class="hint"></div></div></div>
     <div class="card"><h3>Salud del sistema</h3><div class="sub">Errores y avisos de las funciones automáticas (resumen semanal, copias de seguridad) y de la app en los equipos de los usuarios.</div>
       <div id="slCaja"><div class="hint"><i class="fa-solid fa-spinner fa-spin"></i> Consultando…</div></div></div></div>`;
   respaldoCargar();
@@ -10073,8 +10230,17 @@ document.addEventListener('click', async e => {
     case 'saveResumen':
       await guardarResumen();
       break;
+    case 'vpSalir':
+      await vpAplicar('admin');
+      break;
     case 'rpCrear':
       await respaldoCrear(t);
+      break;
+    case 'archVerificar':
+      await archivoVerificar(t);
+      break;
+    case 'archZip':
+      await archivoZip(t);
       break;
     case 'rpDescargar':
       await respaldoDescargar(t.dataset.n);
@@ -10694,6 +10860,7 @@ function syncDemoDep() {
   }
 }
 $('#demoRole').addEventListener('change', async e => {
+  if (!S.demo) return vpAplicar(e.target.value, null);
   const p = { ...DEMO.profiles.find(x => x.rol === e.target.value) };
   S.profile = p;
   S.user = { email: p.email };
@@ -10703,6 +10870,7 @@ $('#demoRole').addEventListener('change', async e => {
   go(S.view);
 });
 $('#demoDep').addEventListener('change', async e => {
+  if (!S.demo) return vpAplicar(S.profile.rol, +e.target.value);
   const d = S.deps.find(x => x.id === +e.target.value);
   if (!d) return;
   S.profile = { ...S.profile, dependencia_id: d.id, org: d.nombre };
@@ -10715,6 +10883,115 @@ window.addEventListener('hashchange', () => {
   const v = location.hash.slice(1);
   if (v && TITLES[v] && S.profile) go(v);
 });
+
+/* =====================================================================
+   VISTA PREVIA POR ROL (versión real, solo Super administrador)
+   Muestra la app exactamente como la vería otro rol o una dependencia, filtrando en este navegador
+   lo mismo que la base de datos filtraría para esa persona. Es de solo lectura: mientras está activa,
+   cualquier intento de guardar, cargar o enviar se bloquea antes de llegar a la base de datos.
+   ===================================================================== */
+const VP = { real: null, hist: null, notif: null, guard: false };
+const vpActiva = () => !!VP.real;
+const VP_MSG = 'Vista previa por rol: es solo de lectura. Vuelva a "Mi vista" para hacer cambios.';
+function vpOpciones() {
+  if (S.demo || !S.profile || S.profile.rol !== 'admin') return;
+  const dr = $('#demoRole');
+  dr.classList.remove('hidden');
+  dr.title = 'Vista previa por rol (solo lectura)';
+  dr.innerHTML = Object.entries(ROLES)
+    .map(
+      ([k, v]) => `<option value="${k}">${k === 'admin' ? 'Mi vista: ' + v : 'Vista previa: ' + v}</option>`
+    )
+    .join('');
+}
+/* Cualquier escritura queda bloqueada mientras dura la vista previa */
+function vpBloquear() {
+  if (VP.guard || !sb) return;
+  VP.guard = true;
+  const res = () => Promise.resolve({ data: null, error: { message: VP_MSG } });
+  const bloqueado = new Proxy(function () {}, {
+    get: (t, k) => (k === 'then' ? (a, b) => res().then(a, b) : () => bloqueado),
+    apply: () => bloqueado
+  });
+  const from = sb.from.bind(sb),
+    rpc = sb.rpc.bind(sb),
+    invoke = sb.functions.invoke.bind(sb.functions),
+    storageFrom = sb.storage.from.bind(sb.storage);
+  sb.from = t => {
+    const q = from(t);
+    if (!vpActiva()) return q;
+    ['insert', 'update', 'upsert', 'delete'].forEach(m => (q[m] = () => bloqueado));
+    return q;
+  };
+  sb.rpc = (n, a, o) => (vpActiva() ? bloqueado : rpc(n, a, o));
+  sb.functions.invoke = (n, o) => (vpActiva() ? res() : invoke(n, o));
+  sb.storage.from = b => {
+    const st = storageFrom(b);
+    if (!vpActiva()) return st;
+    ['upload', 'update', 'remove', 'move', 'copy'].forEach(m => (st[m] = () => res()));
+    return st;
+  };
+}
+function vpBanner() {
+  const b = $('#banner');
+  if (!vpActiva()) {
+    b.classList.add('hidden');
+    b.innerHTML = '';
+    return;
+  }
+  const dep = S.profile.org ? ' · ' + esc(shortOrg(S.profile.org)) : '';
+  b.classList.remove('hidden');
+  b.innerHTML = `<b>Vista previa: ${esc(ROLES[S.profile.rol] || S.profile.rol)}${dep}.</b> Así ve la app esta persona. Es solo de lectura: no se guarda ni se envía nada. <a href="#" data-act="vpSalir">Volver a mi vista</a>`;
+}
+function vpDeps() {
+  const sel = $('#demoDep'),
+    scoped = ['secretario', 'enlace'].includes(S.profile.rol);
+  sel.classList.toggle('hidden', !scoped);
+  if (!scoped) return;
+  const filas = VP.hist || HIST.rows;
+  sel.innerHTML = S.deps
+    .filter(d => filas.some(r => r.org === d.nombre))
+    .map(
+      d =>
+        `<option value="${d.id}"${d.id === S.profile.dependencia_id ? ' selected' : ''}>${esc(shortOrg(d.nombre))}</option>`
+    )
+    .join('');
+}
+async function vpAplicar(rolSel, depId) {
+  if (S.demo || (!VP.real && (!S.profile || S.profile.rol !== 'admin'))) return;
+  vpBloquear();
+  if (!VP.real) {
+    VP.real = S.profile;
+    VP.hist = HIST.rows;
+    VP.notif = NOTIF;
+  }
+  if (!rolSel || rolSel === 'admin') {
+    S.profile = VP.real;
+    HIST.rows = VP.hist;
+    NOTIF = VP.notif;
+    VP.real = VP.hist = VP.notif = null;
+    $('#demoDep').classList.add('hidden');
+    $('#demoRole').value = 'admin';
+  } else {
+    const scoped = ['secretario', 'enlace'].includes(rolSel);
+    const dep = scoped
+      ? S.deps.find(d => d.id === depId) || S.deps.find(d => VP.hist.some(r => r.org === d.nombre))
+      : null;
+    S.profile = {
+      ...VP.real,
+      rol: rolSel,
+      dependencia_id: dep ? dep.id : null,
+      org: dep ? dep.nombre : null
+    };
+    HIST.rows = dep ? VP.hist.filter(r => r.org === dep.nombre) : VP.hist;
+    NOTIF = dep ? VP.notif.filter(n => n.org === dep.nombre) : VP.notif;
+    vpDeps();
+  }
+  vpBanner();
+  await reload();
+  await pmLoad();
+  go(S.view); /* si el rol no tiene esa pantalla, go() abre la suya por defecto */
+}
 
 /* ===== src/js/19-planes-de-mejoramiento.js ===== */
 /**
@@ -10768,7 +11045,8 @@ const PM_CONN = {
   disciplinaria: 'Disciplinaria',
   fiscal: 'Fiscal',
   penal: 'Penal',
-  sancionatoria: 'Sancionatoria'
+  sancionatoria: 'Sancionatoria',
+  otra: 'Otra incidencia'
 };
 const PM_TIPOS = [
   'Auditoría financiera y de gestión',
@@ -10779,7 +11057,7 @@ const PM_TIPOS = [
 ];
 const PM_EST = { formulacion: 'En formulación', en_ejecucion: 'En ejecución', cerrado: 'Cerrado' };
 const PM_AV_EST = { reportado: 'Por validar', validado: 'Validado', devuelto: 'Devuelto' };
-const PM_XLSX_URL = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+const PM_XLSX_URL = 'vendor/xlsx.full.min.js'; /* SheetJS 0.18.5, publicado en vendor/ */
 
 const pmCanEdit = () => canRole(['admin', 'control_interno']);
 const pmScoped = () => ['secretario', 'enlace'].includes(rol());
@@ -11276,6 +11554,13 @@ async function pmLoad() {
       PM.hall = st.hall.map(x => ({ ...x }));
       PM.acc = st.acc.map(x => ({ ...x }));
       PM.av = st.av.map(x => ({ ...x }));
+      PM.tras = pmScoped() ? [] : (pmDemoStore().tras || []).map(x => ({ ...x }));
+      PM.trasOk = true;
+      PM.v19 = true;
+      PM.pror = pmScoped() ? [] : (pmDemoStore().pror || []).map(x => ({ ...x }));
+      PM.inf = pmScoped() ? [] : (pmDemoStore().inf || []).map(x => ({ ...x }));
+      PM.docs = pmScoped() ? [] : (pmDemoStore().docs || []).map(x => ({ ...x }));
+      PM.v20 = true;
     } else {
       const [p, h, a, v] = await Promise.all([
         pmAll('pm_planes', 'fecha_suscripcion'),
@@ -11287,6 +11572,43 @@ async function pmLoad() {
       PM.hall = h;
       PM.acc = a;
       PM.av = v;
+      if (typeof VP !== 'undefined' && VP.real)
+        Object.assign(PM, pmDemoView({ planes: p, hall: h, acc: a, av: v }));
+      /* ¿está instalado el script 19 (calificación CGSC, observaciones de Control Interno, oficio)? */
+      if (PM.v19 === undefined) {
+        const { error } = await sb.from('pm_planes').select('direccion_tecnica').limit(1);
+        PM.v19 = !error;
+      }
+      /* traslados (supabase/18): solo los ven el Despacho y Control Interno */
+      try {
+        PM.tras = pmScoped() ? [] : await pmAll('pm_traslados', 'created_at');
+        PM.trasOk = true;
+      } catch (e) {
+        PM.tras = [];
+        PM.trasOk = false;
+      }
+      /* supabase/20: prórrogas, informes semestrales y archivo documental */
+      try {
+        if (pmScoped()) {
+          PM.pror = [];
+          PM.inf = [];
+          PM.docs = [];
+          const { error } = await sb.from('pm_prorrogas').select('id').limit(1);
+          PM.v20 = !error;
+        } else {
+          [PM.pror, PM.inf, PM.docs] = await Promise.all([
+            pmAll('pm_prorrogas', 'created_at'),
+            pmAll('pm_informes_avance', 'created_at'),
+            pmAll('archivo_documentos', 'created_at')
+          ]);
+          PM.v20 = true;
+        }
+      } catch (e) {
+        PM.pror = [];
+        PM.inf = [];
+        PM.docs = [];
+        PM.v20 = false;
+      }
     }
     PM.ok = true;
   } catch (e) {
@@ -11324,14 +11646,31 @@ function pmBlockIfAvances(kind, id) {
           : 'El plan tiene avances reportados: no se puede eliminar'
     );
 }
-const PM_TABLA = { plan: 'pm_planes', hall: 'pm_hallazgos', acc: 'pm_acciones' };
-const PM_LISTA = { plan: 'planes', hall: 'hall', acc: 'acc' };
+const PM_TABLA = {
+  plan: 'pm_planes',
+  hall: 'pm_hallazgos',
+  acc: 'pm_acciones',
+  tras: 'pm_traslados',
+  pror: 'pm_prorrogas',
+  inf: 'pm_informes_avance',
+  doc: 'archivo_documentos'
+};
+const PM_LISTA = {
+  plan: 'planes',
+  hall: 'hall',
+  acc: 'acc',
+  tras: 'tras',
+  pror: 'pror',
+  inf: 'inf',
+  doc: 'docs'
+};
 async function pmSave(kind, o, id) {
   if (!pmCanEdit()) throw new Error('Tu rol no puede modificar planes de mejoramiento');
   const tabla = PM_TABLA[kind];
   if (S.demo || !sb) {
-    const st = pmDemoStore(),
-      list = st[PM_LISTA[kind]];
+    const st = pmDemoStore();
+    if (!st[PM_LISTA[kind]]) st[PM_LISTA[kind]] = [];
+    const list = st[PM_LISTA[kind]];
     if (kind === 'hall' && list.some(h => h.plan_id === o.plan_id && h.numero === o.numero && h.id !== id))
       throw new Error('Ya existe un hallazgo con el número ' + o.numero + ' en este plan');
     const now = new Date().toISOString();
@@ -11368,9 +11707,11 @@ async function pmDelete(kind, id) {
   if (!pmCanEdit()) throw new Error('Tu rol no puede eliminar');
   if (S.demo || !sb) {
     pmBlockIfAvances(kind, id);
+    pmDemoPapelera(kind, id);
     const st = pmDemoStore();
     if (kind === 'hall') st.acc = st.acc.filter(a => a.hallazgo_id !== id);
-    st[PM_LISTA[kind]] = st[PM_LISTA[kind]].filter(x => x.id !== id);
+    st[PM_LISTA[kind]] = (st[PM_LISTA[kind]] || []).filter(x => x.id !== id);
+    if (kind === 'hall') st.tras = (st.tras || []).filter(x => x.hallazgo_id !== id);
     await demoAudit(PM_TABLA[kind], 'DELETE', id, { id }, pmUser());
     pmDemoSave();
     return;
@@ -11379,14 +11720,16 @@ async function pmDelete(kind, id) {
   if (error) throw pmErr(error);
 }
 async function pmEliminarPlan(id) {
-  if (rol() !== 'admin') throw new Error('Solo el Super administrador elimina planes');
+  if (!pmCanEdit()) throw new Error('Solo el Super administrador o Control Interno eliminan planes');
   if (S.demo || !sb) {
     const st = pmDemoStore();
     if (st.av.some(v => v.plan_id === id && !/^Importado del archivo/.test(v.observacion || '')))
       throw new Error('El plan tiene avances reportados por las dependencias: no se puede eliminar');
+    pmDemoPapelera('plan', id);
     st.av = st.av.filter(v => v.plan_id !== id);
     st.acc = st.acc.filter(a => a.plan_id !== id);
     st.hall = st.hall.filter(h => h.plan_id !== id);
+    ['tras', 'pror', 'inf'].forEach(k => (st[k] = (st[k] || []).filter(x => x.plan_id !== id)));
     st.planes = st.planes.filter(p => p.id !== id);
     await demoAudit('pm_planes', 'DELETE', id, { id }, pmUser());
     pmDemoSave();
@@ -11521,6 +11864,7 @@ async function pmImportar(payload) {
           updated_at: now
         };
         delete aa.descripcion_avance;
+        aa.obs_ci_estado = aa.obs_ci ? 'pendiente' : '';
         if (a.avance != null && a.fecha_corte) {
           aa.avance = a.avance;
           aa.fecha_corte = a.fecha_corte;
@@ -11640,7 +11984,7 @@ function pmOverview(c) {
       <h2>Planes de mejoramiento</h2>
       <div class="sub">Formulación, avance y cumplimiento frente a la Contraloría General de Santiago de Cali (formato PM_01) y la Contraloría General de la República (Formularios 14 y 14.1).</div>
     </div>
-    ${pmCanEdit() ? `<div class="pm-hero-b"><button class="btn primary" data-act="pmImport"><i class="fa-solid fa-file-import"></i> Importar Excel</button><button class="btn" data-act="pmNewPlan"><i class="fa-solid fa-plus"></i> Nuevo plan</button></div>` : ''}
+    ${pmCanEdit() ? `<div class="pm-hero-b"><button class="btn primary" data-act="pmImport"><i class="fa-solid fa-file-import"></i> Importar Excel</button><button class="btn" data-act="pmNewPlan"><i class="fa-solid fa-plus"></i> Nuevo plan</button>${PM.v20 ? '<button class="btn" data-act="pmPapelera"><i class="fa-solid fa-trash-can-arrow-up"></i> Papelera</button>' : ''}</div>` : ''}
   </div>
   <div class="grid g-kpi" style="margin-bottom:14px">
     <div class="card kpi"><small>Planes</small><b>${nf(planes.length)}</b></div>
@@ -11689,6 +12033,7 @@ function pmOverview(c) {
     }
   </div>
   <div class="grid g-2 pm-g2" style="margin-top:14px">
+    ${pmInformesHomeHtml()}
     <div class="card"><h3>Acciones que requieren atención</h3><div class="sub">Vencidas sin cumplir y las que vencen en los próximos ${PM_ALERTA_DIAS} días</div>
       ${
         crit.length
@@ -11735,6 +12080,293 @@ function pmOverview(c) {
     });
 }
 
+/* =====================================================================
+   CALIFICACIÓN DE LA CONTRALORÍA GENERAL DE SANTIAGO DE CALI (formato PM_01 / papel de trabajo PT 03-PF)
+   Cada acción recibe 0, 1 o 2 en cumplimiento y en efectividad. Fórmulas del propio formato:
+     Cumplimiento del plan = promedio(cumplimiento) × 100 / 2      (celda L9)
+     Efectividad del plan  = promedio(efectividad) × 100 / 2       (celda M9)
+     Calificación          = cumplimiento × 0,2 + efectividad × 0,8 (celda L8)
+   Solo promedian las acciones calificadas (como AVERAGE en Excel). El cumplimiento se sugiere con los
+   avances validados; la efectividad (¿la acción eliminó la causa?) la califica Control Interno.
+   ===================================================================== */
+const PM_CGSC_UMBRAL = 80;
+const PM_CAL_TXT = { 0: 'No cumple', 1: 'Cumple parcialmente', 2: 'Cumple' };
+function pmCumpSug(a, fev) {
+  const av = pmAvAl(a, fev);
+  const pct = av ? pmPct(a, av.cantidad) : 0;
+  if (pct >= 1) return 2;
+  if (a.fecha_fin && a.fecha_fin <= fev) return 0;
+  return null; /* en término y sin terminar: todavía no se califica */
+}
+function pmCalAcc(a, fev) {
+  const sug = pmCumpSug(a, fev);
+  const c = a.cal_cumplimiento != null ? a.cal_cumplimiento : sug;
+  const e = a.cal_efectividad != null ? a.cal_efectividad : null;
+  return { c, e, sug, manual: a.cal_cumplimiento != null, estado: c === 2 && e === 2 ? 'C' : 'A' };
+}
+function pmCalCgsc(acc, fev) {
+  const cs = [],
+    es = [];
+  let sinEf = 0;
+  acc.forEach(a => {
+    const r = pmCalAcc(a, fev);
+    if (r.c != null) cs.push(r.c);
+    if (r.e != null) es.push(r.e);
+    else if (r.c != null) sinEf++;
+  });
+  const prom = l => (l.length ? (l.reduce((t, x) => t + x, 0) / l.length) * 50 : 0);
+  const C = prom(cs),
+    E = prom(es),
+    T = C * 0.2 + E * 0.8;
+  return {
+    C,
+    E,
+    T,
+    nC: cs.length,
+    nE: es.length,
+    sinEf,
+    n: acc.length,
+    concepto: cs.length ? (T >= PM_CGSC_UMBRAL ? 'Cumple' : 'No cumple') : null
+  };
+}
+const pmPts = x =>
+  (Math.round(x * 10) / 10).toLocaleString('es-CO', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+function pmCgscHtml(p, acc, fev) {
+  if (p.formato !== 'PM_01_CGSC' || !PM.v19) return '';
+  const k = pmCalCgsc(acc, fev);
+  const pill = k.concepto
+    ? `<span class="pill ${k.concepto === 'Cumple' ? 'verde' : 'rojo'}">${k.concepto}</span>`
+    : '<span class="pill neutral">Sin acciones para calificar</span>';
+  return `<div class="pm-cgsc">
+    <div class="pm-cgsc-h"><b>Calificación según la metodología de la CGSC</b><span class="muted">Formato PM_01 · cumplimiento 20 % + efectividad 80 % · al ${fmtD(fev)}</span></div>
+    <div class="pm-cgsc-g">
+      <div><small>Cumplimiento (20 %)</small><b class="mono">${pmPts(k.C)}</b><span class="muted">${k.nC} de ${k.n} acciones calificadas</span></div>
+      <div><small>Efectividad (80 %)</small><b class="mono">${pmPts(k.E)}</b><span class="muted">${k.nE} calificadas${k.sinEf ? ` · <b style="color:var(--amberink,#b7791f)">${k.sinEf} por calificar</b>` : ''}</span></div>
+      <div><small>Calificación total</small><b class="mono">${pmPts(k.T)}</b><span class="muted">de 100 puntos</span></div>
+      <div><small>Concepto</small>${pill}<span class="muted">Cumple desde ${PM_CGSC_UMBRAL} puntos</span></div>
+    </div>
+    <div class="hint">El cumplimiento se sugiere con los avances validados (2 = meta cumplida; 1 = vencida con avance parcial; 0 = vencida sin avance). La efectividad la califica Control Interno: ¿la acción eliminó la causa del hallazgo?</div>
+  </div>`;
+}
+function pmCalModal(a) {
+  const fev = PM.eval || pmHoy();
+  const r = pmCalAcc(a, fev);
+  const pl = pmPlanOf(a.plan_id);
+  const ri = pmResInfo(pl) || PM_RES['24.003'];
+  const escala = ri.escala;
+  const opt = (v, cur, txt) =>
+    `<option value="${v}"${String(cur) === String(v) ? ' selected' : ''}>${txt}</option>`;
+  openModal({
+    title: 'Calificar acción · metodología CGSC',
+    body: `<div class="muted" style="margin-bottom:10px">${esc(shortTxt(a.accion, 160))}</div>
+      <div class="row2">
+        ${pmF('pmCalC', 'Cumplimiento (20 %)', `<select id="pmCalC">${opt('', a.cal_cumplimiento == null ? '' : 'x', 'Automático' + (r.sug != null ? ` (sugerido: ${r.sug} · ${PM_CAL_TXT[r.sug]})` : ' (aún en término)'))}${escala.map(v => opt(v, a.cal_cumplimiento, v + ' · ' + PM_CAL_TXT[v])).join('')}</select>`, 'Se cumplió la meta en el plazo')}
+        ${pmF('pmCalE', 'Efectividad (80 %)', `<select id="pmCalE">${opt('', a.cal_efectividad == null ? '' : 'x', 'Sin calificar')}${escala.map(v => opt(v, a.cal_efectividad, v + ' · ' + PM_CAL_TXT[v])).join('')}</select>`, 'La acción eliminó la causa del hallazgo')}
+      </div>
+      <div class="pm-note b" style="margin-top:4px">${esc(ri.nombre)}, artículo 12: ${
+        escala.length === 2
+          ? 'cada acción se califica con dos (2) si cumple o cero (0) si no cumple.'
+          : 'cero (0) no cumple, uno (1) cumple parcialmente y dos (2) sí cumple. El uno (1) solo aplica a acciones a las que se les fijaron metas parciales.'
+      }</div>
+      <div class="hint">El estado de la acción queda «Cerrada (C)» cuando cumplimiento y efectividad son 2; si no, «Abierta (A)», como en el formato de la Contraloría.</div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmSaveCal" data-id="${esc(a.id)}"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>`
+  });
+}
+async function pmSaveCal(id) {
+  const v = x => (x === '' ? null : +x);
+  try {
+    await pmSave(
+      'acc',
+      { cal_cumplimiento: v($('#pmCalC').value), cal_efectividad: v($('#pmCalE').value) },
+      id
+    );
+    closeModal();
+    toast('Calificación guardada');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+/* =====================================================================
+   REVISIÓN DE CONTROL INTERNO A LA FORMULACIÓN
+   Control Interno deja una observación en la acción; queda «pendiente» hasta que se ajusta la acción
+   y se marca «atendida». El plan solo se aprueba y suscribe sin observaciones pendientes.
+   ===================================================================== */
+function pmObsModal(a) {
+  openModal({
+    title: 'Observación de Control Interno',
+    body: `<div class="muted" style="margin-bottom:10px">${esc(shortTxt(a.accion, 160))}</div>
+      ${pmF('pmObsT', 'Observación a la formulación *', pmTa('pmObsT', a.obs_ci, 4), 'Por ejemplo: ajustar la redacción, la meta no es medible, el plazo supera seis meses')}`,
+    footer: `${a.obs_ci ? `<button class="btn" data-act="pmObsQuitar" data-id="${esc(a.id)}" style="margin-right:auto"><i class="fa-solid fa-eraser"></i> Quitar</button>` : ''}<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmObsGuardar" data-id="${esc(a.id)}"><i class="fa-solid fa-floppy-disk"></i> Guardar como pendiente</button>`
+  });
+}
+async function pmObsGuardar(id, modo) {
+  const o =
+    modo === 'quitar'
+      ? { obs_ci: '', obs_ci_estado: '', obs_ci_at: null }
+      : modo === 'atendida'
+        ? { obs_ci_estado: 'atendida', obs_ci_at: new Date().toISOString() }
+        : { obs_ci: pmVal('pmObsT'), obs_ci_estado: 'pendiente', obs_ci_at: new Date().toISOString() };
+  if (!modo && o.obs_ci.length < 4) return toast('Escriba la observación', 'err');
+  try {
+    await pmSave('acc', o, id);
+    closeModal();
+    toast(
+      modo === 'atendida'
+        ? 'Observación marcada como atendida'
+        : modo === 'quitar'
+          ? 'Observación quitada'
+          : 'Observación registrada'
+    );
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+/* =====================================================================
+   VALIDACIONES DE FORMULACIÓN (lo que hace que la contraloría devuelva un plan)
+   ===================================================================== */
+function pmAccIssues(a, p) {
+  const out = [];
+  const acc = pmTxt(a.accion);
+  const primera = pmKey(acc.split(/\s+/)[0] || '');
+  if (acc && !/(ar|er|ir)$/.test(primera))
+    out.push('La acción debería empezar con un verbo en infinitivo (implementar, elaborar, realizar…).');
+  const meta = pmTxt(a.meta) + ' ' + (a.cantidad != null ? a.cantidad : '');
+  if (!/\d|uno|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|cien|total/i.test(meta))
+    out.push('La meta no es medible: incluya una cantidad o un porcentaje.');
+  if (!pmTxt(a.fuente_verificacion))
+    out.push('Falta la fuente de verificación (la evidencia que se entregará).');
+  /* art. 5: 24.043 → seis (6) meses; 24.003 → un (1) año. Una prórroga concedida (art. 16) no cuenta. */
+  const ri = pmResInfo(p);
+  const max = ri && ri.plazoMeses;
+  const base = (p && p.fecha_suscripcion) || a.fecha_inicio;
+  const fin = a.fecha_fin_original || a.fecha_fin;
+  if (max && base && fin && fin > pmMasMeses(base, max))
+    out.push(
+      `La fecha de terminación supera ${ri.plazoTxt} desde la suscripción (${ri.corta}; vence ${fmtD(fin)}).`
+    );
+  return out;
+}
+
+/* =====================================================================
+   OFICIO DE LA CONTRALORÍA QUE REMITIÓ EL INFORME
+   ===================================================================== */
+function pmReqDe(p) {
+  return p && p.requerimiento_id
+    ? (S.reqs || []).find(r => String(r.id) === String(p.requerimiento_id))
+    : null;
+}
+/* Sugiere el oficio por el número de la denuncia o actuación ("896-2025") y el número del informe */
+function pmReqSugerido(p) {
+  /* número de la actuación con su año, escrito de cualquiera de estas formas:
+     "Denuncia Fiscal No. 896-2025", "DENUNCIA FISCAL Nº 896, VIGENCIA 2025", "896 de 2025" */
+  const t = pmTxt(p.ejercicio) + ' ' + pmTxt(p.numero_informe) + ' ' + pmTxt(p.vigencia_pvcft);
+  const anos = [...new Set(t.match(/\b20\d{2}\b/g) || [])];
+  const nums = [...new Set((t.match(/\b\d{2,5}\b/g) || []).filter(n => !/^20\d{2}$/.test(n)))];
+  const claves = [];
+  /* pmKey quita los signos: "896-2025" y "896 de 2025" quedan como "8962025" y "896de2025" */
+  nums.forEach(n => anos.forEach(a => claves.push(n + a, n + 'de' + a)));
+  if (!claves.length) return null;
+  const norm = x => ' ' + pmKey(x).replace(/\s+/g, '') + ' ';
+  const cands = (S.reqs || []).filter(r => {
+    if (!/informe final|plan de mejoramiento/i.test(r.asunto || '')) return false;
+    const a = norm(r.asunto);
+    return claves.some(k => a.includes(k));
+  });
+  return cands.sort((x, y) => (x.estado === 'abierto' ? 0 : 1) - (y.estado === 'abierto' ? 0 : 1))[0] || null;
+}
+function pmReqHtml(p) {
+  if (!PM.v19) return '';
+  const r = pmReqDe(p);
+  if (!r) {
+    const sug = pmCanEdit() ? pmReqSugerido(p) : null;
+    return sug
+      ? `<div class="pm-note b" style="margin-top:10px"><i class="fa-solid fa-link"></i> Posible oficio de remisión: <span class="mono">${esc(sug.radicado)}</span> · ${esc(shortTxt(sug.asunto, 90))}. <button class="btn sm" data-act="pmEnlazarReq" data-id="${esc(sug.id)}">Enlazar</button></div>`
+      : '';
+  }
+  return `<div class="pm-req"><i class="fa-solid fa-envelope-open-text"></i><div><small>Oficio de remisión del informe</small><span><span class="mono">${esc(r.radicado)}</span> · ${esc(shortTxt(r.asunto, 90))}</span></div>${pill(r.estado === 'cerrado' ? 'verde' : r.sem)}<span class="muted">${r.estado === 'cerrado' ? 'Respondido' + (r.orfeo_salida ? ' con ' + esc(r.orfeo_salida) : '') : 'Límite ' + fmtD(r.fecha_limite) + ' · ' + diasTxt(r.dias)}</span><button class="btn sm" data-act="detail" data-id="${esc(r.id)}">Ver</button></div>`;
+}
+async function pmEnlazarReq(reqId) {
+  const p = PM.planes.find(x => x.id === PM.plan);
+  if (!p) return;
+  try {
+    await pmSave('plan', { requerimiento_id: reqId }, p.id);
+    toast('Oficio enlazado al plan');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+/* =====================================================================
+   APROBAR Y SUSCRIBIR (plan en formulación → en ejecución)
+   ===================================================================== */
+function pmAprobarModal(p) {
+  const hall = PM.hall.filter(h => h.plan_id === p.id),
+    acc = PM.acc.filter(a => a.plan_id === p.id);
+  const sinAcc = hall.filter(h => !acc.some(a => a.hallazgo_id === h.id));
+  const pend = acc.filter(a => a.obs_ci_estado === 'pendiente');
+  const avisos = acc
+    .map(a => [a, pmAccIssues(a, { ...p, fecha_suscripcion: p.fecha_suscripcion })])
+    .filter(x => x[1].length);
+  const bloqueos = [];
+  if (!acc.length) bloqueos.push('El plan no tiene acciones.');
+  if (sinAcc.length) bloqueos.push(`Hallazgos sin acciones: ${sinAcc.map(h => h.numero).join(', ')}.`);
+  if (pend.length) bloqueos.push(`${pend.length} observación(es) de Control Interno pendientes.`);
+  const r = pmReqDe(p);
+  openModal({
+    title: 'Aprobar y suscribir el plan',
+    body: `${bloqueos.length ? `<div class="pm-note r"><b>Antes de aprobar:</b><br>${bloqueos.map(esc).join('<br>')}</div>` : '<div class="pm-note g"><i class="fa-solid fa-circle-check"></i> Todos los hallazgos tienen acciones y no hay observaciones pendientes.</div>'}
+      ${avisos.length ? `<div class="pm-note y" style="margin-top:8px"><b>Revise también (no impide aprobar):</b><br>${avisos.map(([a, l]) => `• ${esc(shortTxt(a.accion, 70))}: ${l.map(esc).join(' ')}`).join('<br>')}</div>` : ''}
+      <div class="row2" style="margin-top:12px">
+        ${pmF('pmApFs', 'Fecha de suscripción *', pmIn('pmApFs', pmHoy(), 'type="date"'))}
+        ${pmF('pmApOrf', 'Radicado ORFEO con el que se envió el plan', pmIn('pmApOrf', p.radicado_orfeo, 'inputmode="numeric"'))}
+      </div>
+      ${r && r.estado === 'abierto' ? `<div class="hint">Al aprobar podrá registrar la respuesta del oficio <span class="mono">${esc(r.radicado)}</span> con este radicado.</div>` : ''}`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmAprobar" data-id="${esc(p.id)}"${bloqueos.length ? ' disabled' : ''}><i class="fa-solid fa-file-signature"></i> Aprobar y suscribir</button>`
+  });
+}
+async function pmAprobar(id) {
+  const p = PM.planes.find(x => x.id === id);
+  const fs = pmVal('pmApFs'),
+    orf = pmVal('pmApOrf').replace(/\D/g, '');
+  if (!pmFecha(fs)) return toast('Indique la fecha de suscripción', 'err');
+  try {
+    await pmSave(
+      'plan',
+      { estado: 'en_ejecucion', fecha_suscripcion: fs, radicado_orfeo: orf || p.radicado_orfeo || '' },
+      id
+    );
+    closeModal();
+    toast('Plan aprobado y suscrito: queda en ejecución');
+    await pmRefresh();
+    const r = pmReqDe(PM.planes.find(x => x.id === id));
+    if (
+      r &&
+      r.estado === 'abierto' &&
+      canClose() &&
+      confirm(`¿Registrar ahora la respuesta del oficio ${r.radicado} con el radicado del plan?`)
+    ) {
+      S.preselect = r.id;
+      S.preselectOrfeo = orf;
+      S.preselectFecha = fs;
+      go('carga');
+    }
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+function pmCalLinea(a) {
+  const p = PM.planes.find(x => x.id === a.plan_id);
+  if (!p || p.formato !== 'PM_01_CGSC' || !PM.v19 || p.estado === 'formulacion') return '';
+  const r = pmCalAcc(a, PM.eval || pmHoy());
+  if (r.c == null && r.e == null) return '';
+  return `<div class="pm-a-l pm-cal"><i class="fa-solid fa-scale-balanced"></i> CGSC · Cumplimiento <b>${r.c == null ? '—' : r.c}</b>${r.c != null && !r.manual ? ' <span class="muted">(sugerido)</span>' : ''} · Efectividad <b>${r.e == null ? '—' : r.e}</b> · Estado <b>${r.estado === 'C' ? 'Cerrada (C)' : 'Abierta (A)'}</b></div>`;
+}
 function pmAccRow(a, opts) {
   const e = pmEstado(a),
     p = pmPct(a),
@@ -11754,6 +12386,19 @@ function pmAccRow(a, opts) {
   btns.push(
     `<button class="btn sm" data-act="pmHist" data-id="${esc(a.id)}"><i class="fa-solid fa-clock-rotate-left"></i> Historial</button>`
   );
+  const plA = PM.planes.find(x => x.id === a.plan_id) || {};
+  if (pmPuedeProrrogar(a))
+    btns.push(
+      `<button class="btn sm" data-act="pmProrAccion" data-id="${esc(a.id)}"><i class="fa-solid fa-calendar-plus"></i> Prórroga</button>`
+    );
+  if (pmCanEdit() && PM.v19 && plA.formato === 'PM_01_CGSC' && plA.estado !== 'formulacion')
+    btns.push(
+      `<button class="btn sm" data-act="pmCal" data-id="${esc(a.id)}"><i class="fa-solid fa-scale-balanced"></i> Calificar</button>`
+    );
+  if (pmCanEdit() && PM.v19 && !a.obs_ci && !(opts && opts.noEdit))
+    btns.push(
+      `<button class="icon-btn" data-act="pmObs" data-id="${esc(a.id)}" title="Observación de Control Interno" aria-label="Observación de Control Interno"><i class="fa-solid fa-user-shield"></i></button>`
+    );
   if (pmCanEdit() && !(opts && opts.noEdit)) {
     btns.push(
       `<button class="icon-btn" data-act="pmEditAcc" data-id="${esc(a.id)}" title="Editar acción" aria-label="Editar acción"><i class="fa-solid fa-pen"></i></button>`
@@ -11770,6 +12415,9 @@ function pmAccRow(a, opts) {
       <div class="pm-a-l">Meta: ${esc(pmMetaTxt(a))}</div>
       <div class="pm-a-l"><i class="fa-solid fa-building-columns"></i> ${a.dependencia_id ? esc(pmDepN(a.dependencia_id)) : '<span style="color:var(--redink)">Sin dependencia asignada</span>'}${a.responsable ? ' · ' + esc(a.responsable) : ''}</div>
       ${a.fuente_verificacion ? `<div class="pm-a-l">Verificación: ${esc(a.fuente_verificacion)}${a.lugar_verificacion ? ' · ' + esc(a.lugar_verificacion) : ''}</div>` : ''}
+      ${a.obs_ci ? `<div class="pm-note ${a.obs_ci_estado === 'atendida' ? 'g' : 'y'}"><i class="fa-solid fa-user-shield"></i> <b>Control Interno${a.obs_ci_estado === 'atendida' ? ' (atendida)' : ' (pendiente)'}:</b> ${esc(a.obs_ci)}${pmCanEdit() && a.obs_ci_estado === 'pendiente' ? ` <button class="btn sm" data-act="pmObsAtendida" data-id="${esc(a.id)}">Marcar atendida</button>` : ''}</div>` : ''}
+      ${pmCalLinea(a)}
+      ${PM.v20 ? pmProrLinea(a) : ''}
       ${pend ? `<div class="pm-note b"><i class="fa-solid fa-hourglass-half"></i> Avance de ${pmPctTxt(pmPct(a, pend.cantidad))} reportado el ${fmtTs(pend.created_at)}, pendiente de validación.</div>` : ''}
       ${dev ? `<div class="pm-note r"><i class="fa-solid fa-rotate-left"></i> Avance devuelto: ${esc(u.observacion || '')}</div>` : ''}
     </div>
@@ -11867,10 +12515,17 @@ function pmPlanView(c, p) {
     ['calidad', 'Calidad de datos', issues.length],
     ['historial', 'Historial de avances', PM.av.filter(v => v.plan_id === p.id).length]
   ];
+  if (!pmScoped())
+    tabs.push([
+      'documentos',
+      'Documentos',
+      (PM.docs || []).filter(d => d.plan_id === p.id && !d.eliminado_at).length
+    ]);
   let body = '';
   if (PM.tab === 'validar') body = pmTabValidar(pend);
   else if (PM.tab === 'calidad') body = pmTabCalidad(issues);
   else if (PM.tab === 'historial') body = pmTabHistorial(p);
+  else if (PM.tab === 'documentos') body = pmTabDocumentos(p);
   else
     body = `<div class="toolbar pm-filtros">
       <select id="pmFEst"><option value="">Todos los estados</option>${[
@@ -11904,7 +12559,9 @@ function pmPlanView(c, p) {
             </header>
             <div class="pm-desc${open ? ' open' : ''}">${esc(h.descripcion)}${h.causa ? `<div style="margin-top:6px"><b>Causa:</b> ${esc(h.causa)}</div>` : ''}${h.efecto ? `<div style="margin-top:6px"><b>Efecto:</b> ${esc(h.efecto)}</div>` : ''}${h.macroproceso ? `<div style="margin-top:6px"><b>Macroproceso / criterio:</b> ${esc(h.macroproceso)}</div>` : ''}</div>
             ${String(h.descripcion).length > 260 || h.causa || h.efecto ? `<button class="pm-more" data-act="pmMore" data-id="${esc(h.id)}">${open ? 'Ver menos' : 'Ver descripción completa'}</button>` : ''}
-            <div class="pm-acts">${l.length ? l.map(a => pmAccRow(a)).join('') : '<div class="muted" style="font-size:.82rem;padding:8px 0">Este hallazgo aún no tiene acciones.</div>'}</div>
+            ${h.dependencia_id || h.dependencia_texto ? `<div class="muted" style="font-size:.78rem;margin-top:4px"><i class="fa-solid fa-building-columns"></i> ${esc((S.deps.find(d => d.id === h.dependencia_id) || {}).nombre || h.dependencia_texto)}</div>` : ''}
+            ${pmTrasHtml(h)}
+            <div class="pm-acts">${l.length ? l.map(a => pmAccRow(a)).join('') : `<div class="muted" style="font-size:.82rem;padding:8px 0">Este hallazgo aún no tiene acciones.${pmCanEdit() ? ` <button class="btn sm" data-act="pmNewAcc" data-id="${esc(h.id)}"><i class="fa-solid fa-lightbulb"></i> Formular con sugerencias</button>` : ''}</div>`}</div>
           </section>`;
             })
             .join('') ||
@@ -11916,8 +12573,9 @@ function pmPlanView(c, p) {
     <button class="btn sm" data-act="pmBack"><i class="fa-solid fa-arrow-left"></i> Planes</button>
     <span style="flex:1"></span>
     <button class="btn sm" data-act="pmExport"><i class="fa-solid fa-file-excel"></i> Exportar formato</button>
+    ${pmCanEdit() && p.estado === 'formulacion' && PM.v19 ? `<button class="btn sm primary" data-act="pmAprobarPlan"><i class="fa-solid fa-file-signature"></i> Aprobar y suscribir</button>` : ''}
     ${pmCanEdit() ? `<button class="btn sm" data-act="pmEditPlan"><i class="fa-solid fa-pen"></i> Editar plan</button>` : ''}
-    ${rol() === 'admin' ? `<button class="btn sm danger" data-act="pmDelPlan"><i class="fa-solid fa-trash"></i> Eliminar</button>` : ''}
+    ${pmCanEdit() ? `<button class="btn sm danger" data-act="pmDelPlan"><i class="fa-solid fa-trash"></i> Eliminar</button>` : ''}
   </div>
   <div class="card pm-head">
     <div class="pm-plan-h">${pmCtl(p)}<span class="pill ${p.estado === 'cerrado' ? 'verde' : 'neutral'}">${esc(PM_EST[p.estado] || p.estado)}</span></div>
@@ -11928,6 +12586,10 @@ function pmPlanView(c, p) {
       ${pmMeter('Avance del plan (AP)', ind.ap, 'var(--neo, #4c8dff)', `Σ PLAI ${pmNumTxt(ind.plai)} / Σ plazo ${pmNumTxt(ind.pbea)} semanas`)}
       <div class="field pm-fev"><label>Fecha de evaluación</label><input type="date" id="pmEval" value="${esc(fev)}" max="2100-12-31"><div class="hint">Usa el último avance validado hasta esta fecha</div></div>
     </div>
+    ${pmCgscHtml(p, accAll, fev)}
+    ${PM.v20 && pmCanEdit() && pmRes(p) && pmAccionesBajo100(p).length ? `<div class="pm-note y" style="margin-top:8px"><i class="fa-solid fa-copy"></i> ${pmAccionesBajo100(p).length} acción(es) calificadas con menos de 100 puntos: requieren un nuevo plan (art. 12, par. 5). <button class="btn sm" data-act="pmNuevoPlan">Crear nuevo plan</button></div>` : ''}
+    ${pmReqHtml(p)}
+    ${pmNormaHtml(p)}
     <div class="pm-chips" style="margin-top:10px">
       <span class="pm-chip">${hall.length} hallazgos</span><span class="pm-chip">${cn.n} acciones</span>
       ${cn.cumplida ? `<span class="pm-chip g">${cn.cumplida} cumplidas</span>` : ''}${cn.vencida ? `<span class="pm-chip r">${cn.vencida} vencidas sin cumplir</span>` : ''}${cn.proxima ? `<span class="pm-chip y">${cn.proxima} vencen en ${PM_ALERTA_DIAS} días</span>` : ''}${pend.length ? `<span class="pm-chip b">${pend.length} por validar</span>` : ''}
@@ -12018,6 +12680,32 @@ function pmCalidad(p, hall, acc) {
   hall.forEach(h => {
     if (!acc.some(a => a.hallazgo_id === h.id))
       add('r', `El hallazgo ${h.numero} no tiene acciones`, 'pmNewAcc', h.id);
+    PM.acc
+      .filter(a => a.hallazgo_id === h.id)
+      .forEach(a => {
+        const l = pmAccIssues(a, p);
+        if (l.length)
+          add(
+            'y',
+            `Hallazgo ${h.numero}: ${l[0]}${l.length > 1 ? ` (y ${l.length - 1} más)` : ''}`,
+            'pmEditAcc',
+            a.id
+          );
+        if (a.obs_ci_estado === 'pendiente')
+          add('y', `Hallazgo ${h.numero}: observación de Control Interno pendiente`, 'pmEditAcc', a.id);
+      });
+    if (PM.trasOk) {
+      const sinTras = pmIncidencias(h).filter(
+        c => !(PM.tras || []).some(t => t.hallazgo_id === h.id && t.tipo === c)
+      );
+      if (sinTras.length)
+        add(
+          'y',
+          `El hallazgo ${h.numero} tiene incidencia ${sinTras.join(', ')} sin traslado registrado`,
+          'pmNewTras',
+          h.id
+        );
+    }
     if (!(h.connotaciones || []).length && p.formato === 'PM_01_CGSC')
       add('y', `El hallazgo ${h.numero} no tiene connotación`, 'pmEditHall', h.id);
   });
@@ -12112,6 +12800,49 @@ function pmPlanModal(p) {
             .join('')}</select>`
         )}
       </div>
+      ${
+        PM.v19
+          ? `<div class="row2">
+        ${pmF(
+          'pmPReq',
+          'Oficio de remisión del informe',
+          `<select id="pmPReq"><option value="">— Sin enlazar —</option>${(S.reqs || [])
+            .filter(
+              r =>
+                /informe|plan de mejoramiento|auditor|fiscalizaci/i.test(r.asunto || '') ||
+                String(r.id) === String(e.requerimiento_id)
+            )
+            .map(
+              r =>
+                `<option value="${esc(r.id)}"${String(r.id) === String(e.requerimiento_id) ? ' selected' : ''}>${esc(r.radicado)} · ${esc(shortTxt(r.asunto, 70))}</option>`
+            )
+            .join('')}</select>`,
+          'Su plazo y su cierre se siguen desde el plan'
+        )}
+        ${pmF('pmPDir', 'Dirección técnica de la contraloría (PM_01)', pmIn('pmPDir', e.direccion_tecnica, 'placeholder="Ej.: Dirección Técnica ante la Administración Central"'))}
+      </div>`
+          : ''
+      }
+      ${
+        PM.v20
+          ? `<div class="row2">
+        ${pmF(
+          'pmPRes',
+          'Resolución CGSC aplicable',
+          `<select id="pmPRes"><option value="">Automática según la fecha de suscripción</option>${Object.entries(
+            PM_RES
+          )
+            .map(
+              ([k, v]) =>
+                `<option value="${k}"${e.resolucion === k ? ' selected' : ''}>${esc(v.corta)}</option>`
+            )
+            .join('')}</select>`,
+          'Res. 24.043: planes desde el 1-ene-2025 · Res. 24.003: del 24-ene al 31-dic-2024'
+        )}
+        ${pmF('pmPRad', 'Fecha de radicación del informe final', pmIn('pmPRad', e.fecha_radicacion_informe, 'type="date"'), 'Desde aquí corren los 15 días hábiles para presentar el plan (art. 7)')}
+      </div>`
+          : ''
+      }
       ${pmF('pmPEnt', 'Entidad auditada', pmIn('pmPEnt', e.entidad))}
       <div class="row2">
         ${pmF('pmPRep', 'Representante legal (firma)', pmIn('pmPRep', e.representante_legal))}
@@ -12145,6 +12876,16 @@ async function pmSavePlan(id) {
     ordenador_gasto: pmVal('pmPOrd'),
     observaciones: pmVal('pmPObs')
   };
+  if (PM.v19) {
+    o.requerimiento_id = pmVal('pmPReq') || null;
+    o.direccion_tecnica = pmVal('pmPDir');
+  }
+  if (PM.v20) {
+    o.resolucion = pmVal('pmPRes');
+    o.fecha_radicacion_informe = pmVal('pmPRad') || null;
+    if (o.fecha_radicacion_informe && !pmFecha(o.fecha_radicacion_informe))
+      return toast('La fecha de radicación del informe no es válida', 'err');
+  }
   if (!o.contraloria) return toast('Indica la contraloría', 'err');
   if (o.ejercicio.length < 4) return toast('Escribe el nombre del ejercicio de fiscalización', 'err');
   if (!pmFecha(o.fecha_suscripcion)) return toast('Indica la fecha de suscripción del plan', 'err');
@@ -12219,10 +12960,320 @@ async function pmSaveHall(id, planId) {
     toast(e.message, 'err');
   }
 }
+/* =====================================================================
+   PLANTILLAS DE ACCIONES DE MEJORA
+   Según la causa del hallazgo se proponen acciones con meta, unidad, fuente de verificación y plazo
+   medibles. Son un punto de partida: Control Interno y la dependencia las ajustan a su caso.
+   ===================================================================== */
+const PM_PLANTILLAS = [
+  {
+    id: 'pagos',
+    tema: 'Pagos y respaldo presupuestal',
+    re: /registro presupuestal|respaldo (contractual|presupuestal)|hecho cumplido|sin contrato|pago del canon|ordenador del gasto|vigilancia presupuestal/,
+    acciones: [
+      {
+        accion:
+          'Implementar una lista de chequeo previa a cada pago que verifique contrato perfeccionado, registro presupuestal, acta de inicio y periodo efectivamente ejecutado.',
+        meta: 'Lista de chequeo aplicada en el 100 % de los pagos del periodo',
+        unidad: 'Porcentaje',
+        cantidad: 100,
+        fuente: 'Lista de chequeo firmada por el supervisor en cada orden de pago',
+        meses: 6
+      },
+      {
+        accion:
+          'Realizar una mesa de trabajo entre la supervisión y el área financiera para verificar que los pagos correspondan al periodo contratado.',
+        meta: 'Una (1) mesa de trabajo con acta',
+        unidad: 'Actas',
+        cantidad: 1,
+        fuente: 'Acta de reunión y listado de asistencia',
+        meses: 3
+      }
+    ]
+  },
+  {
+    id: 'supervision',
+    tema: 'Supervisión de contratos',
+    re: /supervis|interventor|seguimiento (al|del) contrato/,
+    acciones: [
+      {
+        accion:
+          'Capacitar a los supervisores y apoyos a la supervisión de la dependencia en sus deberes de vigilancia técnica, jurídica, financiera y presupuestal.',
+        meta: '100 % de los supervisores de la dependencia capacitados',
+        unidad: 'Porcentaje',
+        cantidad: 100,
+        fuente: 'Listados de asistencia y material de la capacitación',
+        meses: 4
+      },
+      {
+        accion: 'Expedir una circular con los lineamientos de supervisión y los requisitos previos al pago.',
+        meta: 'Una (1) circular expedida y socializada',
+        unidad: 'Documentos',
+        cantidad: 1,
+        fuente: 'Circular radicada en ORFEO y evidencia de socialización',
+        meses: 2
+      }
+    ]
+  },
+  {
+    id: 'planeacion',
+    tema: 'Planeación contractual y estudio del mercado',
+    re: /analisis (del )?(sector|mercado)|estudios? previos?|comparativ|cotizacion|planeacion contractual|estructurador/,
+    acciones: [
+      {
+        accion:
+          'Elaborar una matriz de análisis comparativo cuantitativo para los procesos de contratación, con criterios de evaluación y ponderación de las alternativas.',
+        meta: 'Una (1) matriz adoptada y aplicada en los procesos del periodo',
+        unidad: 'Documentos',
+        cantidad: 1,
+        fuente: 'Matriz aprobada y su aplicación en los expedientes contractuales',
+        meses: 4
+      },
+      {
+        accion:
+          'Incluir en la lista de verificación de estudios previos el análisis cuantitativo del sector como requisito para continuar el proceso.',
+        meta: 'Lista de verificación actualizada',
+        unidad: 'Documentos',
+        cantidad: 1,
+        fuente: 'Lista de verificación actualizada en el sistema de gestión',
+        meses: 3
+      }
+    ]
+  },
+  {
+    id: 'documental',
+    tema: 'Gestión documental y soportes',
+    re: /expediente|archivo|soporte|documental|evidencia|secop/,
+    acciones: [
+      {
+        accion:
+          'Organizar y completar los expedientes con todos los soportes exigidos y publicar los documentos pendientes.',
+        meta: '100 % de los expedientes revisados completos',
+        unidad: 'Porcentaje',
+        cantidad: 100,
+        fuente: 'Inventario documental y verificación por muestreo',
+        meses: 4
+      },
+      {
+        accion: 'Establecer un control periódico de completitud de expedientes a cargo del área responsable.',
+        meta: 'Un (1) control trimestral documentado',
+        unidad: 'Informes',
+        cantidad: 2,
+        fuente: 'Informes de control trimestral',
+        meses: 6
+      }
+    ]
+  },
+  {
+    id: 'contable',
+    tema: 'Información contable y financiera',
+    re: /contab|conciliaci|estados financieros|inventario|cartera|depuracion/,
+    acciones: [
+      {
+        accion:
+          'Realizar conciliaciones mensuales entre las áreas involucradas y depurar las partidas identificadas.',
+        meta: 'Conciliaciones mensuales realizadas',
+        unidad: 'Actas',
+        cantidad: 6,
+        fuente: 'Actas de conciliación firmadas',
+        meses: 6
+      }
+    ]
+  },
+  {
+    id: 'metas',
+    tema: 'Cumplimiento de metas y planes',
+    re: /meta|plan de desarrollo|indicador|ejecucion (fisica|presupuestal)|cronograma/,
+    acciones: [
+      {
+        accion:
+          'Implementar un seguimiento mensual de metas físicas y financieras con alertas al jefe de la dependencia.',
+        meta: 'Seis (6) informes de seguimiento',
+        unidad: 'Informes',
+        cantidad: 6,
+        fuente: 'Informes de seguimiento mensual',
+        meses: 6
+      }
+    ]
+  }
+];
+const PM_PLANTILLA_GENERAL = {
+  id: 'general',
+  tema: 'Acción general',
+  acciones: [
+    {
+      accion:
+        'Actualizar el procedimiento relacionado con la causa del hallazgo e incluir un punto de control que evite que se repita.',
+      meta: 'Procedimiento actualizado y socializado',
+      unidad: 'Procedimientos',
+      cantidad: 1,
+      fuente: 'Procedimiento publicado en el sistema de gestión y evidencia de socialización',
+      meses: 4
+    }
+  ]
+};
+function pmSugerencias(h) {
+  const t = pmKey((h.causa || '') + ' ' + (h.descripcion || ''));
+  const grupos = PM_PLANTILLAS.filter(g => g.re.test(t));
+  return (grupos.length ? grupos : []).concat([PM_PLANTILLA_GENERAL]).slice(0, 4);
+}
+const pmMasMeses = (iso, m) => {
+  const d = parseD(iso || pmHoy());
+  d.setMonth(d.getMonth() + m);
+  return iso_(d);
+};
+function iso_(d) {
+  return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+}
+function pmSugHtml(h) {
+  const gs = pmSugerencias(h);
+  let n = 0;
+  PM.sug = [];
+  return `<div class="pm-sug"><div class="pm-sug-h"><i class="fa-solid fa-lightbulb"></i> Sugerencias según la causa del hallazgo <span class="muted">(un punto de partida: ajústelas a su caso)</span></div>${gs
+    .map(
+      g =>
+        `<div class="pm-sug-g"><b>${esc(g.tema)}</b>${g.acciones
+          .map(x => {
+            PM.sug.push(x);
+            return `<div class="pm-sug-a"><span>${esc(x.accion)}<span class="muted"> · Meta: ${esc(x.meta)} · Plazo: ${x.meses} meses</span></span><button class="btn sm" data-act="pmUsarSug" data-i="${n++}">Usar</button></div>`;
+          })
+          .join('')}</div>`
+    )
+    .join('')}</div>`;
+}
+function pmUsarSug(i) {
+  const x = (PM.sug || [])[i];
+  if (!x) return;
+  const set = (id, v) => {
+    const el = $('#' + id);
+    if (el) el.value = v;
+  };
+  set('pmAAcc', x.accion);
+  set('pmAMeta', x.meta);
+  set('pmAUni', x.unidad);
+  set('pmACan', x.cantidad);
+  set('pmAFue', x.fuente);
+  const fi = pmVal('pmAFi') || pmHoy();
+  set('pmAFf', pmMasMeses(fi, x.meses));
+  toast('Sugerencia cargada: revise y ajuste antes de guardar');
+}
+
+/* =====================================================================
+   TRASLADOS DE HALLAZGOS (disciplinario, fiscal, penal, sancionatorio)
+   ===================================================================== */
+const PM_TRAS_EST = {
+  trasladado: 'Trasladado',
+  en_indagacion: 'En indagación',
+  en_investigacion: 'En investigación',
+  archivado: 'Archivado',
+  con_decision: 'Con decisión de fondo'
+};
+/* Destinos según la incidencia (Res. 24.043, art. 2): penal → Fiscalía; otra → DIAN, Ministerio de Salud,
+   Superintendencias, ADRES, entre otras. Se puede escribir cualquier otro destino. */
+const PM_TRAS_DESTINOS = [
+  'Personería Distrital de Santiago de Cali',
+  'Departamento Administrativo de Control Disciplinario Interno',
+  'Procuraduría General de la Nación',
+  'Fiscalía General de la Nación',
+  'Contraloría General de Santiago de Cali (responsabilidad fiscal)',
+  'Contraloría General de la República (responsabilidad fiscal)',
+  'Dirección de Impuestos y Aduanas Nacionales (DIAN)',
+  'Ministerio de Salud y Protección Social',
+  'Superintendencia Nacional de Salud',
+  'Superintendencia de Industria y Comercio',
+  'Superintendencia de Servicios Públicos Domiciliarios',
+  'Administradora de los Recursos del Sistema General de Seguridad Social en Salud (ADRES)'
+];
+const pmIncidencias = h =>
+  (h.connotaciones || []).filter(c =>
+    ['disciplinaria', 'fiscal', 'penal', 'sancionatoria', 'otra'].includes(c)
+  );
+function pmTrasHtml(h) {
+  const inc = pmIncidencias(h);
+  const lista = (PM.tras || []).filter(t => t.hallazgo_id === h.id);
+  if (!inc.length && !lista.length) return '';
+  if (!PM.trasOk)
+    return `<div class="pm-tras"><span class="muted">Traslados: disponible al ejecutar el script <span class="mono">18_planes_pdf_y_traslados.sql</span>.</span></div>`;
+  const falta = inc.filter(c => !lista.some(t => t.tipo === c));
+  return `<div class="pm-tras"><div class="pm-tras-h"><b>Traslados</b>${falta.length ? `<span class="pm-chip y">Sin registrar: ${falta.map(esc).join(', ')}</span>` : '<span class="pm-chip g">Registrados</span>'}${pmCanEdit() ? `<button class="btn sm" data-act="pmNewTras" data-id="${esc(h.id)}"><i class="fa-solid fa-share-from-square"></i> Registrar traslado</button>` : ''}</div>${lista
+    .map(
+      t =>
+        `<div class="pm-tras-r"><span class="pm-conn c-${esc(t.tipo)}">${esc(t.tipo)}</span><span>${esc(t.destino)}${t.radicado ? ` · <span class="mono">${esc(t.radicado)}</span>` : ''}${t.fecha ? ' · ' + fmtD(t.fecha) : ''}</span><span class="pm-chip">${esc(PM_TRAS_EST[t.estado] || t.estado)}</span>${pmCanEdit() ? `<button class="icon-btn" data-act="pmEditTras" data-id="${esc(t.id)}" title="Editar traslado" aria-label="Editar traslado"><i class="fa-solid fa-pen"></i></button>` : ''}</div>`
+    )
+    .join('')}</div>`;
+}
+function pmTrasModal(t, hallId) {
+  const h = pmHallOf(t ? t.hallazgo_id : hallId);
+  if (!h) return;
+  const inc = pmIncidencias(h);
+  const tipos = inc.length ? inc : ['disciplinaria', 'fiscal', 'penal', 'sancionatoria', 'otra'];
+  const e = t || { tipo: tipos[0], estado: 'trasladado', fecha: pmHoy() };
+  openModal({
+    title: (t ? 'Editar traslado' : 'Registrar traslado') + ' · hallazgo ' + h.numero,
+    body: `
+      <div class="row2">
+        ${pmF('pmTTipo', 'Incidencia *', `<select id="pmTTipo">${tipos.map(c => `<option value="${c}"${e.tipo === c ? ' selected' : ''}>${c}</option>`).join('')}</select>`)}
+        ${pmF(
+          'pmTEst',
+          'Estado *',
+          `<select id="pmTEst">${Object.entries(PM_TRAS_EST)
+            .map(([k, v]) => `<option value="${k}"${e.estado === k ? ' selected' : ''}>${v}</option>`)
+            .join('')}</select>`
+        )}
+      </div>
+      ${pmF('pmTDes', 'Trasladado a *', pmIn('pmTDes', e.destino, 'list="pmTDests"') + `<datalist id="pmTDests">${PM_TRAS_DESTINOS.map(d => `<option>${esc(d)}</option>`).join('')}</datalist>`)}
+      <div class="row2">
+        ${pmF('pmTRad', 'Radicado del traslado', pmIn('pmTRad', e.radicado, 'inputmode="numeric"'))}
+        ${pmF('pmTFec', 'Fecha', pmIn('pmTFec', e.fecha, 'type="date"'))}
+      </div>
+      ${pmF('pmTObs', 'Observaciones', pmTa('pmTObs', e.observaciones, 2), 'Por ejemplo, el número del proceso abierto o la decisión tomada')}`,
+    footer: `${t ? `<button class="btn" data-act="pmDelTras" data-id="${esc(t.id)}" style="margin-right:auto"><i class="fa-solid fa-trash"></i> Eliminar</button>` : ''}<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmSaveTras" data-id="${t ? esc(t.id) : ''}" data-hall="${esc(h.id)}"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>`
+  });
+}
+async function pmSaveTras(id, hallId) {
+  const h = pmHallOf(hallId);
+  if (!h) return;
+  const o = {
+    plan_id: h.plan_id,
+    hallazgo_id: h.id,
+    tipo: $('#pmTTipo').value,
+    estado: $('#pmTEst').value,
+    destino: pmVal('pmTDes'),
+    radicado: pmVal('pmTRad'),
+    fecha: pmVal('pmTFec') || null,
+    observaciones: pmVal('pmTObs')
+  };
+  if (o.destino.length < 3) return toast('Indique a quién se trasladó', 'err');
+  try {
+    await pmSave('tras', o, id || null);
+    closeModal();
+    toast('Traslado guardado');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+async function pmDelTras(id) {
+  if (!confirm('¿Eliminar este traslado?')) return;
+  try {
+    await pmDelete('tras', id);
+    closeModal();
+    toast('Traslado eliminado');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
 function pmAccModal(a, hallId) {
   const h = pmHallOf(a ? a.hallazgo_id : hallId),
     p = pmPlanOf(h.plan_id);
-  const e = a || { unidad_medida: 'Porcentaje', cantidad: 100, fecha_inicio: p.fecha_suscripcion };
+  const e = a || {
+    unidad_medida: 'Porcentaje',
+    cantidad: 100,
+    fecha_inicio: p.fecha_suscripcion || pmHoy(),
+    dependencia_id: h.dependencia_id || null
+  };
   const deps = S.deps
     .filter(d => d.activo !== false)
     .slice()
@@ -12231,6 +13282,7 @@ function pmAccModal(a, hallId) {
     title: (a ? 'Editar acción' : 'Agregar acción') + ' · hallazgo ' + h.numero,
     wide: true,
     body: `
+      ${a ? '' : pmSugHtml(h)}
       ${pmF('pmAAcc', (p.formato === 'F14_CGR' ? 'Acción de mejoramiento' : 'Acción correctiva') + ' *', pmTa('pmAAcc', e.accion, 2))}
       ${p.formato !== 'PM_01_CGSC' ? `<div class="row2">${pmF('pmAPro', 'Propósito de la acción de mejora', pmTa('pmAPro', e.proposito, 2))}${pmF('pmAAct', 'Descripción de las actividades', pmTa('pmAAct', e.actividad, 2))}</div>` : ''}
       ${pmF('pmAMeta', 'Meta', pmIn('pmAMeta', e.meta, 'placeholder="Ej.: 100% de los supervisores capacitados"'))}
@@ -12273,6 +13325,12 @@ async function pmSaveAcc(id, hallId) {
     lugar_verificacion: pmVal('pmALug')
   };
   if (o.accion.length < 4) return toast('Describe la acción', 'err');
+  const avisosF = pmAccIssues(o, p);
+  if (
+    avisosF.length &&
+    !confirm('Revise la formulación:\n\n• ' + avisosF.join('\n• ') + '\n\n¿Guardar de todas formas?')
+  )
+    return;
   if (!o.unidad_medida) return toast('Indica la unidad de medida', 'err');
   if (!(o.cantidad > 0)) return toast('La cantidad de la meta debe ser mayor que cero', 'err');
   if (!pmFecha(o.fecha_inicio) || !pmFecha(o.fecha_fin))
@@ -12549,6 +13607,43 @@ async function pmSendNotif(depId, canal) {
    EXCEL: lector (importación) y escritor (exportación)
    ===================================================================== */
 let PM_XLSX = null;
+const PM_PDFJS_URL = 'vendor/pdf.min.js'; /* pdf.js 3.11.174, publicado en vendor/ */
+const PM_PDFJS_WORKER = 'vendor/pdf.worker.min.js';
+let PM_PDF = null;
+function pmPdfJs() {
+  if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if (PM_PDF) return PM_PDF;
+  PM_PDF = new Promise((ok, no) => {
+    const sc = document.createElement('script');
+    sc.src = PM_PDFJS_URL;
+    sc.onload = () => {
+      if (!window.pdfjsLib) return no(new Error('No se pudo iniciar el lector de PDF'));
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = PM_PDFJS_WORKER;
+      ok(window.pdfjsLib);
+    };
+    sc.onerror = () => {
+      PM_PDF = null;
+      no(
+        new Error('No se pudo cargar el lector de PDF. Revisa la conexión a internet e inténtalo de nuevo.')
+      );
+    };
+    document.head.appendChild(sc);
+  });
+  return PM_PDF;
+}
+/* Texto de cada página con su posición, para rearmar las líneas (pmPdfLineas) */
+async function pmLeerPdf(file) {
+  const lib = await pmPdfJs();
+  const doc = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+  const paginas = [];
+  for (let i = 1; i <= doc.numPages; i++) {
+    const tc = await (await doc.getPage(i)).getTextContent();
+    paginas.push(
+      tc.items.map(it => ({ s: it.str, x: it.transform[4], y: it.transform[5], w: it.width, h: it.height }))
+    );
+  }
+  return paginas;
+}
 function pmXlsx() {
   if (window.XLSX) return Promise.resolve(window.XLSX);
   if (PM_XLSX) return PM_XLSX;
@@ -12594,6 +13689,8 @@ const PM_COLS = [
   ['ffin', /fecha (de )?terminacion|fecha (de )?finalizacion|fecha (de )?fin\b|fecha limite/],
   ['plazo', /plazo/],
   ['responsable', /responsable/],
+  ['obsci', /^observaciones? (daci|de la daci|oci|control interno|de control interno)/],
+  ['dirtec', /^direccion tecnica/],
   ['obs', /^observacion/],
   ['consec', /^(no|n|item|consecutivo)$/]
 ];
@@ -12643,6 +13740,286 @@ function pmMapHeader(row) {
   });
   return map;
 }
+/* Causa del hallazgo cuando viene dentro de la descripción, como en los informes de la CGSC:
+   "Lo anterior, causado por la falta de …, lo cual genera …" → "La falta de …" */
+function pmCausaDe(des) {
+  const m =
+    /lo anterior,?\s*(?:es\s+)?(?:causado|ocasionado|originado|generado|debido)\s+(?:por|a)\s+([\s\S]+?)(?:,\s*lo cual\b|,\s*lo que\b|\.\s|$)/i.exec(
+      pmTxt(des)
+    );
+  if (!m) return '';
+  const c = m[1]
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[.;,]+$/, '');
+  return c ? c.charAt(0).toUpperCase() + c.slice(1) : '';
+}
+/* Dependencia a partir de textos libres (lugar de verificación, responsable, título del hallazgo),
+   con las mismas reglas que unifican los organismos del Excel de control */
+function pmDepSugerida(textos) {
+  for (const t of textos) {
+    if (!pmTxt(t)) continue;
+    const id = pmDepMatch(t);
+    if (id) return id;
+    const c = typeof ceCanonUno === 'function' ? ceCanonUno(t) : null;
+    if (c) {
+      const d = S.deps.find(x => orgKey(x.nombre) === orgKey(c[0]));
+      if (d) return d.id;
+    }
+  }
+  return null;
+}
+/* =====================================================================
+   LECTURA DEL INFORME FINAL EN PDF (formato de la Contraloría General de Santiago de Cali)
+   El navegador extrae el texto con pdf.js; aquí se rearman las líneas y se ubican los hallazgos:
+   "3.1 HALLAZGO ADMINISTRATIVO N° 1 – CON PRESUNTA INCIDENCIA DISCIPLINARIA - TÍTULO", la dependencia
+   que lo encabeza, la condición, la causa ("Lo anterior, causado por…") y el efecto ("…lo cual genera…").
+   El resultado es un plan en formulación, con los hallazgos listos y sin acciones.
+   ===================================================================== */
+/* páginas = [[{s, x, y, w, h}]] (texto de pdf.js) → líneas de texto en orden de lectura */
+function pmPdfLineas(paginas) {
+  const out = [];
+  paginas.forEach((items, pi) => {
+    const filas = [];
+    items
+      .filter(it => it.s !== '')
+      .forEach(it => {
+        const tol = Math.max(2, (it.h || 10) * 0.4);
+        let f = filas.find(r => Math.abs(r.y - it.y) <= tol);
+        if (!f) filas.push((f = { y: it.y, items: [] }));
+        f.items.push(it);
+      });
+    filas.sort((a, b) => b.y - a.y);
+    filas.forEach(f => {
+      f.items.sort((a, b) => a.x - b.x);
+      let t = '',
+        fin = null;
+      f.items.forEach(it => {
+        if (fin !== null && it.x - fin > 1.5 && !/\s$/.test(t) && !/^\s/.test(it.s)) t += ' ';
+        t += it.s;
+        fin = it.x + (it.w || 0);
+      });
+      t = t.replace(/\s+/g, ' ').trim();
+      if (t) out.push({ t, pag: pi + 1 });
+    });
+  });
+  return out;
+}
+const PM_PDF_RUIDO =
+  /^informe final\b|^p[aá]gina \d+ de \d+$|contraloriacali|centro administrativo municipal|^\(57\)|^www\.|^\d{1,3}$/i;
+const pmMayus = t => {
+  const l = t.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ]/g, '');
+  return l.length >= 6 && l.replace(/[^a-záéíóúñ]/g, '').length / l.length < 0.12;
+};
+function pmEfectoDe(des) {
+  const m =
+    /,\s*lo cual (?:genera|ocasiona|conlleva|puede generar|genera un|afecta)\s+([\s\S]+?)(?:,\s*(?:que|configur)|\.\s|$)/i.exec(
+      pmTxt(des)
+    );
+  if (!m) return '';
+  const e = m[1]
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[.;,]+$/, '');
+  return e ? e.charAt(0).toUpperCase() + e.slice(1) : '';
+}
+function pmParseInformePdf(paginas, fileName) {
+  const lineas = pmPdfLineas(paginas).filter(l => !PM_PDF_RUIDO.test(l.t));
+  const T = lineas.map(l => l.t);
+  const todo = T.join('\n');
+  const kt = pmKey(todo);
+  /* la contraloría que firma el informe (otras pueden citarse en el texto) */
+  const formato = /contraloria general de santiago de cali|contraloria distrital/.test(kt)
+    ? 'PM_01_CGSC'
+    : /contraloria general de la republica/.test(kt)
+      ? 'F14_CGR'
+      : 'PM_01_CGSC';
+  const avisos = [];
+  /* portada: nombre de la actuación, número y fecha del informe */
+  const pag1 = lineas.filter(l => l.pag === 1).map(l => l.t);
+  const iRad = pag1.findIndex(t => /^\d{3,4}(\.\d{2,3}){3,4}$/.test(t));
+  const iTit = pag1.findIndex(t => /^(actuaci[oó]n|auditor[ií]a|informe de auditor|denuncia)/i.test(t));
+  let ejercicio = '';
+  if (iTit >= 0) {
+    const fin = iRad > iTit ? iRad : Math.min(pag1.length, iTit + 3);
+    ejercicio = pag1
+      .slice(iTit, fin)
+      .filter(t => !/^informe final$/i.test(t))
+      .join(' ');
+  }
+  ejercicio = ejercicio
+    .replace(/\s+/g, ' ')
+    .replace(/N[ºo°]\s*(\d)/, 'Nº $1')
+    .trim();
+  const MES = {
+    enero: 1,
+    febrero: 2,
+    marzo: 3,
+    abril: 4,
+    mayo: 5,
+    junio: 6,
+    julio: 7,
+    agosto: 8,
+    septiembre: 9,
+    octubre: 10,
+    noviembre: 11,
+    diciembre: 12
+  };
+  const mf = /(\d{1,2}) de ([a-záéíóú]+) de (\d{4})/i.exec(pag1.join(' '));
+  const fecha_informe = mf && MES[pmKey(mf[2])] ? `${mf[3]}-${pad(MES[pmKey(mf[2])])}-${pad(+mf[1])}` : null;
+  /* hallazgos: encabezado en mayúsculas que puede ocupar varias líneas; se omite la tabla de contenido */
+  const hall = [];
+  let depPrev = null;
+  const finSeccion = /^\d+\.\s*(resumen|relaci[oó]n de hallazgos|anexos)\b/i;
+  const inicioH = t => /^(\d+(?:\.\d+)*)\s+hallazgo\b/i.test(t);
+  for (let i = 0; i < T.length; i++) {
+    if (!inicioH(T[i])) continue;
+    let j = i,
+      enc = T[i];
+    let indice = /\s\d{1,3}$/.test(T[i]);
+    /* el encabezado continúa en las líneas siguientes en mayúsculas, sin pasar a otra página */
+    while (
+      j + 1 < T.length &&
+      lineas[j + 1].pag === lineas[i].pag &&
+      pmMayus(T[j + 1]) &&
+      !inicioH(T[j + 1]) &&
+      !finSeccion.test(T[j + 1]) &&
+      enc.length < 400
+    ) {
+      enc += ' ' + T[++j];
+      if (/\s\d{1,3}$/.test(T[j])) indice = true;
+    }
+    if (indice || /\s\d{1,3}$/.test(enc)) {
+      i = j;
+      continue; /* tabla de contenido: termina en número de página */
+    }
+    /* cuerpo hasta el siguiente hallazgo o el fin de la sección */
+    let k = j + 1;
+    const cuerpo = [];
+    while (k < T.length && !inicioH(T[k]) && !finSeccion.test(T[k])) cuerpo.push(T[k++]);
+    /* dependencia: línea en mayúsculas justo antes del encabezado; si no hay, la del hallazgo anterior */
+    let dep = null;
+    for (let b = i - 1; b >= Math.max(0, i - 3); b--) {
+      if (!pmMayus(T[b])) break;
+      const c = typeof ceCanonUno === 'function' ? ceCanonUno(T[b]) : null;
+      if (c) {
+        dep = T[b];
+        break;
+      }
+    }
+    if (dep) depPrev = dep;
+    else dep = depPrev;
+    /* la última línea en mayúsculas del cuerpo anterior pudo ser la dependencia de este hallazgo: se quita */
+    if (hall.length && dep && hall[hall.length - 1]._cola === dep)
+      hall[hall.length - 1].descripcion = hall[hall.length - 1].descripcion.replace(
+        new RegExp('\\s*' + dep.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*$'),
+        ''
+      );
+    const ke = pmKey(enc);
+    const conn = ['administrativa'];
+    if (/disciplinari/.test(ke)) conn.push('disciplinaria');
+    if (/fiscal/.test(ke.replace(/denuncia fiscal/g, ''))) conn.push('fiscal');
+    if (/penal/.test(ke)) conn.push('penal');
+    if (/sancionatori/.test(ke)) conn.push('sancionatoria');
+    if (/otra incidencia|otras incidencias|otro hallazgo/.test(ke)) conn.push('otra');
+    const num =
+      (/n\s*[°ºo.]*\s*(\d+)/i.exec(enc.replace(/^\d+(?:\.\d+)*\s+/, '')) || [])[1] || String(hall.length + 1);
+    const titulo = enc
+      .replace(/^\d+(?:\.\d+)*\s+/, '')
+      .split(/\s+[–-]\s+|\s*[–]\s*/)
+      .map(x => x.trim())
+      .filter(x => x && !/^hallazgo\b/i.test(x) && !/^con presunta incidencia/i.test(x))
+      .join(' - ');
+    const texto = cuerpo.join(' ').replace(/\s+/g, ' ').trim();
+    const iContra = texto.search(/lo anterior,?\s*contravin|contraviniendo lo establecido/i);
+    const condicion = (
+      iContra > 0 ? texto.slice(0, iContra) : texto.split(/lo anterior,?\s*(?:es\s+)?causado/i)[0]
+    ).trim();
+    const causa = pmCausaDe(texto);
+    const efecto = pmEfectoDe(texto);
+    let cuantia = null;
+    if (conn.includes('fiscal')) {
+      const mq = /(?:detrimento|da[ñn]o patrimonial|cuant[ií]a)[^$]{0,120}\$\s?([\d.]+(?:,\d+)?)/i.exec(
+        texto
+      );
+      if (mq) cuantia = Number(mq[1].replace(/\./g, '').replace(',', '.'));
+    }
+    hall.push({
+      numero: num,
+      numeroOrig: num,
+      descripcion: (titulo ? titulo + '. ' : '') + condicion,
+      causa,
+      efecto,
+      connotaciones: conn,
+      macroproceso: '',
+      cuantia,
+      fila: lineas[i].pag,
+      dependencia: dep || '',
+      dependencia_id: dep ? pmDepSugerida([dep]) : null,
+      acciones: [],
+      _cola: pmMayus(cuerpo[cuerpo.length - 1] || '') ? cuerpo[cuerpo.length - 1] : null
+    });
+    i = k - 1;
+  }
+  hall.forEach(h => delete h._cola);
+  if (!hall.length)
+    throw new Error(
+      'No se encontraron hallazgos en el PDF. Debe ser un informe con texto (no escaneado) y con encabezados del tipo "3.1 HALLAZGO ADMINISTRATIVO N° 1 …".'
+    );
+  /* relación de hallazgos del propio informe: sirve de control */
+  const mRel = /administrativos?\s+(\d+)\s/i.exec(todo.slice(todo.search(/relaci[oó]n de hallazgos/i) + 1));
+  if (mRel && +mRel[1] !== hall.length)
+    avisos.push({
+      n: 'r',
+      t: `El informe dice ${mRel[1]} hallazgos administrativos y se leyeron ${hall.length}. Revise que no falte ninguno.`
+    });
+  hall.forEach(h => {
+    if (!h.causa)
+      avisos.push({
+        n: 'y',
+        t: `Hallazgo ${h.numero}: no se encontró la causa en el texto; escríbala antes de formular las acciones.`
+      });
+    if (!h.dependencia_id)
+      avisos.push({ n: 'y', t: `Hallazgo ${h.numero}: no se reconoció la dependencia responsable.` });
+  });
+  const plan = {
+    formato,
+    contraloria: (PM_FMT[formato] || PM_FMT.OTRO).contraloria,
+    entidad: 'Distrito Especial de Santiago de Cali',
+    nit: '',
+    representante_legal: '',
+    ordenador_gasto: '',
+    ejercicio: ejercicio || pmTxt(fileName).replace(/\.pdf$/i, ''),
+    tipo_ejercicio: (/^(actuaci[oó]n especial|auditor[ií]a [a-záéíóú]+)/i.exec(ejercicio) || [''])[0],
+    modalidad: '',
+    vigencia_pvcft: ((/vigencia (\d{4})/i.exec(ejercicio) || [])[1] || '').trim(),
+    periodo_auditado: '',
+    numero_informe: iRad >= 0 ? pag1[iRad] : '',
+    radicado_orfeo: '',
+    fecha_informe,
+    fecha_suscripcion: '',
+    estado: 'formulacion',
+    observaciones:
+      'Hallazgos leídos del informe final ' +
+      fileName +
+      '. Plan en formulación: falta definir las acciones de mejora.'
+  };
+  avisos.unshift({
+    n: 'b',
+    t: 'Se creará el plan en formulación, con los hallazgos y sin acciones. Las acciones se agregan después (con sugerencias según la causa) y la fecha de suscripción se actualiza al firmarlo.'
+  });
+  return {
+    archivo: fileName,
+    hoja: 'PDF',
+    formato,
+    plan,
+    hall,
+    avisos,
+    feval: null,
+    fevalRaw: null,
+    desdePdf: true
+  };
+}
 function pmParseSheet(X, ws, name) {
   const rows = pmAoa(X, ws);
   let hr = -1,
@@ -12664,8 +14041,8 @@ function pmParseSheet(X, ws, name) {
     ['entidad', /^entidad( auditada)?\b/],
     ['nit', /^nit\b/],
     ['representante_legal', /^representante legal/],
-    ['ejercicio', /^nombre del ejercicio/],
-    ['tipo_ejercicio', /^tipo de ejercicio/],
+    ['ejercicio', /^nombre (del ejercicio|de la actuacion)/],
+    ['tipo_ejercicio', /^tipo de (ejercicio|actuacion)/],
     ['fecha_suscripcion', /^fecha de suscripcion/],
     ['vigencia_pvcft', /^vigencia pvcft|^vigencia pvcf|^vigencia/],
     ['periodo_auditado', /^periodo fiscal/],
@@ -12741,9 +14118,15 @@ function pmParseWorkbook(X, wb, fileName) {
     throw new Error(
       'No se encontró la tabla del plan: el archivo debe tener la fila de encabezados con las columnas del hallazgo y de la acción.'
     );
-  /* hoja con más filas; ante empate, la que trae avance (F14.1) */
+  /* la hoja PM_02 (papel de trabajo de evaluación de la CGSC) acompaña al PM_01 pero no es el plan:
+     si hay una hoja PM_01 con acciones, se usa esa. Luego, la hoja con más filas; ante empate, la que trae
+     avance (F14.1) */
+  const esPm02 = h =>
+    /pm 02|papel de trabajo pt 03/.test(pmKey(h.name + ' ' + String(h.texto || '').slice(0, 400)));
+  const hayPm01 = hojas.some(h => !esPm02(h) && h.data.length);
   hojas.sort(
     (a, b) =>
+      (hayPm01 ? esPm02(a) - esPm02(b) : 0) ||
       b.data.length - a.data.length ||
       ('avfis' in b.map || 'pct' in b.map) - ('avfis' in a.map || 'pct' in a.map)
   );
@@ -12842,7 +14225,7 @@ function pmParseWorkbook(X, wb, fileName) {
           numero,
           numeroOrig: num,
           descripcion: des,
-          causa: pmTxt(g('causa')),
+          causa: pmTxt(g('causa')) || pmCausaDe(des),
           efecto: pmTxt(g('efecto')),
           connotaciones: pmConnOf(g('connotacion')),
           macroproceso: pmTxt(g('macro')),
@@ -12887,8 +14270,13 @@ function pmParseWorkbook(X, wb, fileName) {
       dependencia_id: pmDepMatch(resp),
       avance: null,
       fecha_corte: null,
-      descripcion_avance: pmTxt(g('descav')) || pmTxt(g('obs'))
+      descripcion_avance: pmTxt(g('descav')) || pmTxt(g('obs')),
+      obs_ci: pmTxt(g('obsci'))
     };
+    if (!plan.direccion_tecnica && pmTxt(g('dirtec'))) plan.direccion_tecnica = pmTxt(g('dirtec'));
+    /* 3. dependencia: si el nombre exacto no aparece, se reconoce por el lugar, el responsable o el título del hallazgo */
+    if (!a.dependencia_id)
+      a.dependencia_id = pmDepSugerida([a.lugar_verificacion, resp, pmTxt(cur.descripcion).split('\n')[0]]);
     if (formato === 'F14_CGR' && 'avfis' in H.map) {
       const v = pmNum(g('avfis'));
       if (!isNaN(v) && pmTxt(g('avfis')) !== '') {
@@ -12904,8 +14292,55 @@ function pmParseWorkbook(X, wb, fileName) {
         a.sinCorte = !a.fecha_corte;
       }
     }
+    /* PM_01 versión 2020 exportado por la app: el avance validado va en la descripción del avance */
+    const mAv = /\(Avance validado ([\d.,]+)\s*%\s*con corte (\d{2}\/\d{2}\/\d{4})\)/.exec(
+      a.descripcion_avance
+    );
+    if (mAv) {
+      if (a.avance == null) {
+        a.avance = pmNum(mAv[1]);
+        a.fecha_corte = pmFecha(mAv[2]);
+        a.sinCorte = !a.fecha_corte;
+      }
+      a.descripcion_avance = a.descripcion_avance.replace(mAv[0], '').trim();
+    }
     cur.acciones.push(a);
   });
+  /* 5. causas repetidas: en este plan o en planes ya registrados → sugerir una acción transversal */
+  const clave = c => pmKey(c).slice(0, 120);
+  const vistas = {};
+  hall.forEach(h => {
+    const k = clave(h.causa);
+    if (k.length < 30) return;
+    (vistas[k] = vistas[k] || []).push(h.numero);
+  });
+  Object.values(vistas).forEach(nums => {
+    if (nums.length > 1)
+      avisos.push({
+        n: 'y',
+        t: `Los hallazgos ${nums.join(' y ')} tienen la misma causa. Considere una acción transversal (por ejemplo, una circular o un control común) además de las acciones de cada dependencia.`
+      });
+  });
+  hall.forEach(h => {
+    const k = clave(h.causa);
+    if (k.length < 30) return;
+    const prev = (PM.hall || []).find(x => clave(x.causa) === k);
+    if (prev) {
+      const pl = (PM.planes || []).find(x => x.id === prev.plan_id);
+      avisos.push({
+        n: 'y',
+        t: `El hallazgo ${h.numero} repite la causa del hallazgo ${prev.numero}${pl ? ' del plan «' + pmTxt(pl.ejercicio).slice(0, 60) + '»' : ''}: es un hallazgo recurrente.`
+      });
+    }
+  });
+  const obsCi = [];
+  hall.forEach(h => h.acciones.forEach(a => a.obs_ci && obsCi.push(`Hallazgo ${h.numero}: ${a.obs_ci}`)));
+  if (obsCi.length) {
+    avisos.push({
+      n: 'y',
+      t: `El archivo trae ${obsCi.length} observación(es) de Control Interno sobre la formulación de las acciones. Quedan en cada acción como pendientes, para marcarlas como atendidas cuando se verifique el ajuste.`
+    });
+  }
   return { archivo: fileName, hoja: H.name, formato, plan, hall, avisos, feval, fevalRaw };
 }
 /* Valida lo importado con los datos del plan tal como quedaron en el formulario */
@@ -12916,7 +14351,14 @@ function pmImpCheck(imp) {
     hoy = pmHoy();
   if (!pmTxt(p.contraloria)) err.push('Indica la contraloría.');
   if (pmTxt(p.ejercicio).length < 4) err.push('Escribe el nombre del ejercicio de fiscalización.');
-  if (!pmFecha(p.fecha_suscripcion)) err.push('Indica la fecha de suscripción del plan.');
+  if (!pmFecha(p.fecha_suscripcion)) {
+    if (imp.desdePdf)
+      warn.push({
+        n: 'y',
+        t: `Sin fecha de suscripción: se registrará provisionalmente la del informe (${fmtD(p.fecha_informe || hoy)}).`
+      });
+    else err.push('Indica la fecha de suscripción del plan.');
+  }
   const dup = PM.planes.find(
     x =>
       x.formato === p.formato &&
@@ -12932,7 +14374,13 @@ function pmImpCheck(imp) {
   imp.hall.forEach(h => {
     if (pmTxt(h.descripcion).length < 4)
       err.push(`Fila ${h.fila}: el hallazgo ${h.numero} no tiene descripción.`);
-    if (!h.acciones.length) err.push(`Fila ${h.fila}: el hallazgo ${h.numero} no tiene acciones.`);
+    if (!h.acciones.length && !imp.desdePdf)
+      err.push(`Fila ${h.fila}: el hallazgo ${h.numero} no tiene acciones.`);
+    if (imp.desdePdf && !h.dependencia_id)
+      warn.push({
+        n: 'y',
+        t: `Hallazgo ${h.numero}: elija la dependencia responsable (también se puede después).`
+      });
     h.acciones.forEach(a => {
       nAcc++;
       const ini = a.fini || (pmFecha(p.fecha_suscripcion) ? p.fecha_suscripcion : null);
@@ -12986,22 +14434,27 @@ function pmImportModal() {
     wide: true,
     body: `<div class="pm-drop">
       <i class="fa-solid fa-file-excel"></i>
-      <b>Selecciona el archivo del plan (.xlsx o .xls)</b>
-      <div class="muted">Formato PM_01 de la Contraloría General de Santiago de Cali o Formularios 14 / 14.1 de la Contraloría General de la República. Se reconocen las columnas por su encabezado y las celdas combinadas.</div>
-      <input type="file" id="pmImpFile" accept=".xlsx,.xls,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+      <b>Selecciona el plan en Excel (.xlsx, .xls) o el informe final en PDF</b>
+      <div class="muted">Excel: formato PM_01 de la Contraloría General de Santiago de Cali o Formularios 14 / 14.1 de la Contraloría General de la República. PDF: el informe final con los hallazgos; se crea el plan en formulación para agregar las acciones con sugerencias.</div>
+      <input type="file" id="pmImpFile" accept=".xlsx,.xls,.pdf,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
     </div>
     <div id="pmImpOut"></div>`,
     footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmDoImport" id="pmImpBtn" disabled><i class="fa-solid fa-file-import"></i> Importar</button>`
   });
   $('#pmImpFile').addEventListener('change', async e => {
     const f = e.target.files[0];
+    PM.impFile = f || null;
     if (!f) return;
     const out = $('#pmImpOut');
     out.innerHTML = '<div class="empty"><i class="fa-solid fa-spinner fa-spin"></i>Leyendo el archivo…</div>';
     try {
-      const X = await pmXlsx();
-      const wb = X.read(new Uint8Array(await f.arrayBuffer()), { type: 'array', cellDates: false });
-      PM.imp = pmParseWorkbook(X, wb, f.name);
+      if (/\.pdf$/i.test(f.name) || f.type === 'application/pdf') {
+        PM.imp = pmParseInformePdf(await pmLeerPdf(f), f.name);
+      } else {
+        const X = await pmXlsx();
+        const wb = X.read(new Uint8Array(await f.arrayBuffer()), { type: 'array', cellDates: false });
+        PM.imp = pmParseWorkbook(X, wb, f.name);
+      }
       pmImpRender();
     } catch (er) {
       PM.imp = null;
@@ -13021,7 +14474,7 @@ function pmImpRender() {
   out.innerHTML = `
     <div class="pm-imp-sum">
       <span class="pm-ctl ${imp.formato === 'F14_CGR' ? 'cgr' : imp.formato === 'PM_01_CGSC' ? 'cgsc' : ''}">${esc((PM_FMT[imp.formato] || PM_FMT.OTRO).nombre)}</span>
-      <span class="muted">Hoja «${esc(imp.hoja)}» · ${imp.hall.length} hallazgos · ${acc.length} acciones</span>
+      <span class="muted">${imp.desdePdf ? 'Informe final en PDF' : 'Hoja «' + esc(imp.hoja) + '»'} · ${imp.hall.length} hallazgos · ${acc.length} acciones</span>
     </div>
     <div class="row2">
       ${pmF(
@@ -13035,7 +14488,7 @@ function pmImpRender() {
     </div>
     ${pmF('pmIEje', 'Nombre del ejercicio de fiscalización *', pmTa('pmIEje', p.ejercicio, 2))}
     <div class="row2">
-      ${pmF('pmIFs', 'Fecha de suscripción *', pmIn('pmIFs', p.fecha_suscripcion, 'type="date"'))}
+      ${pmF('pmIFs', imp.desdePdf ? 'Fecha de suscripción (provisional)' : 'Fecha de suscripción *', pmIn('pmIFs', p.fecha_suscripcion, 'type="date"'), imp.desdePdf ? 'Si la deja vacía se usa la fecha del informe; actualícela al firmar el plan' : '')}
       ${pmF('pmITipo', 'Tipo de ejercicio', pmIn('pmITipo', p.tipo_ejercicio, 'list="pmTipos"') + `<datalist id="pmTipos">${PM_TIPOS.map(t => `<option>${t}</option>`).join('')}</datalist>`)}
     </div>
     <div class="row2">
@@ -13043,7 +14496,19 @@ function pmImpRender() {
       ${pmF('pmIRep', 'Representante legal', pmIn('pmIRep', p.representante_legal))}
     </div>
     ${imp.formato === 'F14_CGR' && imp.fevalRaw ? `<div class="hint" style="margin:-6px 0 10px">Fecha de evaluación del Formulario 14.1: ${imp.feval ? fmtD(imp.feval) : 'no reconocida («' + esc(pmTxt(imp.fevalRaw)) + '»)'}. Es la fecha de corte de los avances importados.</div>` : ''}
-    <div class="field"><label>Dependencia responsable de cada acción</label>
+    ${
+      imp.desdePdf
+        ? `<div class="field"><label>Hallazgos leídos del informe y dependencia responsable</label>
+      <div class="tbl-wrap pm-imp-tbl"><table class="tbl" style="min-width:720px"><thead><tr><th>Pág.</th><th>N.º</th><th>Hallazgo</th><th>Incidencia</th><th>Dependencia</th></tr></thead><tbody>
+      ${imp.hall
+        .map(
+          (h, i) =>
+            `<tr><td class="mono">${h.fila}</td><td class="mono">${esc(h.numero)}</td><td class="asunto">${esc(shortTxt(h.descripcion, 110))}${h.causa ? `<div class="muted" style="font-size:.72rem"><b>Causa:</b> ${esc(shortTxt(h.causa, 110))}</div>` : ''}</td><td>${pmConnChips(h)}</td><td><select class="pmIHDep" data-i="${i}">${depOpts(h.dependencia_id)}</select>${h.dependencia ? `<div class="muted" style="font-size:.7rem">${esc(shortTxt(h.dependencia, 50))}</div>` : ''}</td></tr>`
+        )
+        .join('')}</tbody></table></div></div>`
+        : ''
+    }
+    <div class="field"${imp.desdePdf ? ' hidden' : ''}><label>Dependencia responsable de cada acción</label>
       <div class="pm-imp-all"><span class="muted" style="font-size:.78rem">Asignar a todas las que están sin asignar:</span><select id="pmIAll">${depOpts('')}</select></div>
       <div class="tbl-wrap pm-imp-tbl"><table class="tbl" style="min-width:720px"><thead><tr><th>Fila</th><th>Hallazgo</th><th>Acción</th><th>Termina</th><th>Avance</th><th>Dependencia</th></tr></thead><tbody>
       ${acc
@@ -13061,6 +14526,9 @@ function pmImpRender() {
     p.tipo_ejercicio = pmVal('pmITipo');
     p.numero_informe = pmVal('pmIInf');
     p.representante_legal = pmVal('pmIRep');
+    document.querySelectorAll('.pmIHDep').forEach(s => {
+      imp.hall[+s.dataset.i].dependencia_id = s.value ? +s.value || s.value : null;
+    });
     document.querySelectorAll('.pmIDep').forEach(s => {
       const a = acc[+s.dataset.i].a;
       a.dependencia_id = s.value ? +s.value || s.value : null;
@@ -13128,7 +14596,15 @@ async function pmDoImport(btn) {
   const en = S.entes.find(x => pmKey(x.nombre) === pmKey(p.contraloria));
   const payload = {
     archivo: imp.archivo,
-    plan: { ...p, ente_id: en ? en.id : null },
+    plan: {
+      ...p,
+      requerimiento_id: PM.v19 ? (pmReqSugerido(p) || {}).id || null : undefined,
+      fecha_radicacion_informe: PM.v20
+        ? p.fecha_radicacion_informe || (pmReqSugerido(p) || {}).fecha_radicacion || null
+        : undefined,
+      fecha_suscripcion: p.fecha_suscripcion || (imp.desdePdf ? p.fecha_informe || hoy : p.fecha_suscripcion),
+      ente_id: en ? en.id : null
+    },
     hallazgos: imp.hall.map(h => ({
       numero: h.numero,
       descripcion: h.descripcion,
@@ -13137,6 +14613,8 @@ async function pmDoImport(btn) {
       connotaciones: h.connotaciones,
       cuantia: h.cuantia,
       macroproceso: h.macroproceso,
+      dependencia_id: h.dependencia_id || null,
+      dependencia_texto: h.dependencia || '',
       acciones: h.acciones.map(a => {
         const ok = a.avance != null && a.fecha_corte && a.fecha_corte <= hoy;
         return {
@@ -13154,7 +14632,8 @@ async function pmDoImport(btn) {
           fecha_fin: a.ffin,
           avance: ok ? a.avance : null,
           fecha_corte: ok ? a.fecha_corte : null,
-          descripcion_avance: ok ? a.descripcion_avance : ''
+          descripcion_avance: ok ? a.descripcion_avance : '',
+          obs_ci: a.obs_ci || ''
         };
       })
     }))
@@ -13170,6 +14649,13 @@ async function pmDoImport(btn) {
     PM.plan = id;
     PM.tab = 'acciones';
     toast(`Plan importado: ${payload.hallazgos.length} hallazgos y ${imp.__k.nAcc} acciones`);
+    /* memoria: el archivo original queda en el archivo documental del plan */
+    await pmDocCopia(PM.impFile, {
+      plan_id: id,
+      tipo: imp.desdePdf ? 'informe_final' : 'plan_excel',
+      observaciones: 'Archivo original importado'
+    });
+    PM.impFile = null;
     await pmRefresh();
   } catch (e) {
     toast(e.message, 'err');
@@ -13185,9 +14671,10 @@ function pmExportModal(p) {
   openModal({
     title: 'Exportar en el formato de la contraloría',
     body: `
-      ${pmF('pmEFmt', 'Formato', `<select id="pmEFmt"><option value="PM_01_CGSC"${p.formato !== 'F14_CGR' ? ' selected' : ''}>PM_01 CGSC · formulación y avance (Contraloría de Cali)</option><option value="F14_CGR"${p.formato === 'F14_CGR' ? ' selected' : ''}>Formularios 14 y 14.1 · suscripción y seguimiento (CGR)</option></select>`)}
+      ${pmF('pmEFmt', 'Formato', `<select id="pmEFmt"><option value="PM_01_CGSC"${p.formato !== 'F14_CGR' ? ' selected' : ''}>PM_01 CGSC · formulación y avance (Contraloría de Cali)</option>${p.formato === 'PM_01_CGSC' ? '<option value="PM_01_AVANCE">PM_01 CGSC · informe semestral de avance (art. 11: columnas 16, 17 y 18)</option>' : ''}<option value="F14_CGR"${p.formato === 'F14_CGR' ? ' selected' : ''}>Formularios 14 y 14.1 · suscripción y seguimiento (CGR)</option></select>`)}
       ${pmF('pmECorte', 'Fecha de corte / evaluación', pmIn('pmECorte', PM.eval || pmHoy(), 'type="date"'), 'Se toma el último avance VALIDADO hasta esta fecha. Los avances por validar no se incluyen.')}
-      <div class="hint">El archivo trae los cálculos del Formulario 14.1 (plazo, puntajes, cumplimiento y avance) como fórmulas de Excel. Revíselo antes de firmarlo y cargarlo en el aplicativo de la contraloría.</div>`,
+      ${PM.v20 && pmCanEdit() ? `<label class="chk" style="margin:6px 0"><input type="checkbox" id="pmEArch" checked> Guardar una copia en el archivo documental del plan</label>` : ''}
+      <div class="hint">Para la CGSC, el archivo se nombra como lo exige el SIA Contralorías (FORMATO_202001_PM_CGSC_…); para el informe semestral use como corte el 30 de junio o el 31 de diciembre. El archivo de la CGR trae los cálculos del Formulario 14.1 como fórmulas de Excel. Revíselo antes de firmarlo y cargarlo en el aplicativo de la contraloría.</div>`,
     footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmDoExport" data-id="${esc(p.id)}"><i class="fa-solid fa-download"></i> Descargar Excel</button>`
   });
 }
@@ -13211,126 +14698,280 @@ function pmRespTxt(a) {
   if (!d || pmKey(r).includes(pmKey(d))) return r;
   return r + ' - ' + d;
 }
+/* Connotación como la lista desplegable del formato PM_01 (hoja LISTA) */
+function pmConnPM01(h) {
+  const c = new Set(h.connotaciones || []);
+  if (c.has('sancionatoria') && c.size <= 2) return 'Sancionatorio';
+  if (c.has('otra') && [...c].every(x => x === 'otra' || x === 'administrativa')) return 'Otra';
+  const f = c.has('fiscal'),
+    d = c.has('disciplinaria'),
+    pe = c.has('penal');
+  if (f && d && pe) return 'Administrativa, Fiscal, Penal y Disciplinaria';
+  if (d && pe) return 'Administrativa, Disciplinaria y Penal';
+  if (f && pe) return 'Administrativa fiscal y penal';
+  if (f && d) return 'Administrativa fiscal y disciplinaria';
+  if (f) return 'Administrativa fiscal';
+  if (pe) return 'Administrativa penal';
+  if (d) return 'Administrativa disciplinaria';
+  return 'Administrativa';
+}
+const PM_MESES_LARGOS = [
+  'enero',
+  'febrero',
+  'marzo',
+  'abril',
+  'mayo',
+  'junio',
+  'julio',
+  'agosto',
+  'septiembre',
+  'octubre',
+  'noviembre',
+  'diciembre'
+];
+const pmFechaLarga = iso => {
+  if (!pmFecha(iso)) return '';
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${d} de ${PM_MESES_LARGOS[m - 1]} de ${y}`;
+};
+/* Formato PM_01 CGSC versión 2020: misma estructura, títulos y fórmulas de la plantilla de la Contraloría */
 function pmSheetPM01(X, p, corte) {
   const datos = pmPlanData(p);
-  const aoa = [
-    ['CONTRALORÍA GENERAL DE SANTIAGO DE CALI'],
-    ['FORMATO PM_01 CGSC - PLAN'],
-    [],
-    ['Entidad auditada (1): ' + (p.entidad || '')],
-    ['Nombre del ejercicio de fiscalización (2): ' + (p.ejercicio || '')],
-    ['Tipo de ejercicio de fiscalización (3):', '', '', '', '', '', '', '', '', p.tipo_ejercicio || ''],
-    [
-      'Fecha de suscripción (4): ' + fmtD(p.fecha_suscripcion),
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      'Seguimiento de cumplimiento',
-      '',
-      'Vigencia PVCFT (5)',
-      p.vigencia_pvcft || ''
-    ],
-    [],
-    [
-      'FORMULACIÓN DEL PLAN DE MEJORAMIENTO',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      'AVANCE DEL PLAN DE MEJORAMIENTO'
-    ],
-    [
-      'N° hallazgo (6)',
-      'Descripción de la condición y causa del hallazgo (7)',
-      'Connotación del hallazgo (8)',
-      'Macroproceso, criterio u otro (9)',
-      'Acción de Correctiva (10)',
-      'Meta (11)',
-      'Fuente de verificación (12)',
-      'Lugar de verificación (13)',
-      'Fecha terminación de la Actividad (14)',
-      'Responsable (Nombre y Cargo) (15)',
-      'Descripción del avance de la acción (16)',
-      'Fecha de Corte del Avance (17)',
-      '% de Avance (18)'
-    ]
-  ];
-  const merges = [
-    { s: { r: 0, c: 0 }, e: { r: 0, c: 12 } },
-    { s: { r: 1, c: 0 }, e: { r: 1, c: 12 } },
-    { s: { r: 3, c: 0 }, e: { r: 3, c: 12 } },
-    { s: { r: 4, c: 0 }, e: { r: 4, c: 12 } },
-    { s: { r: 8, c: 0 }, e: { r: 8, c: 9 } },
-    { s: { r: 8, c: 10 }, e: { r: 8, c: 12 } }
-  ];
-  const fechas = [],
-    pcts = [];
+  const ws = {};
+  const merges = [];
+  const put = (ref, v, extra) => {
+    if (v === null || v === undefined || v === '') return;
+    ws[ref] = typeof v === 'object' && v.f ? { t: 'n', f: v.f } : { t: typeof v === 'number' ? 'n' : 's', v };
+    if (extra) Object.assign(ws[ref], extra);
+  };
+  const M = r => merges.push(X.utils.decode_range(r));
+  put('A1', 'CONTRALORÍA GENERAL DE SANTIAGO DE CALI');
+  M('A1:J1');
+  put('A2', 'FORMATO PM_01 CGSC - PLAN DE MEJORAMIENTO');
+  M('A2:J2');
+  M('Q2:S2');
+  put('Q3', 'RESULTADO EVALUACIÓN PLAN DE MEJORAMIENTO');
+  M('Q3:S3');
+  put('Q4', 'VARIABLES A EVALUAR');
+  M('Q4:R4');
+  put('S4', 'Calificación Parcial');
+  put('A5', 'Entidad auditada (1): ');
+  M('A5:F5');
+  put('G5', (p.entidad || 'DISTRITO DE SANTIAGO DE CALI').toUpperCase());
+  M('G5:J5');
+  put('Q5', 'Cumplimiento del Plan de Mejoramiento ');
+  M('Q5:R5');
+  put('S5', { f: '+L9' });
+  put('A6', 'Nombre de la actuación de control fiscal (2): ');
+  M('A6:F6');
+  put('G6', p.ejercicio || '');
+  M('G6:J6');
+  put('A7', 'Tipo de actuación de control fiscal (3):');
+  M('A7:F7');
+  put('G7', p.tipo_ejercicio || '');
+  M('G7:J7');
+  put('Q7', 'Efectividad de las acciones');
+  M('Q7:R7');
+  put('S7', { f: '+M9' });
+  put('A8', 'Fecha de suscripción (4): ' + pmFechaLarga(p.fecha_suscripcion));
+  M('A8:F8');
+  put('G8', 'Vigencia PVCFT (5)');
+  M('G8:H8');
+  put('I8', p.vigencia_pvcft || '');
+  M('I8:J8');
+  put('L8', { f: '+L9*0.2+M9*0.8' });
+  M('L8:M8');
+  put('Q8', ' CUMPLIMIENTO PLAN DE MEJORAMIENTO');
+  M('Q8:S8');
+  put('L9', { f: 'IF(COUNT(L12:L668)>0,AVERAGE(L12:L668)*100/2,0)' });
+  put('M9', { f: 'IF(COUNT(M12:M668)>0,AVERAGE(M12:M668)*100/2,0)' });
+  put('Q9', 'Concepto a emitir cumplimiento Plan de Mejoramiento');
+  M('Q9:S9');
+  put('A10', 'FORMULACIÓN DEL PLAN DE MEJORAMIENTO');
+  M('A10:J10');
+  put('K10', 'AVANCE DEL PLAN DE MEJORAMIENTO');
+  M('K10:O10');
+  [
+    'N° hallazgo (6)',
+    'Descripción de la condición y causa del hallazgo \n(7)',
+    'Connotación del hallazgo \n(8)',
+    'Macroproceso, criterio u otro\n(9)',
+    'Acción de Correctiva\n(10)',
+    'Meta \n(11)',
+    'Fuente de verificación\n(12)',
+    'Lugar de verificación\n(13)',
+    'Fecha terminación de la Actividad\n(14)',
+    'Responsable (Nombre y Cargo)\n(15)',
+    'Descripción del avance de la acción\n(16)',
+    'CUMPLIMIENTO\n20%',
+    'EFECTIVIDAD\n80%',
+    'ESTADO DE LA ACCIÓN\n(Cerrada-C / Abierta-A)',
+    'DIRECCIÓN TECNICA RESPONSABLE',
+    'Observaciones DACI'
+  ].forEach((t, c) => put(X.utils.encode_cell({ r: 10, c }), t));
+  let r = 11;
   datos.forEach(({ h, acc }) => {
-    const r0 = aoa.length;
-    const filas = acc.length ? acc : [null];
-    filas.forEach(a => {
+    const r0 = r;
+    (acc.length ? acc : [null]).forEach(a => {
       const av = a ? pmAvAl(a, corte) : null;
-      const pct = a && av ? pmPct(a, av.cantidad) : a ? 0 : '';
-      const row = [
+      const cal = a && PM.v19 ? pmCalAcc(a, corte) : null;
+      const fila = [
         h.numero,
-        [h.descripcion, h.causa ? 'Causa: ' + h.causa : ''].filter(Boolean).join('\n'),
-        (h.connotaciones || []).map(c => PM_CONN[c] || c).join(' - '),
+        [
+          pmTxt(h.descripcion),
+          h.causa && !pmKey(h.descripcion).includes(pmKey(h.causa).slice(0, 40)) ? 'Causa: ' + h.causa : ''
+        ]
+          .filter(Boolean)
+          .join('\n'),
+        pmConnPM01(h),
         h.macroproceso || '',
         a ? a.accion : '',
         a ? pmMetaTxt(a) : '',
-        a ? a.fuente_verificacion : '',
-        a ? a.lugar_verificacion : '',
-        a ? pmXDate(a.fecha_fin) : '',
+        a ? a.fuente_verificacion || '' : '',
+        a ? a.lugar_verificacion || '' : '',
+        a && pmFecha(a.fecha_fin) ? pmXDate(a.fecha_fin) : '',
         a ? pmRespTxt(a) : '',
-        av ? av.descripcion || '' : '',
-        av ? pmXDate(av.fecha_corte) : '',
-        pct
+        av
+          ? [
+              av.descripcion || '',
+              `(Avance validado ${pmPctTxt(pmPct(a, av.cantidad))} con corte ${fmtD(av.fecha_corte)})`
+            ]
+              .filter(Boolean)
+              .join(' ')
+          : '',
+        cal && cal.c != null ? cal.c : '',
+        cal && cal.e != null ? cal.e : '',
+        cal && (cal.c != null || cal.e != null) ? cal.estado : '',
+        p.direccion_tecnica || '',
+        a && a.obs_ci ? a.obs_ci + (a.obs_ci_estado === 'atendida' ? ' (atendida)' : '') : ''
       ];
-      if (a) fechas.push([aoa.length, 8]);
-      if (av) fechas.push([aoa.length, 11]);
-      if (a) pcts.push([aoa.length, 12]);
-      aoa.push(row);
+      fila.forEach((v, c) =>
+        put(X.utils.encode_cell({ r, c }), v, c === 8 && v !== '' ? { t: 'n', z: 'dd/mm/yyyy' } : null)
+      );
+      r++;
     });
-    if (filas.length > 1)
-      for (let c = 0; c <= 3; c++) merges.push({ s: { r: r0, c }, e: { r: aoa.length - 1, c } });
+    if (r - r0 > 1) for (let c = 0; c <= 3; c++) merges.push({ s: { r: r0, c }, e: { r: r - 1, c } });
   });
-  aoa.push(
-    [],
-    [],
-    [],
-    ['______________________________', '', '', '', '', '', '______________________________']
+  r += 3;
+  put(X.utils.encode_cell({ r, c: 0 }), '______________________________');
+  put(X.utils.encode_cell({ r, c: 6 }), '______________________________');
+  put(X.utils.encode_cell({ r: r + 1, c: 0 }), p.representante_legal || '');
+  put(X.utils.encode_cell({ r: r + 1, c: 6 }), p.ordenador_gasto || '');
+  put(
+    X.utils.encode_cell({ r: r + 2, c: 0 }),
+    'Nombre y firma del Representante Legal del Sujeto de Vigilancia de Control Fiscal'
   );
-  aoa.push([p.representante_legal || '', '', '', '', '', '', p.ordenador_gasto || '']);
-  aoa.push([
-    'Nombre y firma del Representante Legal del Sujeto de Vigilancia de Control Fiscal',
-    '',
-    '',
-    '',
-    '',
-    '',
-    'Nombre y firma del Ordenador del Gasto del Punto de Control'
-  ]);
-  const ws = X.utils.aoa_to_sheet(aoa);
-  fechas.forEach(([r, c]) => {
-    const a = X.utils.encode_cell({ r, c });
-    if (ws[a] && ws[a].v !== '') Object.assign(ws[a], { t: 'n', z: 'dd/mm/yyyy' });
-  });
-  pcts.forEach(([r, c]) => {
-    const a = X.utils.encode_cell({ r, c });
-    if (ws[a] && ws[a].v !== '') Object.assign(ws[a], { t: 'n', z: '0%' });
-  });
+  put(X.utils.encode_cell({ r: r + 2, c: 6 }), 'Nombre y firma del Ordenador del Gasto del Punto de Control');
+  ws['!ref'] = X.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: r + 2, c: 18 } });
   ws['!merges'] = merges;
-  ws['!cols'] = [10, 60, 18, 22, 45, 28, 26, 22, 14, 32, 50, 14, 10].map(w => ({ wch: w }));
+  ws['!cols'] = [10, 60, 22, 18, 45, 28, 28, 22, 14, 32, 50, 12, 12, 14, 28, 40, 4, 24, 14].map(w => ({
+    wch: w
+  }));
+  return ws;
+}
+/* Formato PM_02 CGSC (papel de trabajo PT 03-PF, evaluación del plan, versión 2.1) */
+function pmSheetPM02(X, p, corte) {
+  const datos = pmPlanData(p);
+  const ws = {};
+  const merges = [];
+  const put = (ref, v, extra) => {
+    if (v === null || v === undefined || v === '') return;
+    ws[ref] = typeof v === 'object' && v.f ? { t: 'n', f: v.f } : { t: typeof v === 'number' ? 'n' : 's', v };
+    if (extra) Object.assign(ws[ref], extra);
+  };
+  const M = x => merges.push(X.utils.decode_range(x));
+  const acc = PM.acc.filter(a => a.plan_id === p.id);
+  const k = PM.v19 ? pmCalCgsc(acc, corte) : { C: 0 };
+  put('A1', 'CONTRALORÍA GENERAL DE SANTIAGO DE CALI');
+  M('A1:F1');
+  put('A2', 'PAPEL DE TRABAJO PT 03-PF EVALUACIÓN PLAN DE MEJORAMIENTO - Versión 2.1');
+  M('A2:F2');
+  put('Q3', 'RESULTADO EVALUACIÓN PLAN DE MEJORAMIENTO');
+  M('Q3:U3');
+  put('B4', 'AVANCE PLAN DE MEJORAMIENTO');
+  M('B4:E4');
+  put('Q4', 'VARIABLES A EVALUAR');
+  M('Q4:R4');
+  put('S4', 'Calificación Parcial');
+  put('T4', 'Ponderación');
+  put('U4', 'Puntaje Atribuido');
+  put('A6', 'Entidad auditada:');
+  M('A6:D6');
+  put('E6', (p.entidad || 'DISTRITO DE SANTIAGO DE CALI').toUpperCase());
+  put('Q6', 'Cumplimiento del Plan de Mejoramiento ');
+  M('Q6:R6');
+  put('S6', Math.round(k.C * 100) / 100);
+  put('T6', 0.2);
+  put('U6', { f: 'S6*T6' });
+  put('A7', 'Auditoría u otra actuación:');
+  M('A7:D7');
+  put('E7', p.ejercicio || '');
+  put('Q7', 'Efectividad de las acciones');
+  M('Q7:R7');
+  put('S7', { f: '+L10' });
+  put('T7', 0.8);
+  put('U7', { f: 'S7*T7' });
+  put('A8', 'Fecha realización:');
+  M('A8:B8');
+  put('C8', 'Vigencia PVCFT');
+  put('D8', p.vigencia_pvcft || '');
+  put('Q8', ' PROCENTAJE DE AVANCE PLAN DE MEJORAMIENTO');
+  M('Q8:S8');
+  put('T8', { f: 'SUM(T6:T7)' });
+  put('U8', { f: 'SUM(U6:U7)' });
+  [
+    'N° hallazgo',
+    'Descripción del hallazgo',
+    'INCIDENCIA',
+    'MACROPROCESO PROCESO',
+    'Acción de mejora',
+    'Meta',
+    'Fuente de verificación',
+    'Lugar de verificación',
+    'Fecha terminación de la Actividad',
+    'Responsable (Nombre y Cargo)',
+    '% de avance'
+  ].forEach((t, c) => put(X.utils.encode_cell({ r: 9, c }), t));
+  put('L10', { f: 'IF(COUNT(L11:L695)>0,AVERAGE(L11:L695)*100/2,0)' });
+  put('M10', 'ESTADO (C/A)');
+  put('N10', 'RESPONSABLE DEL AVANCE');
+  put('O10', 'OBSERVACIONES DEL AVANCE DE LA ACCIÓN');
+  let r = 10;
+  datos.forEach(({ h, acc: l }) =>
+    l.forEach(a => {
+      const av = pmAvAl(a, corte);
+      const cal = PM.v19 ? pmCalAcc(a, corte) : null;
+      [
+        h.numero,
+        pmTxt(h.descripcion),
+        pmConnPM01(h),
+        h.macroproceso || '',
+        a.accion,
+        pmMetaTxt(a),
+        a.fuente_verificacion || '',
+        a.lugar_verificacion || '',
+        pmFecha(a.fecha_fin) ? pmXDate(a.fecha_fin) : '',
+        pmRespTxt(a),
+        av ? pmPct(a, av.cantidad) : 0,
+        cal && cal.e != null ? cal.e : '',
+        cal && (cal.c != null || cal.e != null) ? cal.estado : '',
+        av ? av.reportado_email || '' : '',
+        av ? [av.descripcion || '', 'Corte ' + fmtD(av.fecha_corte)].filter(Boolean).join(' · ') : ''
+      ].forEach((v, c) =>
+        put(
+          X.utils.encode_cell({ r, c }),
+          v,
+          c === 8 && v !== '' ? { t: 'n', z: 'dd/mm/yyyy' } : c === 10 ? { t: 'n', z: '0%' } : null
+        )
+      );
+      r++;
+    })
+  );
+  ws['!ref'] = X.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: Math.max(r, 11), c: 20 } });
+  ws['!merges'] = merges;
+  ws['!cols'] = [10, 60, 22, 18, 45, 28, 28, 22, 14, 32, 10, 12, 12, 28, 50, 4, 24, 12, 12, 12, 12].map(
+    w => ({ wch: w })
+  );
   return ws;
 }
 function pmSheetsF14(X, p, corte) {
@@ -13650,11 +15291,30 @@ async function pmDoExport(id, btn) {
       const [w1, w2] = pmSheetsF14(X, p, corte);
       X.utils.book_append_sheet(wb, w1, 'Informe Plan de mejoramiento ');
       X.utils.book_append_sheet(wb, w2, 'Avance Plan de Mejoramiento');
-    } else X.utils.book_append_sheet(wb, pmSheetPM01(X, p, corte), 'PM_01 CGSC');
-    const nom = `${fmt === 'F14_CGR' ? 'F14_CGR' : 'PM_01_CGSC'}_${pmKey(p.numero_informe || p.ejercicio)
-      .replace(/[^a-z0-9]+/g, '_')
-      .slice(0, 40)}_corte_${corte}.xlsx`;
+    } else if (fmt === 'PM_01_AVANCE') {
+      X.utils.book_append_sheet(wb, pmSheetAvanceSemestral(X, p, corte), 'Formato PM_01 CGSC - AVANCE ');
+    } else {
+      X.utils.book_append_sheet(wb, pmSheetPM01(X, p, corte), 'Formato PM_01 CGSC - PLAN ');
+      if (p.formato === 'PM_01_CGSC')
+        X.utils.book_append_sheet(wb, pmSheetPM02(X, p, corte), 'Formato PM_02 CGSC - AVANCE ');
+    }
+    /* CGSC: nombre exigido por el SIA Contralorías (manual «Subida de planes de mejoramiento») */
+    const nom =
+      fmt === 'F14_CGR'
+        ? `F14_CGR_${pmKey(p.numero_informe || p.ejercicio)
+            .replace(/[^a-z0-9]+/g, '_')
+            .slice(0, 40)}_corte_${corte}.xlsx`
+        : pmNombreSIA(p, { avance: fmt === 'PM_01_AVANCE', corte: fmt === 'PM_01_AVANCE' ? corte : null });
     X.writeFile(wb, nom, { compression: true });
+    if ($('#pmEArch') && $('#pmEArch').checked) {
+      const bin = X.write(wb, { type: 'array', bookType: 'xlsx', compression: true });
+      await pmDocCopia(new File([bin], nom, { type: PM_DOC_MIME.xlsx }), {
+        plan_id: p.id,
+        tipo: fmt === 'PM_01_AVANCE' ? 'informe_avance' : 'formato_exportado',
+        observaciones: 'Exportado con corte ' + fmtD(corte)
+      });
+      await pmRefresh();
+    }
     closeModal();
     toast('Formato descargado: ' + nom);
   } catch (e) {
@@ -13770,6 +15430,122 @@ async function pmAct(a, t) {
       }
       break;
     }
+    case 'pmProrAccion': {
+      const x = PM.acc.find(r => r.id === id);
+      if (x) pmProrModal('accion', { a: x });
+      break;
+    }
+    case 'pmProrPresentar': {
+      const p = pmPlanOf(PM.plan),
+        pr = p && pmPresentacion(p);
+      if (pr && pr.base) pmProrModal('presentacion', { p, venc: pr.limiteNorma });
+      break;
+    }
+    case 'pmProrGuardar':
+      await pmProrGuardar(t);
+      break;
+    case 'pmProrResolver': {
+      const x = (PM.pror || []).find(r => r.id === id);
+      if (x) pmProrResolverModal(x);
+      break;
+    }
+    case 'pmProrResolverOk':
+      await pmProrResolver(id, t);
+      break;
+    case 'pmInfModal': {
+      const p = pmPlanOf(PM.plan);
+      if (p) pmInfModal(p);
+      break;
+    }
+    case 'pmInfGuardar':
+      await pmInfGuardar(id, t);
+      break;
+    case 'pmNuevoPlan': {
+      const p = pmPlanOf(PM.plan);
+      if (p) pmNuevoPlanModal(p);
+      break;
+    }
+    case 'pmNuevoPlanOk':
+      await pmNuevoPlanCrear(id, t);
+      break;
+    case 'pmDocNuevo': {
+      const p = pmPlanOf(PM.plan);
+      if (p) pmDocNuevoModal(p);
+      break;
+    }
+    case 'pmDocGuardar':
+      await pmDocGuardar(id, t);
+      break;
+    case 'pmDocBajar':
+      await pmDocDescargar(id);
+      break;
+    case 'pmDocPapelera':
+      if (confirm('¿Enviar este documento a la papelera? Se puede restaurar.')) await pmDocMover(id, true);
+      break;
+    case 'pmDocRestaurar':
+      await pmDocMover(id, false);
+      pmPapeleraModal();
+      break;
+    case 'pmDocPurgar':
+      await pmDocPurgar(id);
+      break;
+    case 'pmPapelera':
+      await pmPapeleraModal();
+      break;
+    case 'pmRestaurar':
+      await pmRestaurar(id, t);
+      break;
+    case 'pmCal': {
+      const x = PM.acc.find(r => r.id === id);
+      if (x) pmCalModal(x);
+      break;
+    }
+    case 'pmSaveCal':
+      await pmSaveCal(id);
+      break;
+    case 'pmObs': {
+      const x = PM.acc.find(r => r.id === id);
+      if (x) pmObsModal(x);
+      break;
+    }
+    case 'pmObsGuardar':
+      await pmObsGuardar(id);
+      break;
+    case 'pmObsAtendida':
+      await pmObsGuardar(id, 'atendida');
+      break;
+    case 'pmObsQuitar':
+      await pmObsGuardar(id, 'quitar');
+      break;
+    case 'pmEnlazarReq':
+      await pmEnlazarReq(id);
+      break;
+    case 'pmAprobarPlan': {
+      const x = PM.planes.find(r => r.id === PM.plan);
+      if (x) pmAprobarModal(x);
+      break;
+    }
+    case 'pmAprobar':
+      await pmAprobar(id);
+      break;
+    case 'pmUsarSug':
+      pmUsarSug(+t.dataset.i);
+      break;
+    case 'pmNewTras':
+      closeModal();
+      pmTrasModal(null, id);
+      break;
+    case 'pmEditTras': {
+      const x = (PM.tras || []).find(r => r.id === id);
+      if (x) pmTrasModal(x);
+      break;
+    }
+    case 'pmSaveTras':
+      await pmSaveTras(id, t.dataset.hall);
+      break;
+    case 'pmDelTras':
+      await pmDelTras(id);
+      break;
     case 'pmNewAcc':
       closeModal();
       if (pmHallOf(id)) pmAccModal(null, id);
@@ -13882,6 +15658,1345 @@ function pmSeccionInforme(org, num) {
   return `<div class="rsec"><h2>${num}. Planes de mejoramiento</h2><div class="rsmall" style="margin-bottom:6px">Cumplimiento (CPM) y avance (AP) con las fórmulas del Formulario 14.1 de la Contraloría General de la República, solo con avances validados al ${fmtD(hoy)}.</div>
     <table class="rt"><thead><tr><th>Contraloría</th><th>Plan</th><th>Suscrito</th><th>Acciones</th><th>Cumplidas</th><th>Vencidas</th><th>Cumplimiento</th><th>Avance</th></tr></thead><tbody>${filas.join('')}</tbody></table>
     ${venc.length ? `<h3 style="margin-top:12px">Acciones vencidas sin cumplir</h3><table class="rt"><thead><tr><th>Dependencia</th><th>Hallazgo</th><th>Acción</th><th>Terminaba</th><th>Avance</th></tr></thead><tbody>${venc.map(a => `<tr><td>${esc(shortOrg(pmDepN(a.dependencia_id)) || '—')}</td><td>${esc((pmHallOf(a.hallazgo_id) || {}).numero || '')}</td><td>${esc(shortTxt(a.accion, 80))}</td><td>${fmtD(a.fecha_fin)}</td><td style="text-align:right">${pmPctTxt(pmPct(a))}</td></tr>`).join('')}</tbody></table>` : ''}</div>`;
+}
+
+/* ===== src/js/19-planes-norma-y-memoria.js ===== */
+/**
+ * src/js/19-planes-norma-y-memoria.js
+ * Reglas de las Resoluciones Reglamentarias de la Contraloría General de Santiago de Cali (CGSC) sobre planes
+ * de mejoramiento, y memoria documental de la aplicación.
+ *
+ *  Norma (Res. 1000.30.00.24.043 del 17-jun-2024 y Res. 1000.30.00.24.003 del 16-ene-2024)
+ *   - Resolución aplicable a cada plan (art. 19 y 20 de la 24.043) ............................... pmRes
+ *   - Escala de calificación por acción: 24.043 → 0 o 2; 24.003 → 0, 1 o 2 (art. 12) ............. PM_RES
+ *   - Plazo máximo de cada acción: 24.043 → 6 meses; 24.003 → 1 año (art. 5) ...................... PM_RES
+ *   - Presentación del plan: 15 días hábiles desde la radicación del informe final (art. 7) ...... pmPresentacion
+ *   - Informes semestrales: 15 días hábiles después del 30-jun y del 31-dic (art. 11) ............. pmInformes
+ *   - Prórrogas: de presentación del plan o de un informe semestral (art. 15) y de una acción (16)  pmProrroga*
+ *   - Nuevo plan por acciones con calificación inferior a 100 (art. 12, par. 5) .................. pmNuevoPlan*
+ *   - Nombre del archivo para el SIA Contralorías (manual de la Oficina de Informática) ........... pmNombreSIA
+ *
+ *  Memoria
+ *   - Archivo documental de cada plan (depósito privado «archivo», huella SHA-256, radicado ORFEO)  pmDoc*
+ *   - Papelera: restaurar planes, hallazgos, acciones, traslados y documentos ...................... pmPapelera*
+ *   - Integridad y respaldo de archivos (inventario y ZIP con manifiesto) ........................... archivo*
+ *
+ * Depende de: 02 (sumarHabiles, habilesEntre, sha256Hex), 19-planes-de-mejoramiento (PM, pmSave, pmCanEdit…).
+ * Supabase: supabase/20_norma_cgsc_y_memoria.sql (sin ese script la aplicación oculta estas funciones).
+ */
+
+/* =====================================================================
+   RESOLUCIÓN APLICABLE
+   ===================================================================== */
+const PM_RES = {
+  '24.043': {
+    nombre: 'Resolución Reglamentaria 1000.30.00.24.043 del 17 de junio de 2024',
+    corta: 'Res. 24.043',
+    escala: [2, 0],
+    plazoMeses: 6,
+    plazoTxt: 'seis (6) meses (art. 5)'
+  },
+  '24.003': {
+    nombre: 'Resolución Reglamentaria 1000.30.00.24.003 del 16 de enero de 2024',
+    corta: 'Res. 24.003',
+    escala: [2, 1, 0],
+    plazoMeses: 12,
+    plazoTxt: 'un (1) año (art. 5)'
+  },
+  anterior: {
+    nombre: 'Resolución anterior al 24 de enero de 2024 (verifique la aplicable)',
+    corta: 'Resolución anterior',
+    escala: [2, 1, 0],
+    plazoMeses: null,
+    plazoTxt: ''
+  }
+};
+/* Igual a public.pm_resolucion_de() del script 20: planes presentados del 24-ene-2024 al 31-dic-2024 → 24.003;
+   desde el 1-ene-2025 → 24.043 (se toma la fecha de suscripción); se puede fijar a mano en el plan. */
+function pmRes(p) {
+  if (!p || p.formato !== 'PM_01_CGSC') return '';
+  if (p.resolucion) return p.resolucion;
+  const f = p.fecha_suscripcion;
+  if (!f || f >= '2025-01-01') return '24.043';
+  if (f >= '2024-01-24') return '24.003';
+  return 'anterior';
+}
+const pmResInfo = p => PM_RES[pmRes(p)] || null;
+
+/* =====================================================================
+   PRESENTACIÓN DEL PLAN (art. 7) E INFORMES SEMESTRALES (art. 11)
+   ===================================================================== */
+const PM_DIAS_PRESENTAR = 15;
+const PM_DIAS_INFORME = 15;
+const PM_DIAS_PRORROGA_PRESENTAR = 5; /* art. 15: máximo 5 días hábiles, pedida con 5 días hábiles de antelación */
+const PM_DIAS_ANTELACION_ACCION = 15; /* art. 16: pedida 15 días hábiles antes del vencimiento */
+
+function pmPresentacion(p) {
+  if (!pmRes(p)) return null;
+  const r = typeof pmReqDe === 'function' ? pmReqDe(p) : null;
+  const base = p.fecha_radicacion_informe || (r && r.fecha_radicacion) || null;
+  if (!base) return { base: null };
+  const limiteNorma = sumarHabiles(base, PM_DIAS_PRESENTAR);
+  const pr =
+    (PM.pror || []).find(x => x.plan_id === p.id && x.tipo === 'presentacion' && x.estado !== 'negada') ||
+    null;
+  const limite = pr && pr.estado === 'concedida' ? pr.fecha_nueva : limiteNorma;
+  const presentado = p.estado !== 'formulacion';
+  return {
+    base,
+    limiteNorma,
+    limite,
+    prorroga: pr,
+    presentado,
+    tarde: presentado && p.fecha_suscripcion > limite,
+    reqLimite: r && r.fecha_limite && r.fecha_limite !== limite ? r.fecha_limite : null
+  };
+}
+/* Cortes del 30 de junio y 31 de diciembre desde la suscripción hasta el primero posterior a «hasta» */
+function pmCortes(p, hasta) {
+  if (!pmRes(p) || p.estado === 'formulacion' || !pmFecha(p.fecha_suscripcion)) return [];
+  const out = [];
+  for (let y = +p.fecha_suscripcion.slice(0, 4); y <= +hasta.slice(0, 4) + 1; y++)
+    ['06-30', '12-31'].forEach(md => {
+      const c = `${y}-${md}`;
+      if (c >= p.fecha_suscripcion) out.push(c);
+    });
+  const i = out.findIndex(c => c > hasta);
+  return i < 0 ? out : out.slice(0, i + 1);
+}
+function pmInformes(p, hoy) {
+  hoy = hoy || pmHoy();
+  return pmCortes(p, hoy).map(corte => {
+    const inf = (PM.inf || []).find(x => x.plan_id === p.id && x.corte === corte) || null;
+    const pr = (PM.pror || []).find(
+      x => x.plan_id === p.id && x.tipo === 'informe' && x.corte === corte && x.estado !== 'negada'
+    );
+    const vence = pr && pr.estado === 'concedida' ? pr.fecha_nueva : sumarHabiles(corte, PM_DIAS_INFORME);
+    let estado;
+    if (inf) estado = inf.fecha_envio > vence ? 'tarde' : 'presentado';
+    else if (p.estado === 'cerrado') estado = 'no_aplica';
+    else if (corte > hoy) estado = 'futuro';
+    else if (vence < hoy) estado = 'vencido';
+    else estado = 'pendiente';
+    return { corte, vence, inf, prorroga: pr || null, estado };
+  });
+}
+const PM_INF_EST = {
+  presentado: ['verde', 'Presentado'],
+  tarde: ['amarillo', 'Presentado fuera de término'],
+  pendiente: ['amarillo', 'Por presentar'],
+  vencido: ['rojo', 'Vencido sin presentar'],
+  futuro: ['neutral', 'Próximo corte'],
+  no_aplica: ['neutral', 'Plan cerrado']
+};
+
+/* Tarjeta de plazos de la norma en el encabezado del plan */
+function pmNormaHtml(p) {
+  const ri = pmResInfo(p);
+  if (!ri || !PM.v20) return '';
+  const pres = pmPresentacion(p);
+  const filas = [];
+  if (pres && pres.base) {
+    let txt = `Radicación del informe ${fmtD(pres.base)} · límite <b>${fmtD(pres.limite)}</b> (15 días hábiles, art. 7)`;
+    if (pres.prorroga)
+      txt +=
+        pres.prorroga.estado === 'concedida'
+          ? ` · prórroga concedida (art. 15; sin ella: ${fmtD(pres.limiteNorma)})`
+          : ' · prórroga solicitada, pendiente de respuesta';
+    let est;
+    if (pres.presentado)
+      est = pres.tarde
+        ? '<span class="pill amarillo">Suscrito fuera de término</span>'
+        : '<span class="pill verde">Presentado</span>';
+    else {
+      const d = daysUntil(pres.limite);
+      est = `<span class="pill ${d < 0 ? 'rojo' : d <= 5 ? 'amarillo' : 'neutral'}">${d < 0 ? `Vencido hace ${-d} d` : d === 0 ? 'Vence hoy' : `Faltan ${d} d`}</span>`;
+    }
+    filas.push(
+      `<div class="pm-norma-r"><span><small>Presentación del plan</small>${txt}${pres.reqLimite ? `<span class="pm-chip y">El oficio tiene registrada otra fecha límite: ${fmtD(pres.reqLimite)}</span>` : ''}</span>${est}${!pres.presentado && pmCanEdit() && !pres.prorroga ? `<button class="btn sm" data-act="pmProrPresentar">Prórroga</button>` : ''}${pres.prorroga && pres.prorroga.estado === 'solicitada' && pmCanEdit() ? `<button class="btn sm" data-act="pmProrResolver" data-id="${esc(pres.prorroga.id)}">Resolver prórroga</button>` : ''}</div>`
+    );
+  } else if (pres && !pres.base)
+    filas.push(
+      `<div class="pm-norma-r"><span><small>Presentación del plan</small>Registre la fecha de radicación del informe final (Editar plan) para controlar los 15 días hábiles del art. 7.</span></div>`
+    );
+  const infs = pmInformes(p).slice(-3);
+  if (infs.length)
+    filas.push(
+      `<div class="pm-norma-r"><span><small>Informes semestrales de avance (art. 11)</small>${infs
+        .map(i => {
+          const [c, t] = PM_INF_EST[i.estado];
+          return `<span class="pm-inf"><span class="pill ${c}">${t}</span> Corte ${fmtD(i.corte)} · vence ${fmtD(i.vence)}${i.inf ? ` · enviado ${fmtD(i.inf.fecha_envio)}${i.inf.radicado_orfeo ? ' · <span class="mono">' + esc(i.inf.radicado_orfeo) + '</span>' : ''}` : ''}${i.prorroga ? ` · prórroga ${i.prorroga.estado}` : ''}</span>`;
+        })
+        .join(
+          ''
+        )}</span>${pmCanEdit() ? `<button class="btn sm" data-act="pmInfModal">Registrar informe</button>` : ''}</div>`
+    );
+  return `<div class="pm-norma"><div class="pm-norma-h"><b>${esc(ri.nombre)}</b>${p.resolucion ? '' : '<span class="muted">aplicada según la fecha de suscripción</span>'}</div>${filas.join('')}</div>`;
+}
+
+/* Planes con informe semestral por presentar o vencido (pantalla principal) */
+function pmInformesPendientes() {
+  const hoy = pmHoy();
+  const out = [];
+  PM.planes.forEach(p =>
+    pmInformes(p, hoy).forEach(i => {
+      if (i.estado === 'vencido' || i.estado === 'pendiente') out.push({ p, ...i });
+    })
+  );
+  return out.sort((a, b) => a.vence.localeCompare(b.vence));
+}
+function pmInformesHomeHtml() {
+  if (!PM.v20 || pmScoped()) return '';
+  const l = pmInformesPendientes();
+  if (!l.length) return '';
+  return `<div class="card"><h3>Informes semestrales de avance</h3><div class="sub">Se presentan dentro de los 15 días hábiles siguientes al 30 de junio y al 31 de diciembre (art. 11)</div>${l
+    .map(
+      i =>
+        `<div class="list-row"><div style="flex:1;min-width:0"><b>${esc(shortTxt(i.p.ejercicio, 90))}</b><div class="muted" style="font-size:.76rem">Corte ${fmtD(i.corte)} · vence ${fmtD(i.vence)}</div></div><span class="pill ${PM_INF_EST[i.estado][0]}">${PM_INF_EST[i.estado][1]}</span><button class="btn sm" data-act="pmOpen" data-id="${esc(i.p.id)}">Abrir</button></div>`
+    )
+    .join('')}</div>`;
+}
+
+/* Registrar el envío de un informe semestral, con su archivo en el archivo documental */
+function pmInfModal(p) {
+  const pend = pmInformes(p).filter(i => !i.inf && i.estado !== 'futuro' && i.estado !== 'no_aplica');
+  if (!pend.length) return toast('No hay informes semestrales por registrar en este plan');
+  openModal({
+    title: 'Registrar informe semestral de avance',
+    body: `
+      <div class="row2">
+        ${pmF('pmInfCorte', 'Corte *', `<select id="pmInfCorte">${pend.map(i => `<option value="${i.corte}">${fmtD(i.corte)} (vence ${fmtD(i.vence)})</option>`).join('')}</select>`)}
+        ${pmF('pmInfFecha', 'Fecha de envío *', pmIn('pmInfFecha', pmHoy(), `type="date" max="${pmHoy()}"`))}
+      </div>
+      <div class="row2">
+        ${pmF('pmInfOrf', 'Radicado ORFEO del envío', pmIn('pmInfOrf', '', 'inputmode="numeric"'))}
+        ${pmF('pmInfFile', 'Informe enviado (PDF o Excel)', '<input id="pmInfFile" type="file" accept=".pdf,.xlsx,.xls,application/pdf">')}
+      </div>
+      ${pmF('pmInfObs', 'Observaciones', pmTa('pmInfObs', '', 2))}
+      <div class="hint">El archivo queda guardado en el archivo documental del plan, con su huella digital.</div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmInfGuardar" data-id="${esc(p.id)}"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>`
+  });
+}
+async function pmInfGuardar(planId, btn) {
+  const corte = $('#pmInfCorte').value,
+    fecha = pmVal('pmInfFecha'),
+    orf = pmVal('pmInfOrf').replace(/\D/g, ''),
+    file = $('#pmInfFile').files[0];
+  if (!pmFecha(fecha)) return toast('Indique la fecha de envío', 'err');
+  if (fecha > pmHoy()) return toast('La fecha de envío no puede ser futura', 'err');
+  if (orf && (orf.length < 10 || orf.length > 20))
+    return toast('El radicado ORFEO debe tener entre 10 y 20 dígitos', 'err');
+  if (btn) btn.disabled = true;
+  try {
+    let docId = null;
+    if (file)
+      docId = await pmDocSubir(file, {
+        plan_id: planId,
+        tipo: 'informe_avance',
+        radicado_orfeo: orf,
+        observaciones: 'Informe semestral con corte ' + fmtD(corte)
+      });
+    await pmSave(
+      'inf',
+      {
+        plan_id: planId,
+        corte,
+        fecha_envio: fecha,
+        radicado_orfeo: orf,
+        documento_id: docId,
+        observaciones: pmVal('pmInfObs')
+      },
+      null
+    );
+    closeModal();
+    toast('Informe semestral registrado');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+/* =====================================================================
+   PRÓRROGAS (arts. 15 y 16). La aplicación verifica los requisitos y registra; la decisión es de la CGSC.
+   ===================================================================== */
+/* Requisitos de cada tipo de prórroga: [{ok, txt}] */
+function pmProrRequisitos(tipo, ctx, f) {
+  const r = [];
+  const sol = f.fecha_solicitud,
+    nueva = f.fecha_nueva;
+  if (tipo === 'accion') {
+    const a = ctx.a;
+    const previa = (PM.pror || []).some(x => x.accion_id === a.id && x.estado !== 'negada');
+    r.push({ ok: !previa, txt: 'Se solicita por una sola vez (art. 16)' });
+    const pct = pmPct(a);
+    r.push({
+      ok: pct > 0.5,
+      txt: `Más de la mitad de la meta cumplida con avance validado (hoy: ${pmPctTxt(pct)})`
+    });
+    const fin = a.fecha_fin_original || a.fecha_fin;
+    const dias = Math.max(0, Math.round((parseD(fin) - parseD(a.fecha_inicio)) / 86400000));
+    const max = iso(new Date(parseD(fin).getTime() + Math.ceil(dias * 0.3) * 86400000));
+    r.push({
+      ok: pmFecha(nueva) && nueva > a.fecha_fin && nueva <= max,
+      txt: `Nueva fecha posterior a ${fmtD(a.fecha_fin)} y no mayor al 30 % del plazo inicial (máximo ${fmtD(max)})`
+    });
+    r.push({
+      ok: pmFecha(sol) && habilesEntre(sol, a.fecha_fin) >= PM_DIAS_ANTELACION_ACCION,
+      txt: `Solicitada al menos 15 días hábiles antes del vencimiento (${fmtD(a.fecha_fin)}): ${pmFecha(sol) ? habilesEntre(sol, a.fecha_fin) + ' días hábiles' : '—'}`
+    });
+  } else {
+    const venc = ctx.venc;
+    const previa = (PM.pror || []).some(
+      x =>
+        x.plan_id === ctx.p.id &&
+        x.tipo === tipo &&
+        x.estado !== 'negada' &&
+        (tipo !== 'informe' || x.corte === ctx.corte)
+    );
+    const max = sumarHabiles(venc, PM_DIAS_PRORROGA_PRESENTAR);
+    r.push({ ok: !previa, txt: 'Se solicita por una sola vez (art. 15)' });
+    r.push({
+      ok: pmFecha(sol) && habilesEntre(sol, venc) >= PM_DIAS_PRORROGA_PRESENTAR,
+      txt: `Solicitada con al menos 5 días hábiles de antelación al vencimiento (${fmtD(venc)}): ${pmFecha(sol) ? habilesEntre(sol, venc) + ' días hábiles' : '—'}`
+    });
+    r.push({
+      ok: pmFecha(nueva) && nueva > venc && nueva <= max,
+      txt: `Prórroga de máximo 5 días hábiles (hasta ${fmtD(max)})`
+    });
+  }
+  return r;
+}
+function pmProrModal(tipo, ctx) {
+  const venc = tipo === 'accion' ? ctx.a.fecha_fin : ctx.venc;
+  const titulo = {
+    accion: 'Prórroga de la fecha de finalización (art. 16)',
+    presentacion: 'Prórroga de presentación del plan (art. 15)',
+    informe: 'Prórroga del informe semestral (art. 15)'
+  }[tipo];
+  PM.prorCtx = { tipo, ...ctx, venc };
+  openModal({
+    title: titulo,
+    body: `
+      ${tipo === 'accion' ? `<div class="muted" style="margin-bottom:8px">${esc(shortTxt(ctx.a.accion, 160))}</div>` : ''}
+      <div class="row2">
+        ${pmF('pmPrSol', 'Fecha de la solicitud *', pmIn('pmPrSol', pmHoy(), 'type="date"'))}
+        ${pmF('pmPrNueva', 'Nueva fecha solicitada *', pmIn('pmPrNueva', '', 'type="date"'))}
+      </div>
+      ${pmF('pmPrRad', 'Radicado ORFEO de la solicitud', pmIn('pmPrRad', '', 'inputmode="numeric"'))}
+      ${pmF('pmPrObs', 'Justificación', pmTa('pmPrObs', '', 2))}
+      <div id="pmPrReq" class="pm-req-list"></div>
+      <div class="hint">La aplicación verifica los requisitos y registra la solicitud; la decisión es de la Dirección Técnica de la CGSC y se registra después con «Resolver».</div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmProrGuardar"><i class="fa-solid fa-floppy-disk"></i> Registrar solicitud</button>`
+  });
+  const pinta = () => {
+    const req = pmProrRequisitos(tipo, PM.prorCtx, {
+      fecha_solicitud: pmVal('pmPrSol'),
+      fecha_nueva: pmVal('pmPrNueva')
+    });
+    $('#pmPrReq').innerHTML = req
+      .map(
+        x =>
+          `<div class="${x.ok ? 'ok' : 'no'}"><i class="fa-solid ${x.ok ? 'fa-circle-check' : 'fa-circle-xmark'}"></i> ${esc(x.txt)}</div>`
+      )
+      .join('');
+  };
+  ['pmPrSol', 'pmPrNueva'].forEach(id => $('#' + id).addEventListener('input', pinta));
+  pinta();
+}
+async function pmProrGuardar(btn) {
+  const c = PM.prorCtx;
+  if (!c) return;
+  const f = { fecha_solicitud: pmVal('pmPrSol'), fecha_nueva: pmVal('pmPrNueva') };
+  const req = pmProrRequisitos(c.tipo, c, f);
+  const falla = req.filter(x => !x.ok);
+  if (falla.length) return toast('No cumple: ' + falla.map(x => x.txt).join(' · '), 'err');
+  const rad = pmVal('pmPrRad').replace(/\D/g, '');
+  if (rad && (rad.length < 10 || rad.length > 20))
+    return toast('El radicado ORFEO debe tener entre 10 y 20 dígitos', 'err');
+  if (btn) btn.disabled = true;
+  try {
+    await pmSave(
+      'pror',
+      {
+        plan_id: c.tipo === 'accion' ? c.a.plan_id : c.p.id,
+        accion_id: c.tipo === 'accion' ? c.a.id : null,
+        tipo: c.tipo,
+        corte: c.tipo === 'informe' ? c.corte : null,
+        fecha_solicitud: f.fecha_solicitud,
+        radicado_solicitud: rad,
+        fecha_vencimiento_anterior: c.venc,
+        fecha_nueva: f.fecha_nueva,
+        estado: 'solicitada',
+        observaciones: pmVal('pmPrObs')
+      },
+      null
+    );
+    closeModal();
+    toast('Solicitud de prórroga registrada');
+    await pmRefresh();
+  } catch (e) {
+    toast(
+      /una_accion|una_present|una_informe|duplicate/i.test(e.message)
+        ? 'Ya existe una prórroga para este caso: solo se permite una vez'
+        : e.message,
+      'err'
+    );
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+function pmProrResolverModal(pr) {
+  openModal({
+    title: 'Resolver la solicitud de prórroga',
+    body: `<div class="muted" style="margin-bottom:8px">Solicitada el ${fmtD(pr.fecha_solicitud)}: de ${fmtD(pr.fecha_vencimiento_anterior)} a ${fmtD(pr.fecha_nueva)}.</div>
+      <div class="row2">
+        ${pmF('pmPrREst', 'Decisión de la CGSC *', '<select id="pmPrREst"><option value="concedida">Concedida</option><option value="negada">Negada</option></select>')}
+        ${pmF('pmPrRFec', 'Fecha de la respuesta', pmIn('pmPrRFec', pmHoy(), `type="date" max="${pmHoy()}"`))}
+      </div>
+      ${pmF('pmPrRRad', 'Radicado ORFEO de la respuesta', pmIn('pmPrRRad', '', 'inputmode="numeric"'))}
+      <div class="hint">Si se concede una prórroga de acción, la fecha de terminación cambia y se conserva la original.</div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmProrResolverOk" data-id="${esc(pr.id)}"><i class="fa-solid fa-check"></i> Guardar</button>`
+  });
+}
+async function pmProrResolver(id, btn) {
+  const estado = $('#pmPrREst').value,
+    fecha = pmVal('pmPrRFec') || pmHoy(),
+    rad = pmVal('pmPrRRad').replace(/\D/g, '');
+  if (!pmCanEdit()) return toast('Solo Control Interno o el Super administrador registran prórrogas', 'err');
+  if (btn) btn.disabled = true;
+  try {
+    if (S.demo || !sb) {
+      const st = pmDemoStore(),
+        pr = (st.pror || []).find(x => x.id === id);
+      if (!pr || pr.estado !== 'solicitada') throw new Error('La prórroga ya fue resuelta');
+      if (estado === 'concedida' && pr.tipo === 'accion') {
+        const a = st.acc.find(x => x.id === pr.accion_id);
+        const req = pmProrRequisitos(
+          'accion',
+          { a: { ...a } },
+          { fecha_solicitud: pr.fecha_solicitud, fecha_nueva: pr.fecha_nueva }
+        );
+        if (!req[1].ok)
+          throw new Error(
+            'Artículo 16: la prórroga exige haber cumplido más de la mitad de la meta (avance validado)'
+          );
+        if (!req[2].ok)
+          throw new Error(
+            'Artículo 16: el nuevo plazo no puede superar el 30 % del inicialmente establecido'
+          );
+        a.fecha_fin_original = a.fecha_fin_original || a.fecha_fin;
+        a.fecha_fin = pr.fecha_nueva;
+      }
+      Object.assign(pr, { estado, radicado_respuesta: rad, fecha_respuesta: fecha });
+      await demoAudit('pm_prorrogas', 'UPDATE', id, pr, pmUser());
+      pmDemoSave();
+    } else {
+      const { error } = await sb.rpc('pm_resolver_prorroga', {
+        p_id: id,
+        p_estado: estado,
+        p_radicado: rad,
+        p_fecha: fecha
+      });
+      if (error) throw pmErr(error);
+    }
+    closeModal();
+    toast(estado === 'concedida' ? 'Prórroga concedida registrada' : 'Prórroga negada registrada');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+/* Línea de la prórroga en la fila de una acción */
+function pmProrLinea(a) {
+  const pr = (PM.pror || [])
+    .filter(x => x.accion_id === a.id)
+    .sort((x, y) => String(y.created_at).localeCompare(String(x.created_at)))[0];
+  if (!pr) return '';
+  const t =
+    pr.estado === 'concedida'
+      ? `Prórroga concedida (art. 16): termina ${fmtD(a.fecha_fin)}; fecha original ${fmtD(a.fecha_fin_original || pr.fecha_vencimiento_anterior)}`
+      : pr.estado === 'negada'
+        ? `Prórroga negada (solicitada hasta ${fmtD(pr.fecha_nueva)})`
+        : `Prórroga solicitada hasta ${fmtD(pr.fecha_nueva)}, pendiente de respuesta de la CGSC`;
+  return `<div class="pm-a-l"><i class="fa-solid fa-calendar-plus"></i> ${esc(t)}${pr.estado === 'solicitada' && pmCanEdit() ? ` <button class="btn sm" data-act="pmProrResolver" data-id="${esc(pr.id)}">Resolver</button>` : ''}</div>`;
+}
+const pmPuedeProrrogar = a => {
+  const p = PM.planes.find(x => x.id === a.plan_id);
+  return (
+    pmCanEdit() &&
+    PM.v20 &&
+    pmRes(p) &&
+    p.estado === 'en_ejecucion' &&
+    pmPct(a) < 1 &&
+    !(PM.pror || []).some(x => x.accion_id === a.id && x.estado !== 'negada')
+  );
+};
+
+/* =====================================================================
+   NUEVO PLAN POR ACCIONES CON CALIFICACIÓN INFERIOR A 100 (art. 12, par. 5)
+   ===================================================================== */
+/* Una acción obtiene 100 puntos solo con cumplimiento 2 y efectividad 2 */
+function pmAccionesBajo100(p) {
+  const fev = PM.eval || pmHoy();
+  return PM.acc.filter(a => {
+    if (a.plan_id !== p.id) return false;
+    const r = pmCalAcc(a, fev);
+    return r.c != null && r.e != null && !(r.c === 2 && r.e === 2);
+  });
+}
+function pmNuevoPlanModal(p) {
+  const l = pmAccionesBajo100(p);
+  if (!l.length) return toast('No hay acciones calificadas con menos de 100 puntos');
+  const res = pmRes(p);
+  const hoy = pmHoy();
+  const dur = a =>
+    Math.max(
+      1,
+      Math.round((parseD(a.fecha_fin_original || a.fecha_fin) - parseD(a.fecha_inicio)) / 86400000)
+    );
+  const nuevaFin = a => iso(new Date(parseD(hoy).getTime() + Math.ceil(dur(a) * 0.3) * 86400000));
+  openModal({
+    title: 'Nuevo plan por acciones con calificación inferior a 100 (art. 12, par. 5)',
+    wide: true,
+    body: `<div class="pm-note ${res === '24.043' ? 'b' : 'y'}">${
+      res === '24.043'
+        ? 'Resolución 24.043: el nuevo plan se suscribe con el 30 % del tiempo inicialmente dispuesto para cada acción. Las fechas propuestas ya aplican esa regla.'
+        : 'Resolución 24.003: el nuevo plan se suscribe con la Oficina de Control Interno, conforme al mecanismo adoptado internamente. Revise las fechas propuestas.'
+    }</div>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Hallazgo</th><th>Acción</th><th>Cumpl.</th><th>Efect.</th><th>Nueva fecha de terminación</th></tr></thead><tbody>${l
+        .map(a => {
+          const h = pmHallOf(a.hallazgo_id),
+            r = pmCalAcc(a, PM.eval || hoy);
+          return `<tr><td class="mono">${esc(h ? h.numero : '')}</td><td class="asunto">${esc(shortTxt(a.accion, 110))}</td><td class="mono">${r.c}</td><td class="mono">${r.e}</td><td>${res === '24.043' ? fmtD(nuevaFin(a)) + ` <span class="muted">(30 % de ${dur(a)} días)</span>` : fmtD(iso(new Date(parseD(hoy).getTime() + dur(a) * 86400000)))}</td></tr>`;
+        })
+        .join('')}</tbody></table></div>
+      <div class="hint">Se crea un plan «En formulación» enlazado a este, con los hallazgos y las acciones copiados para que Control Interno los ajuste, apruebe y suscriba.</div>`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmNuevoPlanOk" data-id="${esc(p.id)}"><i class="fa-solid fa-copy"></i> Crear el nuevo plan</button>`
+  });
+}
+async function pmNuevoPlanCrear(planId, btn) {
+  const p = pmPlanOf(planId);
+  const l = pmAccionesBajo100(p);
+  const res = pmRes(p),
+    hoy = pmHoy();
+  const dur = a =>
+    Math.max(
+      1,
+      Math.round((parseD(a.fecha_fin_original || a.fecha_fin) - parseD(a.fecha_inicio)) / 86400000)
+    );
+  const fin = a =>
+    iso(new Date(parseD(hoy).getTime() + (res === '24.043' ? Math.ceil(dur(a) * 0.3) : dur(a)) * 86400000));
+  const porHall = {};
+  l.forEach(a => (porHall[a.hallazgo_id] = porHall[a.hallazgo_id] || []).push(a));
+  const payload = {
+    archivo: 'nuevo plan (art. 12, par. 5)',
+    plan: {
+      formato: p.formato,
+      contraloria: p.contraloria,
+      ente_id: p.ente_id || null,
+      entidad: p.entidad,
+      nit: p.nit || '',
+      representante_legal: p.representante_legal || '',
+      ordenador_gasto: p.ordenador_gasto || '',
+      ejercicio: 'Nuevo plan (art. 12, par. 5) · ' + p.ejercicio,
+      tipo_ejercicio: p.tipo_ejercicio || '',
+      modalidad: p.modalidad || '',
+      vigencia_pvcft: p.vigencia_pvcft || '',
+      periodo_auditado: p.periodo_auditado || '',
+      numero_informe: p.numero_informe || '',
+      radicado_orfeo: '',
+      fecha_informe: p.fecha_informe || null,
+      fecha_suscripcion: hoy,
+      estado: 'formulacion',
+      resolucion: p.resolucion || '',
+      plan_origen_id: p.id,
+      direccion_tecnica: p.direccion_tecnica || '',
+      observaciones: `Acciones con calificación inferior a 100 puntos en el plan «${p.ejercicio}».`
+    },
+    hallazgos: Object.keys(porHall).map(hid => {
+      const h = pmHallOf(hid);
+      return {
+        numero: h.numero,
+        descripcion: h.descripcion,
+        causa: h.causa || '',
+        efecto: h.efecto || '',
+        connotaciones: h.connotaciones || [],
+        cuantia: h.cuantia,
+        macroproceso: h.macroproceso || '',
+        dependencia_id: h.dependencia_id || null,
+        dependencia_texto: h.dependencia_texto || '',
+        acciones: porHall[hid].map(a => ({
+          dependencia_id: a.dependencia_id || null,
+          responsable: a.responsable || '',
+          accion: a.accion,
+          proposito: a.proposito || '',
+          actividad: a.actividad || '',
+          meta: a.meta || '',
+          unidad_medida: a.unidad_medida || 'Unidades',
+          cantidad: a.cantidad,
+          fuente_verificacion: a.fuente_verificacion || '',
+          lugar_verificacion: a.lugar_verificacion || '',
+          fecha_inicio: hoy,
+          fecha_fin: fin(a),
+          avance: null,
+          fecha_corte: null,
+          descripcion_avance: '',
+          obs_ci: ''
+        }))
+      };
+    })
+  };
+  if (btn) btn.disabled = true;
+  try {
+    const id = await pmImportar(payload);
+    closeModal();
+    toast('Nuevo plan creado en formulación');
+    PM.plan = id;
+    PM.tab = 'acciones';
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+/* =====================================================================
+   NOMBRE DEL ARCHIVO PARA EL SIA CONTRALORÍAS
+   Manual «Subida de planes de mejoramiento» (CGSC, Oficina de Informática): el anexo se sube con la estructura
+   FORMATO_202001_PM_CGSC_Nombre_anexo; si el nombre no la sigue, no aparece en el período 202001.
+   ===================================================================== */
+function pmSiglaTipo(p) {
+  const t = pmKey((p.tipo_ejercicio || '') + ' ' + (p.ejercicio || ''));
+  if (/aef ?df|denuncia/.test(t)) return 'AEFDF';
+  if (/aef ?ta|tema o asunto/.test(t)) return 'AEFTA';
+  if (/actuacion especial/.test(t)) return 'AEF';
+  if (/abreviada|afgra/.test(t)) return 'AFGRA';
+  if (/financiera/.test(t)) return 'AFGR';
+  if (/desempeno/.test(t)) return 'AD';
+  if (/cumplimiento/.test(t)) return 'AC';
+  if (/cierre fiscal/.test(t)) return 'CIERRE';
+  return 'PM';
+}
+function pmNombreSIA(p, opts) {
+  opts = opts || {};
+  const base = opts.corte || p.fecha_suscripcion || pmHoy();
+  const ym = base.slice(0, 4) + base.slice(5, 7);
+  /* número de la actuación y su año: «Denuncia Fiscal Nº 896, vigencia 2025» o «896-2025» → _896_2025 */
+  const t = pmTxt(p.ejercicio) + ' ' + pmTxt(p.vigencia_pvcft);
+  let num = '';
+  for (const m of t.matchAll(/\b(\d{1,5})\b/g)) {
+    if (/^20\d{2}$/.test(m[1])) continue;
+    const y = /\b(20\d{2})\b/.exec(t.slice(m.index + m[0].length, m.index + m[0].length + 60));
+    if (y) {
+      num = `_${m[1]}_${y[1]}`;
+      break;
+    }
+  }
+  const sufijo = opts.avance ? '_AVANCE' : '';
+  return `FORMATO_202001_PM_CGSC_${ym}_${pmSiglaTipo(p)}${num}${sufijo}.xlsx`.replace(/[^A-Za-z0-9_.-]/g, '');
+}
+
+/* =====================================================================
+   INFORME SEMESTRAL DE AVANCE (art. 11): columnas 1 a 15 del art. 5 y 16, 17 y 18
+   ===================================================================== */
+function pmSheetAvanceSemestral(X, p, corte) {
+  const datos = pmPlanData(p);
+  const aoa = [
+    ['CONTRALORÍA GENERAL DE SANTIAGO DE CALI'],
+    ['FORMATO PM_01 CGSC - PLAN DE MEJORAMIENTO · INFORME SEMESTRAL DE AVANCE'],
+    [],
+    ['Entidad auditada (1): ' + (p.entidad || '')],
+    ['Nombre de la actuación de control fiscal (2): ' + (p.ejercicio || '')],
+    ['Tipo de actuación de control fiscal (3): ' + (p.tipo_ejercicio || '')],
+    [
+      'Fecha de suscripción (4): ' + fmtD(p.fecha_suscripcion),
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'Vigencia PVCFT (5)',
+      p.vigencia_pvcft || ''
+    ],
+    [],
+    [
+      'FORMULACIÓN DEL PLAN DE MEJORAMIENTO',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'AVANCE DEL PLAN DE MEJORAMIENTO'
+    ],
+    [
+      'N° hallazgo (6)',
+      'Descripción de la condición y causa del hallazgo (7)',
+      'Connotación del hallazgo (8)',
+      'Macroproceso, criterio u otro (9)',
+      'Acción correctiva (10)',
+      'Meta (11)',
+      'Fuente de verificación (12)',
+      'Lugar de verificación (13)',
+      'Fecha terminación de la actividad (14)',
+      'Responsable (Nombre y Cargo) (15)',
+      'Descripción del avance de ejecución (16)',
+      'Fecha de corte del avance (17)',
+      'Porcentaje de avance (18)'
+    ]
+  ];
+  const merges = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 12 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 12 } },
+    { s: { r: 8, c: 0 }, e: { r: 8, c: 9 } },
+    { s: { r: 8, c: 10 }, e: { r: 8, c: 12 } }
+  ];
+  const fechas = [],
+    pcts = [];
+  datos.forEach(({ h, acc }) => {
+    const r0 = aoa.length;
+    (acc.length ? acc : [null]).forEach(a => {
+      const av = a ? pmAvAl(a, corte) : null;
+      if (a) fechas.push([aoa.length, 8]);
+      if (a) fechas.push([aoa.length, 11]);
+      if (a) pcts.push([aoa.length, 12]);
+      aoa.push([
+        h.numero,
+        [
+          pmTxt(h.descripcion),
+          h.causa && !pmKey(h.descripcion).includes(pmKey(h.causa).slice(0, 40)) ? 'Causa: ' + h.causa : ''
+        ]
+          .filter(Boolean)
+          .join('\n'),
+        pmConnPM01(h),
+        h.macroproceso || '',
+        a ? a.accion : '',
+        a ? pmMetaTxt(a) : '',
+        a ? a.fuente_verificacion || '' : '',
+        a ? a.lugar_verificacion || '' : '',
+        a && pmFecha(a.fecha_fin) ? pmXDate(a.fecha_fin) : '',
+        a ? pmRespTxt(a) : '',
+        av ? av.descripcion || '' : '',
+        a ? pmXDate(corte) : '',
+        a ? (av ? pmPct(a, av.cantidad) : 0) : ''
+      ]);
+    });
+    if (aoa.length - r0 > 1)
+      for (let c = 0; c <= 3; c++) merges.push({ s: { r: r0, c }, e: { r: aoa.length - 1, c } });
+  });
+  aoa.push([], [], ['______________________________', '', '', '', '', '', '______________________________']);
+  aoa.push([p.representante_legal || '', '', '', '', '', '', p.ordenador_gasto || '']);
+  aoa.push([
+    'Nombre y firma del Representante Legal',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'Jefe de Control Interno (copia, art. 11)'
+  ]);
+  const ws = X.utils.aoa_to_sheet(aoa);
+  fechas.forEach(([r, c]) => {
+    const k = X.utils.encode_cell({ r, c });
+    if (ws[k] && ws[k].v !== '') Object.assign(ws[k], { t: 'n', z: 'dd/mm/yyyy' });
+  });
+  pcts.forEach(([r, c]) => {
+    const k = X.utils.encode_cell({ r, c });
+    if (ws[k] && ws[k].v !== '') Object.assign(ws[k], { t: 'n', z: '0%' });
+  });
+  ws['!merges'] = merges;
+  ws['!cols'] = [10, 60, 22, 18, 45, 28, 28, 22, 14, 32, 50, 14, 12].map(w => ({ wch: w }));
+  return ws;
+}
+
+/* =====================================================================
+   ARCHIVO DOCUMENTAL (memoria de cada plan)
+   ===================================================================== */
+const PM_DOC_TIPOS = {
+  informe_final: 'Informe final',
+  plan_excel: 'Plan en Excel',
+  formato_exportado: 'Formato exportado',
+  informe_avance: 'Informe semestral de avance',
+  oficio: 'Oficio',
+  soporte: 'Soporte',
+  otro: 'Otro'
+};
+const PM_DOC_MIME = {
+  pdf: 'application/pdf',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  xls: 'application/vnd.ms-excel',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  csv: 'text/csv'
+};
+const PM_DOC_MAX = 50 * 1024 * 1024;
+/* contenido de los documentos en la demostración (no se guardan en ningún servidor) */
+const PM_DEMO_ARCHIVOS = {};
+const pmDocNombreSeguro = n =>
+  pmTxt(n)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Za-z0-9._-]+/g, '_')
+    .slice(-120) || 'documento';
+/* Sube un archivo (File o Blob con nombre) al depósito «archivo» y lo registra con su huella SHA-256 */
+async function pmDocSubir(file, meta) {
+  if (!PM.v20) return null;
+  const nombre = meta.nombre || file.name || 'documento';
+  const ext = (nombre.split('.').pop() || '').toLowerCase();
+  const mime = PM_DOC_MIME[ext];
+  if (!mime) throw new Error('Tipo de archivo no permitido: use PDF, Excel, Word o CSV');
+  if (file.size > PM_DOC_MAX) throw new Error('El archivo supera 50 MB');
+  const buf = await file.arrayBuffer();
+  const sha = await sha256Hex(buf);
+  const yo = (S.user || {}).email || '';
+  const path = `${meta.plan_id || 'general'}/${pmHoy().slice(0, 4)}/${Date.now().toString(36)}-${pmDocNombreSeguro(nombre)}`;
+  const fila = {
+    plan_id: meta.plan_id || null,
+    requerimiento_id: meta.requerimiento_id || null,
+    tipo: meta.tipo || 'otro',
+    nombre,
+    path,
+    mime,
+    tamano: file.size,
+    sha256: sha,
+    radicado_orfeo: meta.radicado_orfeo || '',
+    observaciones: meta.observaciones || '',
+    subido_email: yo
+  };
+  if (S.demo || !sb) {
+    PM_DEMO_ARCHIVOS[path] = new Blob([buf], { type: mime });
+    return await pmSave('doc', fila, null);
+  }
+  const { error: eUp } = await sb.storage
+    .from('archivo')
+    .upload(path, new Blob([buf], { type: mime }), { contentType: mime, upsert: false });
+  if (eUp) throw new Error('No se pudo guardar el archivo: ' + eUp.message);
+  try {
+    return await pmSave('doc', fila, null);
+  } catch (e) {
+    await sb.storage.from('archivo').remove([path]);
+    throw e;
+  }
+}
+/* Guarda una copia sin interrumpir lo principal: si falla, avisa pero no deshace la operación */
+async function pmDocCopia(file, meta) {
+  try {
+    if (file && PM.v20) await pmDocSubir(file, meta);
+  } catch (e) {
+    toast(
+      'La operación se hizo, pero no se pudo guardar la copia en el archivo documental: ' + e.message,
+      'err'
+    );
+  }
+}
+async function pmDocBlob(d) {
+  if (S.demo || !sb) {
+    const b = PM_DEMO_ARCHIVOS[d.path];
+    if (!b) throw new Error('En la demostración, el contenido solo existe durante la sesión');
+    return b;
+  }
+  const { data, error } = await sb.storage.from('archivo').download(d.path);
+  if (error) throw new Error('No se pudo descargar: ' + error.message);
+  return data;
+}
+async function pmDocDescargar(id) {
+  const d = (PM.docs || []).find(x => x.id === id);
+  if (!d) return;
+  try {
+    const b = await pmDocBlob(d);
+    const sha = await sha256Hex(await b.arrayBuffer());
+    if (sha !== d.sha256)
+      toast('Atención: la huella digital del archivo no coincide con la registrada', 'err');
+    const u = URL.createObjectURL(b);
+    const aEl = document.createElement('a');
+    aEl.href = u;
+    aEl.download = d.nombre;
+    document.body.appendChild(aEl);
+    aEl.click();
+    aEl.remove();
+    setTimeout(() => URL.revokeObjectURL(u), 4000);
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+function pmTabDocumentos(p) {
+  if (!PM.v20)
+    return `<div class="card"><div class="empty"><i class="fa-solid fa-box-archive"></i>El archivo documental estará disponible al ejecutar el script <span class="mono">20_norma_cgsc_y_memoria.sql</span>.</div></div>`;
+  const l = (PM.docs || [])
+    .filter(d => d.plan_id === p.id && !d.eliminado_at)
+    .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+  return `<div class="card">
+    <div class="toolbar"><div class="sub" style="flex:1">Copias de trabajo con su huella digital (SHA-256). El archivo oficial sigue siendo ORFEO; cada documento conserva su radicado.</div>${pmCanEdit() ? `<button class="btn sm primary" data-act="pmDocNuevo"><i class="fa-solid fa-upload"></i> Subir documento</button>` : ''}</div>
+    ${
+      l.length
+        ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Tipo</th><th>Documento</th><th>Radicado</th><th>Guardado</th><th>Huella</th><th></th></tr></thead><tbody>${l
+            .map(
+              d =>
+                `<tr><td>${esc(PM_DOC_TIPOS[d.tipo] || d.tipo)}</td><td class="asunto">${esc(d.nombre)}${d.observaciones ? `<div class="muted" style="font-size:.72rem">${esc(shortTxt(d.observaciones, 90))}</div>` : ''}</td><td class="mono">${esc(d.radicado_orfeo || '—')}</td><td>${fmtTs(d.created_at)}<div class="muted" style="font-size:.72rem">${esc(d.subido_email || '')}</div></td><td class="mono" title="${esc(d.sha256)}">${esc(d.sha256.slice(0, 12))}…</td><td style="white-space:nowrap"><button class="btn sm" data-act="pmDocBajar" data-id="${esc(d.id)}"><i class="fa-solid fa-download"></i> Descargar</button>${pmCanEdit() ? ` <button class="icon-btn" data-act="pmDocPapelera" data-id="${esc(d.id)}" title="Enviar a la papelera" aria-label="Enviar a la papelera"><i class="fa-solid fa-trash"></i></button>` : ''}</td></tr>`
+            )
+            .join('')}</tbody></table></div>`
+        : '<div class="empty"><i class="fa-solid fa-box-archive"></i>Aún no hay documentos. Al importar el informe o el plan, y al exportar el formato, se guarda una copia aquí.</div>'
+    }</div>`;
+}
+function pmDocNuevoModal(p) {
+  openModal({
+    title: 'Subir documento al archivo del plan',
+    body: `
+      <div class="row2">
+        ${pmF(
+          'pmDocTipo',
+          'Tipo *',
+          `<select id="pmDocTipo">${Object.entries(PM_DOC_TIPOS)
+            .map(([k, v]) => `<option value="${k}"${k === 'oficio' ? ' selected' : ''}>${v}</option>`)
+            .join('')}</select>`
+        )}
+        ${pmF('pmDocOrf', 'Radicado ORFEO', pmIn('pmDocOrf', '', 'inputmode="numeric"'))}
+      </div>
+      ${pmF('pmDocFile', 'Archivo (PDF, Excel, Word o CSV; máx. 50 MB) *', '<input id="pmDocFile" type="file" accept=".pdf,.xlsx,.xls,.docx,.csv">')}
+      ${pmF('pmDocObs', 'Descripción', pmTa('pmDocObs', '', 2))}`,
+    footer: `<button class="btn" data-act="closeModal">Cancelar</button><button class="btn primary" data-act="pmDocGuardar" data-id="${esc(p.id)}"><i class="fa-solid fa-upload"></i> Subir</button>`
+  });
+}
+async function pmDocGuardar(planId, btn) {
+  const f = $('#pmDocFile').files[0];
+  if (!f) return toast('Elija el archivo', 'err');
+  const orf = pmVal('pmDocOrf').replace(/\D/g, '');
+  if (orf && (orf.length < 10 || orf.length > 20))
+    return toast('El radicado ORFEO debe tener entre 10 y 20 dígitos', 'err');
+  if (btn) btn.disabled = true;
+  try {
+    await pmDocSubir(f, {
+      plan_id: planId,
+      tipo: $('#pmDocTipo').value,
+      radicado_orfeo: orf,
+      observaciones: pmVal('pmDocObs')
+    });
+    closeModal();
+    toast('Documento guardado en el archivo del plan');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+async function pmDocMover(id, aPapelera) {
+  try {
+    await pmSave('doc', { eliminado_at: aPapelera ? new Date().toISOString() : null }, id);
+    toast(aPapelera ? 'Documento enviado a la papelera' : 'Documento restaurado');
+    await pmRefresh();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+/* Borrado definitivo: solo el Super administrador y solo desde la papelera */
+async function pmDocPurgar(id) {
+  const d = (PM.docs || []).find(x => x.id === id);
+  if (!d || !d.eliminado_at) return;
+  if (rol() !== 'admin')
+    return toast('Solo el Super administrador elimina documentos definitivamente', 'err');
+  if (!confirm(`¿Eliminar definitivamente «${d.nombre}»? No se podrá recuperar desde la aplicación.`)) return;
+  try {
+    if (S.demo || !sb) {
+      const st = pmDemoStore();
+      st.docs = (st.docs || []).filter(x => x.id !== id);
+      delete PM_DEMO_ARCHIVOS[d.path];
+      await demoAudit('archivo_documentos', 'DELETE', id, d, pmUser());
+      pmDemoSave();
+    } else {
+      const { error } = await sb.from('archivo_documentos').delete().eq('id', id);
+      if (error) throw pmErr(error);
+      await sb.storage.from('archivo').remove([d.path]);
+    }
+    toast('Documento eliminado definitivamente');
+    await pmRefresh();
+    pmPapeleraModal();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+/* =====================================================================
+   PAPELERA
+   ===================================================================== */
+const PM_PAP_TIPO = {
+  pm_planes: 'Plan',
+  pm_hallazgos: 'Hallazgo',
+  pm_acciones: 'Acción',
+  pm_traslados: 'Traslado'
+};
+async function pmPapeleraCargar() {
+  if (S.demo || !sb) {
+    const st = pmDemoStore();
+    return (st.papelera || []).filter(x => !x.restaurado);
+  }
+  const { data, error } = await sb.rpc('pm_papelera');
+  if (error) throw pmErr(error);
+  return data || [];
+}
+async function pmPapeleraModal() {
+  if (!pmCanEdit()) return;
+  let l = [];
+  try {
+    l = await pmPapeleraCargar();
+  } catch (e) {
+    return toast(e.message, 'err');
+  }
+  const docs = (PM.docs || []).filter(d => d.eliminado_at);
+  openModal({
+    title: 'Papelera',
+    wide: true,
+    body: `<div class="hint" style="margin-bottom:10px">Lo eliminado se puede restaurar: un plan vuelve con sus hallazgos, acciones, avances y traslados. La bitácora de auditoría conserva todo.</div>
+      <h4 style="margin:6px 0">Planes, hallazgos, acciones y traslados</h4>
+      ${
+        l.length
+          ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Tipo</th><th>Elemento</th><th>Eliminado</th><th>Incluye</th><th></th></tr></thead><tbody>${l
+              .map(
+                x =>
+                  `<tr><td>${esc(PM_PAP_TIPO[x.tabla] || x.tabla)}</td><td class="asunto">${esc(shortTxt(x.descripcion || '', 140))}</td><td>${fmtTs(x.eliminado_at)}</td><td class="mono">${x.dependientes ? x.dependientes + ' registros' : '—'}</td><td><button class="btn sm primary" data-act="pmRestaurar" data-id="${esc(String(x.audit_id))}"><i class="fa-solid fa-rotate-left"></i> Restaurar</button></td></tr>`
+              )
+              .join('')}</tbody></table></div>`
+          : '<div class="muted" style="padding:6px 0">Nada eliminado.</div>'
+      }
+      <h4 style="margin:14px 0 6px">Documentos del archivo</h4>
+      ${
+        docs.length
+          ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Documento</th><th>Plan</th><th>Enviado a la papelera</th><th></th></tr></thead><tbody>${docs
+              .map(d => {
+                const p = pmPlanOf(d.plan_id);
+                return `<tr><td class="asunto">${esc(d.nombre)}</td><td class="asunto">${esc(p ? shortTxt(p.ejercicio, 70) : '—')}</td><td>${fmtTs(d.eliminado_at)}</td><td style="white-space:nowrap"><button class="btn sm primary" data-act="pmDocRestaurar" data-id="${esc(d.id)}"><i class="fa-solid fa-rotate-left"></i> Restaurar</button>${rol() === 'admin' ? ` <button class="btn sm danger" data-act="pmDocPurgar" data-id="${esc(d.id)}">Eliminar definitivamente</button>` : ''}</td></tr>`;
+              })
+              .join('')}</tbody></table></div>`
+          : '<div class="muted" style="padding:6px 0">No hay documentos en la papelera.</div>'
+      }`,
+    footer: `<button class="btn" data-act="closeModal">Cerrar</button>`
+  });
+}
+async function pmRestaurar(auditId, btn) {
+  if (!confirm('¿Restaurar este elemento con todo lo que se eliminó junto con él?')) return;
+  if (btn) btn.disabled = true;
+  try {
+    let msg;
+    if (S.demo || !sb) {
+      const st = pmDemoStore();
+      const x = (st.papelera || []).find(r => String(r.audit_id) === String(auditId));
+      if (!x || x.restaurado) throw new Error('Este elemento ya fue restaurado');
+      if (x.tabla !== 'pm_planes' && !st.planes.some(p => p.id === x.plan_id))
+        throw new Error('Primero restaure el plan al que pertenece');
+      let n = 0;
+      x.filas.forEach(([lista, fila]) => {
+        st[lista] = st[lista] || [];
+        st[lista].push({ ...fila });
+        n++;
+      });
+      x.restaurado = true;
+      await demoAudit(x.tabla, 'INSERT', x.registro_id, { restaurado: true }, pmUser());
+      pmDemoSave();
+      msg = n + ' registro(s) restaurado(s)';
+    } else {
+      const { data, error } = await sb.rpc('pm_restaurar', { p_audit_id: Number(auditId) });
+      if (error) throw pmErr(error);
+      msg = data;
+    }
+    toast('Restaurado: ' + msg);
+    await pmRefresh();
+    pmPapeleraModal();
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+/* En la demostración, cada eliminación guarda lo que se borró para poder restaurarlo */
+function pmDemoPapelera(kind, id) {
+  const st = pmDemoStore();
+  st.papelera = st.papelera || [];
+  const filas = [];
+  const add = (lista, f) => filas.push([lista, { ...f }]);
+  let fila, tabla, desc;
+  if (kind === 'plan') {
+    fila = st.planes.find(x => x.id === id);
+    if (!fila) return;
+    tabla = 'pm_planes';
+    desc = fila.ejercicio;
+    add('planes', fila);
+    st.hall.filter(x => x.plan_id === id).forEach(x => add('hall', x));
+    st.acc.filter(x => x.plan_id === id).forEach(x => add('acc', x));
+    st.av.filter(x => x.plan_id === id).forEach(x => add('av', x));
+    (st.tras || []).filter(x => x.plan_id === id).forEach(x => add('tras', x));
+    (st.pror || []).filter(x => x.plan_id === id).forEach(x => add('pror', x));
+    (st.inf || []).filter(x => x.plan_id === id).forEach(x => add('inf', x));
+  } else if (kind === 'hall') {
+    fila = st.hall.find(x => x.id === id);
+    if (!fila) return;
+    tabla = 'pm_hallazgos';
+    desc = 'Hallazgo ' + fila.numero + ': ' + shortTxt(fila.descripcion, 140);
+    add('hall', fila);
+    st.acc
+      .filter(x => x.hallazgo_id === id)
+      .forEach(a => {
+        add('acc', a);
+        st.av.filter(v => v.accion_id === a.id).forEach(v => add('av', v));
+      });
+    (st.tras || []).filter(x => x.hallazgo_id === id).forEach(x => add('tras', x));
+  } else if (kind === 'acc') {
+    fila = st.acc.find(x => x.id === id);
+    if (!fila) return;
+    tabla = 'pm_acciones';
+    desc = shortTxt(fila.accion, 160);
+    add('acc', fila);
+    st.av.filter(v => v.accion_id === id).forEach(v => add('av', v));
+  } else if (kind === 'tras') {
+    fila = (st.tras || []).find(x => x.id === id);
+    if (!fila) return;
+    tabla = 'pm_traslados';
+    desc = 'Traslado ' + fila.tipo + ' a ' + fila.destino;
+    add('tras', fila);
+  } else return;
+  st.papelera.push({
+    audit_id: 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+    tabla,
+    registro_id: id,
+    plan_id: fila.plan_id || id,
+    descripcion: desc,
+    eliminado_at: new Date().toISOString(),
+    dependientes: filas.length - 1,
+    filas
+  });
+}
+
+/* =====================================================================
+   INTEGRIDAD Y RESPALDO DE ARCHIVOS (Configuración → Copias de seguridad)
+   Inventario: soportes de respuestas y de avances (depósito «soportes») y documentos del archivo
+   (depósito «archivo»), con la huella SHA-256 registrada en la base de datos.
+   ===================================================================== */
+async function archivoInventario() {
+  const out = [];
+  if (S.demo || !sb) {
+    Object.keys(PM_DEMO_ARCHIVOS).forEach(path => {
+      const d = (PM.docs || []).find(x => x.path === path);
+      out.push({
+        deposito: 'archivo',
+        path,
+        nombre: d ? d.nombre : path,
+        sha256: d ? d.sha256 : '',
+        origen: 'Archivo documental'
+      });
+    });
+    return out;
+  }
+  const lee = async (tabla, cols) => {
+    let from = 0,
+      all = [];
+    for (;;) {
+      const { data, error } = await sb
+        .from(tabla)
+        .select(cols)
+        .range(from, from + 999);
+      if (error) return all;
+      all = all.concat(data || []);
+      if (!data || data.length < 1000) return all;
+      from += 1000;
+    }
+  };
+  (await lee('requerimientos', 'radicado, soporte_path, soporte_hash')).forEach(r => {
+    if (r.soporte_path)
+      out.push({
+        deposito: 'soportes',
+        path: r.soporte_path,
+        nombre: 'Respuesta ' + r.radicado + '.pdf',
+        sha256: r.soporte_hash || '',
+        origen: 'Respuesta de requerimiento'
+      });
+  });
+  (await lee('pm_avances', 'id, soporte_path, soporte_hash')).forEach(v => {
+    if (v.soporte_path)
+      out.push({
+        deposito: 'soportes',
+        path: v.soporte_path,
+        nombre: 'Avance ' + v.id + '.pdf',
+        sha256: v.soporte_hash || '',
+        origen: 'Soporte de avance'
+      });
+  });
+  (await lee('archivo_documentos', 'path, nombre, sha256, eliminado_at')).forEach(d =>
+    out.push({
+      deposito: 'archivo',
+      path: d.path,
+      nombre: d.nombre,
+      sha256: d.sha256,
+      origen: d.eliminado_at ? 'Archivo documental (en la papelera)' : 'Archivo documental'
+    })
+  );
+  return out;
+}
+async function archivoDescargarUno(it) {
+  if (S.demo || !sb) return PM_DEMO_ARCHIVOS[it.path] || null;
+  const { data, error } = await sb.storage.from(it.deposito).download(it.path);
+  return error ? null : data;
+}
+/* Verifica que cada archivo exista y conserve su huella; muestra el resultado */
+async function archivoVerificar(btn) {
+  if (btn) btn.disabled = true;
+  const out = $('#respArchivos');
+  try {
+    const inv = await archivoInventario();
+    let ok = 0,
+      faltan = [],
+      alterados = [];
+    for (let i = 0; i < inv.length; i++) {
+      if (out) out.textContent = `Verificando ${i + 1} de ${inv.length}…`;
+      const b = await archivoDescargarUno(inv[i]);
+      if (!b) {
+        faltan.push(inv[i]);
+        continue;
+      }
+      const sha = await sha256Hex(await b.arrayBuffer());
+      if (inv[i].sha256 && sha !== inv[i].sha256) alterados.push(inv[i]);
+      else ok++;
+    }
+    if (out)
+      out.innerHTML = `<b>${ok} de ${inv.length}</b> archivos completos y sin alteraciones.${
+        faltan.length
+          ? `<br><span style="color:var(--redink)">Faltan ${faltan.length}: ${faltan
+              .slice(0, 5)
+              .map(x => esc(x.nombre))
+              .join(', ')}${faltan.length > 5 ? '…' : ''}</span>`
+          : ''
+      }${
+        alterados.length
+          ? `<br><span style="color:var(--redink)">Huella distinta en ${alterados.length}: ${alterados
+              .slice(0, 5)
+              .map(x => esc(x.nombre))
+              .join(', ')}</span>`
+          : ''
+      }`;
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+/* ZIP sin compresión (método «stored»), con manifiesto CSV: se abre con cualquier descompresor */
+const CRC_TABLA = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+function crc32(u8) {
+  let c = 0xffffffff;
+  for (let i = 0; i < u8.length; i++) c = CRC_TABLA[(c ^ u8[i]) & 0xff] ^ (c >>> 8);
+  return (c ^ 0xffffffff) >>> 0;
+}
+function zipCrear(archivos) {
+  const enc = new TextEncoder();
+  const partes = [],
+    central = [];
+  let off = 0;
+  const d = new Date(),
+    hora = ((d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1)) & 0xffff,
+    fecha = (((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate()) & 0xffff;
+  archivos.forEach(({ nombre, datos }) => {
+    const n = enc.encode(nombre),
+      crc = crc32(datos),
+      h = new DataView(new ArrayBuffer(30));
+    h.setUint32(0, 0x04034b50, true);
+    h.setUint16(4, 20, true);
+    h.setUint16(6, 0x0800, true);
+    h.setUint16(8, 0, true);
+    h.setUint16(10, hora, true);
+    h.setUint16(12, fecha, true);
+    h.setUint32(14, crc, true);
+    h.setUint32(18, datos.length, true);
+    h.setUint32(22, datos.length, true);
+    h.setUint16(26, n.length, true);
+    h.setUint16(28, 0, true);
+    partes.push(new Uint8Array(h.buffer), n, datos);
+    const c = new DataView(new ArrayBuffer(46));
+    c.setUint32(0, 0x02014b50, true);
+    c.setUint16(4, 20, true);
+    c.setUint16(6, 20, true);
+    c.setUint16(8, 0x0800, true);
+    c.setUint16(10, 0, true);
+    c.setUint16(12, hora, true);
+    c.setUint16(14, fecha, true);
+    c.setUint32(16, crc, true);
+    c.setUint32(20, datos.length, true);
+    c.setUint32(24, datos.length, true);
+    c.setUint16(28, n.length, true);
+    c.setUint32(42, off, true);
+    central.push(new Uint8Array(c.buffer), n);
+    off += 30 + n.length + datos.length;
+  });
+  const tamCentral = central.reduce((s, x) => s + x.length, 0);
+  const e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true);
+  e.setUint16(8, archivos.length, true);
+  e.setUint16(10, archivos.length, true);
+  e.setUint32(12, tamCentral, true);
+  e.setUint32(16, off, true);
+  return new Blob([...partes, ...central, new Uint8Array(e.buffer)], { type: 'application/zip' });
+}
+async function archivoZip(btn) {
+  if (btn) btn.disabled = true;
+  const out = $('#respArchivos');
+  try {
+    const inv = await archivoInventario();
+    if (!inv.length) return toast('No hay archivos para respaldar');
+    const archivos = [],
+      filas = [['deposito', 'ruta', 'nombre', 'origen', 'sha256_registrado', 'sha256_descargado', 'estado']];
+    for (let i = 0; i < inv.length; i++) {
+      if (out) out.textContent = `Descargando ${i + 1} de ${inv.length}…`;
+      const it = inv[i];
+      const b = await archivoDescargarUno(it);
+      if (!b) {
+        filas.push([it.deposito, it.path, it.nombre, it.origen, it.sha256, '', 'FALTA']);
+        continue;
+      }
+      const u8 = new Uint8Array(await b.arrayBuffer());
+      const sha = await sha256Hex(u8);
+      filas.push([
+        it.deposito,
+        it.path,
+        it.nombre,
+        it.origen,
+        it.sha256,
+        sha,
+        it.sha256 && sha !== it.sha256 ? 'HUELLA DISTINTA' : 'OK'
+      ]);
+      archivos.push({ nombre: `${it.deposito}/${it.path}`, datos: u8 });
+    }
+    const csv = filas.map(f => f.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+    archivos.unshift({ nombre: 'MANIFIESTO.csv', datos: new TextEncoder().encode('\ufeff' + csv) });
+    const z = zipCrear(archivos);
+    const nom = `archivos_control_entes_${pmHoy()}.zip`;
+    const u = URL.createObjectURL(z);
+    const aEl = document.createElement('a');
+    aEl.href = u;
+    aEl.download = nom;
+    document.body.appendChild(aEl);
+    aEl.click();
+    aEl.remove();
+    setTimeout(() => URL.revokeObjectURL(u), 5000);
+    if (out)
+      out.innerHTML = `Respaldo de archivos descargado: <b>${archivos.length - 1}</b> archivos y su manifiesto (${(z.size / 1048576).toFixed(1)} MB).`;
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
 }
 
 /* ===== src/js/20-carga-excel.js ===== */
@@ -15094,7 +18209,7 @@ async function enterApp() {
     dr.innerHTML = Object.entries(ROLES)
       .map(([k, v]) => `<option value="${k}">Ver como: ${v}</option>`)
       .join('');
-  }
+  } else vpOpciones();
   try {
     await db.catalogs();
   } catch (e) {
@@ -15206,7 +18321,9 @@ if (CE_BUILD.pruebas && /[?&]cetest\b/.test(location.search))
     closeModal: () => closeModal(),
     dir: () => DIRLIST,
     contactsOf: o => contactsOf(o),
-    orgs: () => mainOrgsAll()
+    orgs: () => mainOrgsAll(),
+    estado: () => ({ S, HIST, sb, PM }),
+    qrSeguro: q => qrSeguro(q)
   };
 
 })();
